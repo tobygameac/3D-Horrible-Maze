@@ -65,14 +65,14 @@ public partial class MazeGenerator : MonoBehaviour {
               elevator.transform.parent = elevators.transform;
             } else {
               // Ceiling
-              Vector3 ceilingPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.02f, realR);
+              Vector3 ceilingPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.01f, realR);
               GameObject ceiling = Instantiate(ceilingPrefab, ceilingPosition, Quaternion.identity) as GameObject;
               ceiling.transform.parent = ceilings.transform;
               ceiling.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
 
               // Blood
               if (random.Next(100) < 5) { // 5% to generate blood
-                Vector3 bloodPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.01f, realR);
+                Vector3 bloodPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.02f, realR);
                 GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
                 blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
                 blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);

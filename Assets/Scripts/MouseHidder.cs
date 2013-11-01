@@ -8,4 +8,9 @@ public class MouseHidder : MonoBehaviour {
     Screen.lockCursor = true;
   }
 
+  void OnDestroy() {
+    Screen.showCursor = true;
+    Screen.lockCursor = false;
+  }
+
 }
