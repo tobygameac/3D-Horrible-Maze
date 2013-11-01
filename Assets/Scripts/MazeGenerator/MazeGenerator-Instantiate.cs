@@ -7,6 +7,7 @@ public partial class MazeGenerator : MonoBehaviour {
   public GameObject blockPrefab;
   public GameObject wallPrefab;
   public GameObject bloodPrefab;
+  public GameObject elevatorPrefab;
 
   private void instantiateMaze () {
 
@@ -15,6 +16,7 @@ public partial class MazeGenerator : MonoBehaviour {
     GameObject blocks = new GameObject();
     GameObject walls = new GameObject();
     GameObject bloods = new GameObject();
+    GameObject elevators = new GameObject();
 
     ceilings.transform.parent = transform;
     ceilings.name = "ceilings";
@@ -24,6 +26,8 @@ public partial class MazeGenerator : MonoBehaviour {
     walls.name = "walls";
     bloods.transform.parent = transform;
     bloods.name = "bloods";
+    elevators.transform.parent = transform;
+    elevators.name = "elevators";
 
     // The offset between different floors
     int offsetR = 0;
@@ -52,19 +56,33 @@ public partial class MazeGenerator : MonoBehaviour {
 
           if (maze[h].getBlock(r, c)) {
 
-            // Ceiling
-            Vector3 ceilingPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT, realR);
-            GameObject ceiling = Instantiate(ceilingPrefab, ceilingPosition, Quaternion.identity) as GameObject;
-            ceiling.transform.parent = ceilings.transform;
-            ceiling.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
+            if (r == endPoint.r && c == endPoint.c && h < MAZE_H - 1) {
+              // Elevator (Elevator do not need a ceiling)
+              Vector3 elevatorPosition = new Vector3(realC, h * BLOCK_HEIGHT + 0.1f, realR);
+              GameObject elevator = Instantiate(elevatorPrefab, elevatorPosition, Quaternion.identity) as GameObject;
+              elevator.GetComponent<Elevator>().setMovingDistance(BLOCK_HEIGHT);
+              elevator.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+              elevator.transform.parent = elevators.transform;
+            } else {
+              // Ceiling
+              Vector3 ceilingPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.02f, realR);
+              GameObject ceiling = Instantiate(ceilingPrefab, ceilingPosition, Quaternion.identity) as GameObject;
+              ceiling.transform.parent = ceilings.transform;
+              ceiling.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
 
-            // Blood
-            if (random.Next(100) < 5) { // 5% to generate blood
-              Vector3 bloodPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT - 0.01f, realR);
-              GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
-              blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
-              blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
-              blood.transform.parent = bloods.transform;
+              // Blood
+              if (random.Next(100) < 5) { // 5% to generate blood
+                Vector3 bloodPosition = new Vector3(realC, h * BLOCK_HEIGHT + BLOCK_HEIGHT + 0.1f - 0.01f, realR);
+                GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
+                blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
+                blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
+                blood.transform.parent = bloods.transform;
+              }
+            }
+
+            // Start point just need a ceiling
+            if (r == startPoint.r && c == startPoint.c && h > 0) {
+              continue;
             }
 
             // Block
@@ -72,12 +90,6 @@ public partial class MazeGenerator : MonoBehaviour {
             GameObject block = Instantiate(blockPrefab, blockPosition, Quaternion.identity) as GameObject;
             block.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
             block.transform.parent = blocks.transform;
-            if (r == startPoint.r && c == startPoint.c) {
-              block.GetComponent<Block>().setType(1);
-            }
-            if (r == endPoint.r && c == endPoint.c) {
-              block.GetComponent<Block>().setType(2);
-            }
 
             // Blood
             if (random.Next(100) < 5) { // 5% to generate blood

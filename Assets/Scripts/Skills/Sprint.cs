@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (CharacterMotor))]
-[RequireComponent (typeof (Vitality))]
+[RequireComponent (typeof(CharacterMotor))]
+[RequireComponent (typeof(Vitality))]
 
 public class Sprint : MonoBehaviour {
 
