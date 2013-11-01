@@ -37,11 +37,7 @@ public partial class MazeGenerator : MonoBehaviour {
       Point startPoint = maze[h].getStartPoint();
       Point endPoint = maze[h].getEndPoint();
 
-      if (h == 0) { // Move the player to the start point
-        GameObject player = GameObject.FindWithTag("Player");
-        Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE, player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
-        player.transform.position = playerPosition;
-      } else { // Move the start point to the last end point, and shift the whole maze
+      if (h != 0) { // Move the start point to the last end point, and shift the whole maze
         Point lastEndPoint = maze[h - 1].getEndPoint();
         offsetR += lastEndPoint.r - startPoint.r;
         offsetC += lastEndPoint.c - startPoint.c;

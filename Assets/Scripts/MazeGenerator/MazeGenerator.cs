@@ -13,14 +13,25 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private List<BasicMaze> maze = new List<BasicMaze>();
 
+  public GameObject playerPrefab;
+
   System.Random random = new System.Random();
 
   void Start () {
+
     for (int h = 1; h <= MAZE_H; h++) {
       generateBasicMaze();
     }
+
     instantiateMaze();
+
     allocateItem();
+
+    // Instantiate player
+    Point startPoint = maze[0].getStartPoint();
+    GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE, player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    player.transform.position = playerPosition;
   }
 
   private void generateBasicMaze () {
