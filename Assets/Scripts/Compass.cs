@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Compass : MonoBehaviour {
 
+  public Texture compassBackgroundTexture;
   public Texture compassTexture;
-  public int positionX = Screen.width - 100;
-  public int positionY = Screen.height - 100;
-  public int width = 80;
-  public int height = 80;
+  public int positionX;
+  public int positionY;
+  public int width = 200;
+  public int height = 200;
 
   private GameObject compass;
   private float angle = 0;
@@ -17,6 +18,8 @@ public class Compass : MonoBehaviour {
   private GameObject[] items;
 
   void Start () {
+    positionX = Screen.width - 250;
+    positionY = Screen.height - 250;
     pivotPoint = new Vector2(positionX + width / 2, positionY + height / 2);
     compass = new GameObject();
     compass.name = "compass";
@@ -46,6 +49,7 @@ public class Compass : MonoBehaviour {
   }
 
   void OnGUI () {
+    GUI.DrawTexture(new Rect(positionX, positionY, width, height), compassBackgroundTexture);
     GUIUtility.RotateAroundPivot(angle, pivotPoint);
     GUI.DrawTexture(new Rect(positionX, positionY, width, height), compassTexture);
   }

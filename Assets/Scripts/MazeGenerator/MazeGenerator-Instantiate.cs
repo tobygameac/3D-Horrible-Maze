@@ -54,7 +54,7 @@ public partial class MazeGenerator : MonoBehaviour {
 
             if (r == endPoint.r && c == endPoint.c && h < MAZE_H - 1) {
               // Elevator (Elevator do not need a ceiling)
-              Vector3 elevatorPosition = new Vector3(realC, h * BLOCK_HEIGHT + 0.1f, realR);
+              Vector3 elevatorPosition = new Vector3(realC, h * BLOCK_HEIGHT + 0.11f, realR);
               GameObject elevator = Instantiate(elevatorPrefab, elevatorPosition, Quaternion.identity) as GameObject;
               elevator.GetComponent<Elevator>().setMovingDistance(BLOCK_HEIGHT);
               elevator.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
