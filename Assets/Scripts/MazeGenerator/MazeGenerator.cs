@@ -8,8 +8,8 @@ public partial class MazeGenerator : MonoBehaviour {
   public int MAZE_R;
   public int MAZE_C;
   public int MAZE_H;
+
   public int BLOCK_SIZE;
-  public int BLOCK_HEIGHT;
 
   private List<BasicMaze> maze = new List<BasicMaze>();
 

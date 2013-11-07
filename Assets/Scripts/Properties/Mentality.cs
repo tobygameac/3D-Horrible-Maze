@@ -20,7 +20,7 @@ public class Mentality : MonoBehaviour {
       Application.LoadLevel("MainMenu");
     }
     sight.light.range = 10 + memtalityPoint / 10;
-    sight.light.spotAngle = memtalityPoint;
+    sight.light.spotAngle = 30 + 0.6f * memtalityPoint;
   }
 
   public bool enough (float need) {

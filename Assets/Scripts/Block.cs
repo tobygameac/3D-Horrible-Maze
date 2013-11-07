@@ -25,11 +25,11 @@ public class Block : MonoBehaviour {
   public void setType (int type) {
     if (type >= 0 && type < materials.Length) {
       this.type = type;
-      renderer.material = materials[type];
     } else {
       this.type = 0;
-      renderer.material = materials[type];
     }
+
+    renderer.material = materials[type];
   }
 
 }

@@ -6,37 +6,58 @@ public class Elevator : MonoBehaviour {
   // True if the elevator is is up, false if elevator is down
   private bool isUp = true;
 
-  public float waitingTime = 5;
-  private float waitedTime = 0;
-
   // True if the elevator is moving
   private bool isMoving = false;
 
-  public float movingSpeed = 2;
-  private float movingDistance = 5;
-  private float movedDistance = 0;
+  public float waitingTime = 3;
+  private float waitedTime = 0;
 
+  public float movingTime = 5;
+  private float movedTime = 0;
+
+  private float movingDistance = 5;
+
+  // Position
+  private Vector3 startPosition, endPosition;
+
+  void Start () {
+    startPosition = transform.position;
+    endPosition = startPosition + Vector3.up * movingDistance;
+  }
 
   void Update () {
     if (isMoving) {
-      movedDistance += movingSpeed * Time.deltaTime;
-      transform.position += new Vector3(0, (isUp ? 1 : -1) * (movingSpeed * Time.deltaTime), 0);
-      if (movedDistance >= movingDistance) {
-        movedDistance  = 0;
-        isMoving = false;
+      movedTime += Time.deltaTime;
+      if (movedTime >= movingTime) {
+        // Change moving direction
         isUp = !isUp;
+
+        // Change moving state
+        isMoving = false;
+
+        waitedTime = 0;
+      } else {
+        if (isUp) {
+          transform.position = Vector3.Lerp(startPosition, endPosition, movedTime / movingTime);
+        } else {
+          transform.position = Vector3.Lerp(endPosition, startPosition, movedTime / movingTime);
+        }
       }
-    } else {
+
+    } else { // Waiting
       waitedTime += Time.deltaTime;
       if (waitedTime >= waitingTime) {
-        waitedTime = 0;
+        // Change moving state
         isMoving = true;
+
+        movedTime = 0;
       }
     }
   }
 
   public void setMovingDistance (float distance) {
     movingDistance = distance;
+    endPosition = startPosition + Vector3.up * movingDistance;
   }
 
 }

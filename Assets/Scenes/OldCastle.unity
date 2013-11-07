@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb9711716fb7814ca6e501b3e891787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WALL_HEIGHT: 3
+  CEILING_THICKNESS: .200000003
   ceilingPrefab: {fileID: 100000, guid: cbd6fe98c7b0d8949b878740ce62c993, type: 2}
   blockPrefab: {fileID: 100000, guid: e609f6916ba14f0478f0874f225ece39, type: 2}
   wallPrefab: {fileID: 100000, guid: 654dc1d8949d4b64aac82e4390201db9, type: 2}
@@ -128,7 +130,6 @@ MonoBehaviour:
   MAZE_C: 10
   MAZE_H: 3
   BLOCK_SIZE: 2
-  BLOCK_HEIGHT: 5
   playerPrefab: {fileID: 100004, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
 --- !u!1 &127766894
 GameObject:

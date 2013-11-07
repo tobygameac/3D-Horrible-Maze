@@ -99,7 +99,7 @@ public partial class MazeGenerator : MonoBehaviour {
       int realC = (c + offsetC) * BLOCK_SIZE;
 
       // Instantiate item
-      Vector3 itemPosition = new Vector3(realC, h * BLOCK_HEIGHT + itemPrefabs[itemIndex].transform.localScale.y, realR);
+      Vector3 itemPosition = new Vector3(realC,  h * WALL_HEIGHT * BLOCK_SIZE + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
       item.transform.parent = items.transform;
 
@@ -140,7 +140,7 @@ public partial class MazeGenerator : MonoBehaviour {
       int realC = (c + offsetC) * BLOCK_SIZE;
 
       // Instantiate item
-      Vector3 itemPosition = new Vector3(realC, randomH * BLOCK_HEIGHT + itemPrefabs[itemIndex].transform.localScale.y, realR);
+      Vector3 itemPosition = new Vector3(realC, randomH * WALL_HEIGHT * BLOCK_SIZE + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
       item.transform.parent = items.transform;
 

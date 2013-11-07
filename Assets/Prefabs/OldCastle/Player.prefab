@@ -145,7 +145,7 @@ Light:
   serializedVersion: 3
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .400000006
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -160,7 +160,7 @@ Light:
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canControl: 1
-  useFixedUpdate: 1
+  useFixedUpdate: 0
   movement:
     maxForwardSpeed: 2
     maxSidewaysSpeed: 1.5
@@ -322,7 +322,7 @@ CharacterController:
   m_Height: 2
   m_Radius: .5
   m_SlopeLimit: 45
-  m_StepOffset: .300000012
+  m_StepOffset: .5
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
