@@ -17,7 +17,7 @@ public class Sprint : MonoBehaviour {
   private float sprintBackwardsSpeed;
 
   public float timesOfSpeed = 1.5f;
-  public float vitalityPerSecond = 10.0f;
+  public float vitalityCostPerSecond = 10.0f;
 
   void Start () {
     characterMotor = GetComponent<CharacterMotor>();
@@ -33,7 +33,7 @@ public class Sprint : MonoBehaviour {
 
   void Update () {
     if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-      float need = vitalityPerSecond * Time.deltaTime;
+      float need = vitalityCostPerSecond * Time.deltaTime;
       if (vitality.enough(need)) {
         characterMotor.movement.maxForwardSpeed = sprintForwardSpeed;
         characterMotor.movement.maxSidewaysSpeed = sprintSidewaysSpeed;
@@ -49,5 +49,9 @@ public class Sprint : MonoBehaviour {
       characterMotor.movement.maxSidewaysSpeed = originalSidewaysSpeed;
       characterMotor.movement.maxBackwardsSpeed = originalBackwardsSpeed;
     }
+  }
+
+  void OnGUI () {
+    GUI.Label(new Rect(10, 60, 200, 20), "shift : Sprint");
   }
 }

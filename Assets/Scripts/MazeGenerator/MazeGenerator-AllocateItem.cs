@@ -38,7 +38,12 @@ public partial class MazeGenerator : MonoBehaviour {
       // BFS
       while (q.Count > 0) {
         Point now = q.Dequeue();
-        points.Add(new Point(now));
+
+        // No item at start point
+        if (now.r != startPoint.r || now.c != startPoint.c) {
+          points.Add(new Point(now));
+        }
+
         int r = now.r;
         int c = now.c;
         for (int d = 0; d < 4; d++) {
