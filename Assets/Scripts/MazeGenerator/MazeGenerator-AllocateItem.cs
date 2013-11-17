@@ -66,9 +66,14 @@ public partial class MazeGenerator : MonoBehaviour {
     }
 
     // Parent objects
-    GameObject items = new GameObject();
-    items.transform.parent = transform;
-    items.name = "items";
+    List<GameObject> itemParents = new List<GameObject>();
+    for (int h = 0; h < MAZE_H; h++) {
+      GameObject floor = GameObject.Find("floor" + (h + 1));
+      GameObject items = new GameObject();
+      items.transform.parent = floor.transform;
+      items.name = "items";
+      itemParents.Add(items);
+    }
 
     // The offset between different floors
     int offsetR = 0;
@@ -104,9 +109,9 @@ public partial class MazeGenerator : MonoBehaviour {
       int realC = (c + offsetC) * BLOCK_SIZE;
 
       // Instantiate item
-      Vector3 itemPosition = new Vector3(realC,  h * WALL_HEIGHT * BLOCK_SIZE + itemPrefabs[itemIndex].transform.localScale.y, realR);
+      Vector3 itemPosition = new Vector3(realC, getBaseY(h) + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
-      item.transform.parent = items.transform;
+      item.transform.parent = itemParents[h].transform;
 
     }
 
@@ -145,9 +150,9 @@ public partial class MazeGenerator : MonoBehaviour {
       int realC = (c + offsetC) * BLOCK_SIZE;
 
       // Instantiate item
-      Vector3 itemPosition = new Vector3(realC, randomH * WALL_HEIGHT * BLOCK_SIZE + itemPrefabs[itemIndex].transform.localScale.y, realR);
+      Vector3 itemPosition = new Vector3(realC, getBaseY(randomH) + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
-      item.transform.parent = items.transform;
+      item.transform.parent =  itemParents[randomH].transform;;
 
     }
   }

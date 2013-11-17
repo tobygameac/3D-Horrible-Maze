@@ -34,20 +34,6 @@ public partial class MazeGenerator : MonoBehaviour {
     player.transform.position = playerPosition;
   }
 
-  private void generateBasicMaze () {
-    initial();
-    //Debug.Log("Original " + " : " + best.getFitness());
-    for (int times = 1; times <= TIMES_OF_ITERATION; times++) {
-      reproduction();
-      crossover();
-      mutation();
-      //Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
-    }
-    //allBest.log();
-    maze.Add(new BasicMaze(allBest));
-  }
-
-
   // Genetic algorithm parameter
   readonly int NUM_OF_POPULATION = 30;
   readonly int TIMES_OF_ITERATION = 100;
@@ -57,6 +43,19 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private List<BasicMaze> population = new List<BasicMaze>();
   private List<BasicMaze> crossoverPool = new List<BasicMaze>();
+
+  private void generateBasicMaze () {
+    initial();
+    Debug.Log("Original " + " : " + best.getFitness());
+    for (int times = 1; times <= TIMES_OF_ITERATION; times++) {
+      reproduction();
+      crossover();
+      mutation();
+      Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
+    }
+    allBest.log();
+    maze.Add(new BasicMaze(allBest));
+  }
 
   private void initial() {
     population.Clear();
@@ -145,7 +144,7 @@ public partial class MazeGenerator : MonoBehaviour {
   private void mutation () {
     for (int i = 0; i < population.Count; i++) {
       if (random.Next(100) < 10) { // 10% chance to crossover
-        int mutationNumber = random.Next(MAZE_R + MAZE_C);
+        int mutationNumber = random.Next((MAZE_R + MAZE_C) / 2 + 1);
         while (mutationNumber > 0) {
           mutationNumber--;
           int r = random.Next(MAZE_R) + 1;

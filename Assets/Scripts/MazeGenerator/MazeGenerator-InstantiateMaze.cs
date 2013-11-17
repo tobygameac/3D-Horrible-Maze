@@ -44,8 +44,7 @@ public partial class MazeGenerator : MonoBehaviour {
       Point startPoint = maze[h].getStartPoint();
       Point endPoint = maze[h].getEndPoint();
 
-      // Wall hegiht + ceiling thickness
-      float baseY = h * (WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS);
+      float baseY = getBaseY(h);
       
       if (h != 0) { // Move the start point to the last end point, and shift the whole maze
         Point lastEndPoint = maze[h - 1].getEndPoint();
@@ -127,6 +126,11 @@ public partial class MazeGenerator : MonoBehaviour {
         }
       }
     }
+  }
+
+  public float getBaseY (int h) {
+    // Wall hegiht + ceiling thickness
+    return h * (WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS);
   }
 
 }

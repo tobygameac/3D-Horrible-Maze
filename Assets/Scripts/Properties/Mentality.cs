@@ -8,7 +8,7 @@ public class Mentality : MonoBehaviour {
   private float maxMentalityPoint = 100;
   private float mentalityPoint;
 
-  public float faintPerSecond = 0.5f;
+  private float faintPerSecond = 1 / 15.0f;
   private GameObject sight;
 
   void Start () {
