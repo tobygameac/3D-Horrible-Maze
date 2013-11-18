@@ -5,6 +5,8 @@ public class Mentality : MonoBehaviour {
 
   public Texture mentalityBarTexture;
 
+  public float baseSightRange = 5;
+
   private float maxMentalityPoint = 100;
   private float mentalityPoint;
 
@@ -21,7 +23,7 @@ public class Mentality : MonoBehaviour {
     if (mentalityPoint <= 0) {
       Application.LoadLevel("MainMenu");
     }
-    sight.light.range = 10 + mentalityPoint / 10;
+    sight.light.range = baseSightRange + baseSightRange * (mentalityPoint / 100.0f);
     sight.light.spotAngle = 30 + 0.6f * mentalityPoint;
   }
 
