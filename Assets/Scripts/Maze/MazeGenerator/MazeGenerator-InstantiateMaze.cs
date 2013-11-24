@@ -14,14 +14,9 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private void instantiateMaze () {
 
-    // The offset between different floors
-    int offsetR = 0;
-    int offsetC = 0;
-
     for (int h = 0; h < MAZE_H; h++) {
       // Parent objects
       GameObject floor = new GameObject();
-      floor.transform.parent = transform;
       floor.name = "floor" + (h + 1);
 
       GameObject ceilings = new GameObject();
@@ -41,25 +36,23 @@ public partial class MazeGenerator : MonoBehaviour {
       elevators.transform.parent = floor.transform;
       elevators.name = "elevators";
 
-      Point startPoint = maze[h].getStartPoint();
-      Point endPoint = maze[h].getEndPoint();
+      Point startPoint = basicMazes[h].getStartPoint();
+      Point endPoint = basicMazes[h].getEndPoint();
+
+      // The offset between different floors
+      // In order to move the start point to the last end point, and shift the whole maze
+      Point offset = getOffset(h);
 
       float baseY = getBaseY(h);
-      
-      if (h != 0) { // Move the start point to the last end point, and shift the whole maze
-        Point lastEndPoint = maze[h - 1].getEndPoint();
-        offsetR += lastEndPoint.r - startPoint.r;
-        offsetC += lastEndPoint.c - startPoint.c;
-      }
 
       for (int r = 0; r < MAZE_R + 2; r++) {
         for (int c = 0; c < MAZE_C + 2; c++) {
 
           // Calculate the real position in the world
-          int realR = (r + offsetR) * BLOCK_SIZE;
-          int realC = (c + offsetC) * BLOCK_SIZE;
+          int realR = (r + offset.r) * BLOCK_SIZE;
+          int realC = (c + offset.c) * BLOCK_SIZE;
 
-          if (maze[h].getBlock(r, c)) {
+          if (basicMazes[h].getBlock(r, c)) {
 
             if (r == endPoint.r && c == endPoint.c && h < MAZE_H - 1) {
               // Elevator (Elevator do not need a ceiling)
@@ -126,11 +119,6 @@ public partial class MazeGenerator : MonoBehaviour {
         }
       }
     }
-  }
-
-  public float getBaseY (int h) {
-    // Wall hegiht + ceiling thickness
-    return h * (WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS);
   }
 
 }

@@ -10,7 +10,7 @@ public partial class MazeGenerator : MonoBehaviour {
     
     List<List<Point>> possiblePoints = new List<List<Point>>();
 
-    for (int h = 0; h < maze.Count; h++) {
+    for (int h = 0; h < basicMazes.Count; h++) {
       
       List<List<bool>> visited = new List<List<bool>>();
       
@@ -21,7 +21,8 @@ public partial class MazeGenerator : MonoBehaviour {
         }
       }
 
-      Point startPoint = maze[h].getStartPoint();
+      Point startPoint = basicMazes[h].getStartPoint();
+      Point endPoint = basicMazes[h].getEndPoint();
 
       visited[startPoint.r][startPoint.c] = true;
 
@@ -39,8 +40,8 @@ public partial class MazeGenerator : MonoBehaviour {
       while (q.Count > 0) {
         Point now = q.Dequeue();
 
-        // No item at start point
-        if (now.r != startPoint.r || now.c != startPoint.c) {
+        // No item at start point and end point
+        if (!now.equal(startPoint) && !now.equal(endPoint)) {
           points.Add(new Point(now));
         }
 
@@ -48,7 +49,7 @@ public partial class MazeGenerator : MonoBehaviour {
         int c = now.c;
         for (int d = 0; d < 4; d++) {
           int nr = r + dr[d], nc = c + dc[d];
-          if (maze[h].getBlock(nr, nc) && !visited[nr][nc]) {
+          if (basicMazes[h].getBlock(nr, nc) && !visited[nr][nc]) {
             q.Enqueue(new Point(nr, nc));
             visited[nr][nc] = true;
           }
@@ -75,19 +76,9 @@ public partial class MazeGenerator : MonoBehaviour {
       itemParents.Add(items);
     }
 
-    // The offset between different floors
-    int offsetR = 0;
-    int offsetC = 0;
 
-    for (int h = 0; h < maze.Count && remainItemIndex.Count > 0; h++) {
+    for (int h = 0; h < basicMazes.Count && remainItemIndex.Count > 0; h++) {
 
-      // Calculate the offset
-      if (h > 0) {
-        Point startPoint = maze[h].getStartPoint();
-        Point lastEndPoint = maze[h - 1].getEndPoint();
-        offsetR += lastEndPoint.r - startPoint.r;
-        offsetC += lastEndPoint.c - startPoint.c;
-      }
 
       // Get a random item
       int randomItemIndex = random.Next(remainItemIndex.Count);
@@ -104,9 +95,12 @@ public partial class MazeGenerator : MonoBehaviour {
       // Remove item from container
       possiblePoints[h].RemoveAt(randomPointIndex);
 
+      // The offset between different floors
+      Point offset = getOffset(h);
+
       // Calculate the real position in the world
-      int realR = (r + offsetR) * BLOCK_SIZE;
-      int realC = (c + offsetC) * BLOCK_SIZE;
+      int realR = (r + offset.r) * BLOCK_SIZE;
+      int realC = (c + offset.c) * BLOCK_SIZE;
 
       // Instantiate item
       Vector3 itemPosition = new Vector3(realC, getBaseY(h) + itemPrefabs[itemIndex].transform.localScale.y, realR);
@@ -126,7 +120,7 @@ public partial class MazeGenerator : MonoBehaviour {
       remainItemIndex.RemoveAt(randomItemIndex);
 
       // Get a random floor
-      int randomH = random.Next(maze.Count);
+      int randomH = random.Next(MAZE_H);
 
       // Get a random point
       int randomPointIndex = random.Next(possiblePoints[randomH].Count);
@@ -134,20 +128,11 @@ public partial class MazeGenerator : MonoBehaviour {
       int r = point.r, c = point.c;
 
       // The offset between different floors
-      offsetR = 0;
-      offsetC = 0;
-
-      // Calculate the offset
-      for (int h = 1; h <= randomH; h++) {
-        Point startPoint = maze[h].getStartPoint();
-        Point lastEndPoint = maze[h - 1].getEndPoint();
-        offsetR += lastEndPoint.r - startPoint.r;
-        offsetC += lastEndPoint.c - startPoint.c;
-      }
+      Point offset = getOffset(randomH);
 
       // Calculate the real position in the world
-      int realR = (r + offsetR) * BLOCK_SIZE;
-      int realC = (c + offsetC) * BLOCK_SIZE;
+      int realR = (r + offset.r) * BLOCK_SIZE;
+      int realC = (c + offset.c) * BLOCK_SIZE;
 
       // Instantiate item
       Vector3 itemPosition = new Vector3(realC, getBaseY(randomH) + itemPrefabs[itemIndex].transform.localScale.y, realR);

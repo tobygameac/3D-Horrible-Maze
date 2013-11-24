@@ -1,8 +1,8 @@
 ﻿public class Point {
 
   public Point () {
-    this.r = 0;
-    this.c = 0;
+    r = 0;
+    c = 0;
   }
 
   public Point (int r, int c) {
@@ -13,6 +13,10 @@
   public Point (Point other) {
     r = other.r;
     c = other.c;
+  }
+
+  public bool equal (Point other) {
+    return (r == other.r) && (c == other.c);
   }
 
   public int r, c;

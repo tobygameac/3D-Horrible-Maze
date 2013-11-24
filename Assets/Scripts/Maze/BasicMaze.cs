@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class BasicMaze {
 
+  public bool isDebugging = true;
+
   private static System.Random random = new System.Random(); // Only need one random seed
 
   private int R, C; // SIZE
@@ -54,22 +56,25 @@ public class BasicMaze {
   }
 
   public void log () {
-    Debug.Log("R = " + R + ", C = " + C);
-    Debug.Log("startR = " + startPoint.r + ", startC = " + startPoint.c);
-    Debug.Log("endR = " + endPoint.r + ", endC = " + endPoint.c);
-    Debug.Log("Coner number = " + conerNumber);
-    Debug.Log("Deadend number = " + deadendNumber);
-    Debug.Log("Blocks size = " + blocksSize);
-    Debug.Log("Fitness = " + fitness);
-    /*
-    for (int r = 0; r < blocks.Count; r++) {
-      string temp = "";
-      for (int c = 0; c < blocks[r].Count; c++) {
-        temp += blocks[r][c] ? (r == startPoint.r && c == startPoint.c ? "*" : " ") : "X";
+
+    if (isDebugging) {
+      Debug.Log("R = " + R + ", C = " + C);
+      Debug.Log("startR = " + startPoint.r + ", startC = " + startPoint.c);
+      Debug.Log("endR = " + endPoint.r + ", endC = " + endPoint.c);
+      Debug.Log("Coner number = " + conerNumber);
+      Debug.Log("Deadend number = " + deadendNumber);
+      Debug.Log("Blocks size = " + blocksSize);
+      Debug.Log("Fitness = " + fitness);
+      /*
+      for (int r = 0; r < blocks.Count; r++) {
+        string temp = "";
+        for (int c = 0; c < blocks[r].Count; c++) {
+          temp += blocks[r][c] ? (r == startPoint.r && c == startPoint.c ? "*" : " ") : "X";
+        }
+        Debug.Log(temp + "-END");
       }
-      Debug.Log(temp + "-END");
+      */
     }
-    */
   }
 
   public Point getStartPoint () {
@@ -102,6 +107,99 @@ public class BasicMaze {
   public bool getBlock (Point point) {
     int r = point.r, c = point.c;
     return inMaze(r, c) && blocks[r][c];
+  }
+
+  public List<MovingAction> getShortestPath (Point a, Point b) {
+    return getShortestPath(a.r, a.c, b.r, b.c);
+  }
+
+  public List<MovingAction> getShortestPath (int r1, int c1, int r2, int c2) {
+
+    if (!inMaze(r1, c1) || !inMaze(r2, c2)) {
+      if (isDebugging) {
+        Debug.Log("Range of parameter in function getShortestPath is wrong.");
+      }
+      return null;
+    }
+
+    // Shortest path of each coordinates
+    List<List<List<MovingAction>>> movingActions = new List<List<List<MovingAction>>>();
+
+    // Initial
+    for (int r = 0; r < R + 2; r++) {
+      movingActions.Add(new List<List<MovingAction>>());
+      for (int c = 0; c < C + 2; c++) {
+        movingActions[r].Add(new List<MovingAction>());
+      }
+    }
+
+    // Visit status of each coordinates
+    List<List<bool>> visited = new List<List<bool>>();
+    
+    for (int r = 0; r < R + 2; r++) {
+      visited.Add(new List<bool>());
+      for (int c = 0; c < C + 2; c++) {
+        visited[r].Add(false);
+      }
+    }
+
+    visited[r1][c1] = true;
+
+    Queue<Point> q = new Queue<Point>();
+    q.Enqueue(new Point(r1, c1));
+
+    // Basic move
+    int[] drB = new int[]{1, 0, -1, 0};
+    int[] dcB = new int[]{0, 1, 0, -1};
+
+    // Diagonal move
+    int[] drD = new int[]{1, -1, -1, 1};
+    int[] dcD = new int[]{1, 1, -1, -1};
+
+    // BFS
+    while (q.Count > 0) {
+      
+      Point now = q.Dequeue();
+      int r = now.r;
+      int c = now.c;
+      List<MovingAction> path = movingActions[r][c];
+
+      /*
+      // Diagonal move
+      for (int d = 0; d < 4; d++) {
+        int nr = r + drD[d], nc = c + dcD[d];
+        if (inMaze(nr, nc) && blocks[nr][nc] && !visited[nr][nc]) {
+
+          // Check basic directions which next to the diagonal direction
+          int d1 = d, d2 = (d + 1) % 4;
+          int nr1 = r + drB[d1], nc1 = c + dcB[d1];
+          int nr2 = r + drB[d2], nc2 = c + dcB[d2];
+
+          // Moving if both basic blocks are avalible
+          if (inMaze(nr1, nc1) && blocks[nr1][nc1] && inMaze(nr2, nc2) && blocks[nr2][nc2]) {
+            q.Enqueue(new Point(nr, nc));
+            visited[nr][nc] = true;
+            movingActions[nr][nc] = new List<MovingAction>(path);
+            movingActions[nr][nc].Add(new MovingAction(drD[d], dcD[d]));
+          }
+        }
+      }
+      */
+
+      // Basic move
+      for (int d = 0; d < 4; d++) {
+        int nr = r + drB[d], nc = c + dcB[d];
+        if (inMaze(nr, nc) && blocks[nr][nc] && !visited[nr][nc]) {
+          q.Enqueue(new Point(nr, nc));
+          visited[nr][nc] = true;
+          movingActions[nr][nc] = new List<MovingAction>(path);
+          movingActions[nr][nc].Add(new MovingAction(drB[d], dcB[d]));
+        }
+      }
+
+    }
+
+    return movingActions[r2][c2];
   }
 
   private int fitness;

@@ -5,15 +5,19 @@ using System.Collections.Generic;
 
 public partial class MazeGenerator : MonoBehaviour {
 
+  public bool isDebugging;
+
   public int MAZE_R;
   public int MAZE_C;
   public int MAZE_H;
 
   public int BLOCK_SIZE;
 
-  private List<BasicMaze> maze = new List<BasicMaze>();
+  private List<BasicMaze> basicMazes = new List<BasicMaze>();
 
   public GameObject playerPrefab;
+
+  public GameObject bossPrefab;
 
   System.Random random = new System.Random();
 
@@ -28,10 +32,19 @@ public partial class MazeGenerator : MonoBehaviour {
     allocateItem();
 
     // Instantiate player
-    Point startPoint = maze[0].getStartPoint();
+    Point startPoint = basicMazes[0].getStartPoint();
     GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
     Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE, player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     player.transform.position = playerPosition;
+
+    // Instantiate boss
+    startPoint = basicMazes[MAZE_H - 1].getEndPoint();
+    Point offset = getOffset(MAZE_H - 1);
+    startPoint.r += offset.r;
+    startPoint.c += offset.c;
+    GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(MAZE_H - 1) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    boss.transform.position = bossPosition;
   }
 
   // Genetic algorithm parameter
@@ -46,15 +59,21 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private void generateBasicMaze () {
     initial();
-    Debug.Log("Original " + " : " + best.getFitness());
+    if (isDebugging) {
+      Debug.Log("Original " + " : " + best.getFitness());
+    }
     for (int times = 1; times <= TIMES_OF_ITERATION; times++) {
       reproduction();
       crossover();
       mutation();
-      Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
+      if (isDebugging) {
+        Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
+      }
     }
-    allBest.log();
-    maze.Add(new BasicMaze(allBest));
+    if (isDebugging) {
+      allBest.log();
+    }
+    basicMazes.Add(new BasicMaze(allBest));
   }
 
   private void initial() {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Collider))]
+[RequireComponent (typeof(SphereCollider))]
 
 public class Item : MonoBehaviour {
 

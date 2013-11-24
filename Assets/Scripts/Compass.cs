@@ -20,7 +20,8 @@ public class Compass : MonoBehaviour {
   private float angle = 0;
   private Vector2 pivotPoint;
 
-  private int MAZE_H;
+  private MazeGenerator maze;
+  private int mazeH;
 
   // Base Y position of all floors
   private List<float> baseY = new List<float>();
@@ -32,25 +33,20 @@ public class Compass : MonoBehaviour {
     pivotPoint = new Vector2(positionOnScreenX + width / 2, positionOnScreenY + height / 2);
 
     compass = new GameObject();
-    compass.name = "compass";
+    compass.name = "virtual compass";
 
     // Get base Y position of all floors
-    MazeGenerator mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
-    MAZE_H = mazeGenerator.MAZE_H;
-    for (int h = 0; h < MAZE_H; h++) {
-      baseY.Add(mazeGenerator.getBaseY(h));
+    maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
+    mazeH = maze.MAZE_H;
+    for (int h = 0; h < mazeH; h++) {
+      baseY.Add(maze.getBaseY(h));
     }
   }
 
   void Update () {
 
     // Get the floor where player stand
-    int floorOfPlayer = 1;
-    for (int h = 1; h < MAZE_H; h++) {
-      if (transform.position.y >= baseY[h]) {
-        floorOfPlayer = h + 1;
-      }
-    }
+    int floorOfPlayer = maze.getFloor(transform.position.y) + 1;
 
     GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
 
