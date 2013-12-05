@@ -10,6 +10,11 @@
     this.dc = dc;
   }
 
+  public MovingAction (MovingAction other) {
+    dr = other.dr;
+    dc = other.dc;
+  }
+
   public int dr, dc;
 
 };

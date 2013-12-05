@@ -23,7 +23,7 @@ public partial class MazeGenerator : MonoBehaviour {
 
   void Start () {
 
-    for (int h = 1; h <= MAZE_H; h++) {
+    for (int h = 0; h < MAZE_H; h++) {
       generateBasicMaze();
     }
 
@@ -32,18 +32,23 @@ public partial class MazeGenerator : MonoBehaviour {
     allocateItem();
 
     // Instantiate player
-    Point startPoint = basicMazes[0].getStartPoint();
+    int pl = 0;
+    Point startPoint = basicMazes[pl].getStartPoint();
+    Point offset = getOffset(pl);
+    startPoint.r += offset.r;
+    startPoint.c += offset.c;
     GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE, player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE,  getBaseY(pl) + player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     player.transform.position = playerPosition;
 
     // Instantiate boss
-    startPoint = basicMazes[MAZE_H - 1].getEndPoint();
-    Point offset = getOffset(MAZE_H - 1);
+    int bl = 2;
+    startPoint = basicMazes[bl].getEndPoint();
+    offset = getOffset(bl);
     startPoint.r += offset.r;
     startPoint.c += offset.c;
     GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(MAZE_H - 1) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(bl) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     boss.transform.position = bossPosition;
   }
 

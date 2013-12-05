@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 public class Boss : MonoBehaviour {
 
-  public float speed = 0.75f;
+  public bool isDebugging;
+
+  public float movingSpeed = 0.75f;
   public float acceleration = 0.01f;
 
   private MazeGenerator maze;
@@ -20,8 +22,6 @@ public class Boss : MonoBehaviour {
   private bool isFindingPlayer = false;
   private bool isStaringAtPlayer = false;
 
-  private Vector3 movingVector;
-
   public float triggerRadius;
 
   void Start () {
@@ -30,60 +30,15 @@ public class Boss : MonoBehaviour {
     player = GameObject.FindWithTag("Player");
   }
 
+  int ind;
+
   void Update () {
 
-    if (isMoving) {
-
-      if (movingVector.magnitude == 0) {
-        isMoving = false;
-        return;
+    if (!isMoving) {
+      List<Vector3> path = maze.getShortestPath(transform.position, player.transform.position);
+      if (path.Count > 0) {
+         StartCoroutine(move(path[0]));
       }
-
-      float movingDistance = Time.deltaTime * speed;
-
-      Vector3 move = Vector3.zero;
-
-      if (movingVector.x != 0) {
-        if (movingDistance <= Mathf.Abs(movingVector.x)) {
-          move.x = (movingVector.x > 0 ? 1 : -1) * movingDistance;
-          movingVector.x -= move.x;
-        } else {
-          move.x = movingVector.x;
-          movingVector.x = 0;
-        }
-      }
-
-      if (movingVector.y != 0) {
-        if (movingDistance <= Mathf.Abs(movingVector.y)) {
-          move.y = (movingVector.y > 0 ? 1 : -1) * movingDistance;
-          movingVector.y -= move.y;
-        } else {
-          move.y = movingVector.y;
-          movingVector.y = 0;
-        }
-      }
-
-      if (movingVector.z != 0) {
-        if (movingDistance <= Mathf.Abs(movingVector.z)) {
-          move.z = (movingVector.z > 0 ? 1 : -1) * movingDistance;
-          movingVector.z -= move.z;
-        } else {
-          move.z = movingVector.z;
-          movingVector.z = 0;
-        }
-      }
-
-      transform.position += move;
-      
-      speed += acceleration * Time.deltaTime;
-      return;
-    }
-
-    List<Vector3> path = maze.getShortestPath(transform.position, player.transform.position);
-    isMoving = true;
-
-    if (path.Count > 0) {
-      movingVector = path[0];
     }
     
     if (isMakingDecision) {
@@ -103,6 +58,27 @@ public class Boss : MonoBehaviour {
     if (isStaringAtPlayer && other.tag == "Player") {
     }
 
+  }
+
+  private IEnumerator move(Vector3 movingVector) {
+    
+    Vector3 startPosition = transform.position;
+    Vector3 targetPosition = transform.position + movingVector;
+    
+    isMoving = true;
+
+    float percent = 0;
+ 
+    while (percent < 1) {
+      movingSpeed = movingSpeed + Time.deltaTime * acceleration;
+      percent += Time.deltaTime * movingSpeed / movingVector.magnitude;
+      transform.position = Vector3.Lerp(startPosition, targetPosition, percent);
+      yield return null;
+    }
+
+    isMoving = false;
+
+    yield return 0;
   }
 
   private void makeDecision () {

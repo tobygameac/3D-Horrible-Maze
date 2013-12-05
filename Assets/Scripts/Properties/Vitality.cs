@@ -5,10 +5,12 @@ public class Vitality : MonoBehaviour {
 
   public Texture vitalityBarTexture;
 
+  public float maxVitalityPoint = 100;
+
   private float vitalityPoint;
 
   void Start () {
-    vitalityPoint = 100;
+    vitalityPoint = maxVitalityPoint;
   }
 
   void Update () {

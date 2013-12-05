@@ -5,12 +5,13 @@ public class Mentality : MonoBehaviour {
 
   public Texture mentalityBarTexture;
 
-  public float baseSightRange = 5;
+  public float maxMentalityPoint = 100;
+  public float faintPerSecond = 1 / 15.0f;
 
-  private float maxMentalityPoint = 100;
   private float mentalityPoint;
 
-  private float faintPerSecond = 1 / 15.0f;
+  public float baseSightRange = 5;
+
   private GameObject sight;
 
   void Start () {

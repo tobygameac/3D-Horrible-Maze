@@ -86,18 +86,17 @@ public class BasicMaze {
   }
 
   public void setBlock (int r, int c, bool b) {
-    if (r >= 1 && r <= R && c >= 1 && c <= R) {
+    if (inMaze(r, c)) {
       blocks[r][c] = b;
     }
   }
 
-  public bool inMaze (int r, int c) {
-    return (r >= 1 && r <= R && c >= 1 && c <= R);
+  public bool inMaze (Point point) {
+    return inMaze(point.r, point.c);
   }
 
-  public bool inMaze (Point point) {
-    int r = point.r, c = point.c;
-    return (r >= 1 && r <= R && c >= 1 && c <= R);
+  public bool inMaze (int r, int c) {
+    return (r >= 1 && r <= R && c >= 1 && c <= C);
   }
 
   public bool getBlock (int r, int c) {
@@ -115,9 +114,16 @@ public class BasicMaze {
 
   public List<MovingAction> getShortestPath (int r1, int c1, int r2, int c2) {
 
-    if (!inMaze(r1, c1) || !inMaze(r2, c2)) {
+    if (!inMaze(r1, c1)) {
       if (isDebugging) {
-        Debug.Log("Range of parameter in function getShortestPath is wrong.");
+        Debug.Log("r1 = " + r1 + ", c1 = " + c1);
+      }
+      return null;
+    }
+
+    if (!inMaze(r2, c2)) {
+      if (isDebugging) {
+        Debug.Log("r2 = " + r2 + ", c2 = " + c2);
       }
       return null;
     }
@@ -164,11 +170,27 @@ public class BasicMaze {
       int c = now.c;
       List<MovingAction> path = movingActions[r][c];
 
-      /*
+      if (r == r2 && c == c2) {
+        return path;
+      }
+
+      // Basic move
+      for (int d = 0; d < 4; d++) {
+        int nr = r + drB[d], nc = c + dcB[d];
+        if (getBlock(nr, nc) && !visited[nr][nc]) {
+          q.Enqueue(new Point(nr, nc));
+          visited[nr][nc] = true;
+          for (int i = 0; i < path.Count; i++) {
+            movingActions[nr][nc].Add(new MovingAction(path[i]));
+          }
+          movingActions[nr][nc].Add(new MovingAction(drB[d], dcB[d]));
+        }
+      }
+
       // Diagonal move
       for (int d = 0; d < 4; d++) {
         int nr = r + drD[d], nc = c + dcD[d];
-        if (inMaze(nr, nc) && blocks[nr][nc] && !visited[nr][nc]) {
+        if (getBlock(nr, nc) && !visited[nr][nc]) {
 
           // Check basic directions which next to the diagonal direction
           int d1 = d, d2 = (d + 1) % 4;
@@ -176,24 +198,12 @@ public class BasicMaze {
           int nr2 = r + drB[d2], nc2 = c + dcB[d2];
 
           // Moving if both basic blocks are avalible
-          if (inMaze(nr1, nc1) && blocks[nr1][nc1] && inMaze(nr2, nc2) && blocks[nr2][nc2]) {
+          if (getBlock(nr1, nc1) && getBlock(nr2, nc2)) {
             q.Enqueue(new Point(nr, nc));
             visited[nr][nc] = true;
             movingActions[nr][nc] = new List<MovingAction>(path);
             movingActions[nr][nc].Add(new MovingAction(drD[d], dcD[d]));
           }
-        }
-      }
-      */
-
-      // Basic move
-      for (int d = 0; d < 4; d++) {
-        int nr = r + drB[d], nc = c + dcB[d];
-        if (inMaze(nr, nc) && blocks[nr][nc] && !visited[nr][nc]) {
-          q.Enqueue(new Point(nr, nc));
-          visited[nr][nc] = true;
-          movingActions[nr][nc] = new List<MovingAction>(path);
-          movingActions[nr][nc].Add(new MovingAction(drB[d], dcB[d]));
         }
       }
 
