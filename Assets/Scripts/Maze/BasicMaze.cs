@@ -14,6 +14,7 @@ public class BasicMaze {
   private Point endPoint = new Point();
 
   private List<List<bool>> blocks = new List<List<bool>>();
+  private List<Point> availableBlocks = new List<Point>();
 
   public BasicMaze (int R, int C) {
     this.R = R;
@@ -48,6 +49,10 @@ public class BasicMaze {
       for (int c = 0; c < other.blocks[r].Count; c++) {
         blocks[r].Add(other.blocks[r][c]);
       }
+    }
+    availableBlocks = new List<Point>();
+    for (int i = 0; i < other.availableBlocks.Count; i++) {
+      availableBlocks.Add(other.availableBlocks[i]);
     }
     fitness = other.fitness;
     conerNumber = other.conerNumber;
@@ -99,13 +104,24 @@ public class BasicMaze {
     return (r >= 1 && r <= R && c >= 1 && c <= C);
   }
 
-  public bool getBlock (int r, int c) {
+  public bool getBlockState (int r, int c) {
     return inMaze(r, c) && blocks[r][c];
   }
 
-  public bool getBlock (Point point) {
+  public bool getBlockState (Point point) {
     int r = point.r, c = point.c;
     return inMaze(r, c) && blocks[r][c];
+  }
+
+  public Point getRandomAvailableBlock () {
+    if (availableBlocks.Count > 0) {
+      return new Point(availableBlocks[random.Next(availableBlocks.Count)]);
+    } else {
+      if (isDebugging) {
+        Debug.Log("No available blocks.");
+      }
+      return null;
+    }
   }
 
   public List<MovingAction> getShortestPath (Point a, Point b) {
@@ -177,7 +193,7 @@ public class BasicMaze {
       // Basic move
       for (int d = 0; d < 4; d++) {
         int nr = r + drB[d], nc = c + dcB[d];
-        if (getBlock(nr, nc) && !visited[nr][nc]) {
+        if (getBlockState(nr, nc) && !visited[nr][nc]) {
           q.Enqueue(new Point(nr, nc));
           visited[nr][nc] = true;
           for (int i = 0; i < path.Count; i++) {
@@ -190,7 +206,7 @@ public class BasicMaze {
       // Diagonal move
       for (int d = 0; d < 4; d++) {
         int nr = r + drD[d], nc = c + dcD[d];
-        if (getBlock(nr, nc) && !visited[nr][nc]) {
+        if (getBlockState(nr, nc) && !visited[nr][nc]) {
 
           // Check basic directions which next to the diagonal direction
           int d1 = d, d2 = (d + 1) % 4;
@@ -198,7 +214,7 @@ public class BasicMaze {
           int nr2 = r + drB[d2], nc2 = c + dcB[d2];
 
           // Moving if both basic blocks are avalible
-          if (getBlock(nr1, nc1) && getBlock(nr2, nc2)) {
+          if (getBlockState(nr1, nc1) && getBlockState(nr2, nc2)) {
             q.Enqueue(new Point(nr, nc));
             visited[nr][nc] = true;
             movingActions[nr][nc] = new List<MovingAction>(path);
@@ -229,14 +245,15 @@ public class BasicMaze {
   }
 
   private void setBlocksSize () {
+    
+    availableBlocks = new List<Point>();
 
     // Find the start point
 
     int findCount = 0;
 
     do {
-      startPoint.r = random.Next(R) + 1;
-      startPoint.c = random.Next(C) + 1;
+      startPoint = new Point(random.Next(R) + 1, random.Next(C) + 1);
       findCount++;
 
       // Unable to find a start point in 100 times of loop
@@ -267,27 +284,25 @@ public class BasicMaze {
     int[] dc = new int[4]{0, 1, 0, -1};
 
     // BFS
-    int count = 0;
     while (q.Count > 0) {
-      count++;
       Point now = q.Dequeue();
+      availableBlocks.Add(new Point(now));
       int r = now.r;
       int c = now.c;
       for (int d = 0; d < 4; d++) {
         int nr = r + dr[d], nc = c + dc[d];
-        if (getBlock(nr, nc) && !visited[nr][nc]) {
+        if (getBlockState(nr, nc) && !visited[nr][nc]) {
           q.Enqueue(new Point(nr, nc));
           visited[nr][nc] = true;
         }
       }
 
       if (q.Count == 0) {
-        endPoint.r = r;
-        endPoint.c = c;
+        endPoint = new Point(r, c);
       }
     }
 
-    blocksSize = count;
+    blocksSize = availableBlocks.Count;
 
     /*
     // Clear unreachable blocks

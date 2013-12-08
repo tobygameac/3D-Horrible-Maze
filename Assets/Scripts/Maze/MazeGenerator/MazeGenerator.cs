@@ -32,23 +32,23 @@ public partial class MazeGenerator : MonoBehaviour {
     allocateItem();
 
     // Instantiate player
-    int pl = 0;
-    Point startPoint = basicMazes[pl].getStartPoint();
-    Point offset = getOffset(pl);
+    int playerFloor = 0;
+    Point startPoint = basicMazes[playerFloor].getStartPoint();
+    Point offset = getOffset(playerFloor);
     startPoint.r += offset.r;
     startPoint.c += offset.c;
     GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE,  getBaseY(pl) + player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE,  getBaseY(playerFloor) + player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     player.transform.position = playerPosition;
 
     // Instantiate boss
-    int bl = 2;
-    startPoint = basicMazes[bl].getEndPoint();
-    offset = getOffset(bl);
+    int bossFloor = MAZE_H - 1;
+    startPoint = basicMazes[bossFloor].getEndPoint();
+    offset = getOffset(bossFloor);
     startPoint.r += offset.r;
     startPoint.c += offset.c;
     GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(bl) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
+    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(bossFloor) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     boss.transform.position = bossPosition;
   }
 
@@ -148,9 +148,9 @@ public partial class MazeGenerator : MonoBehaviour {
         for (int r = 1; r <= MAZE_R; r++) {
           for (int c = 1; c <= MAZE_C; c++) {
             if (r < midR || (r == midR && c < midC)) {
-              newMaze2.setBlock(r, c, crossoverPool[index1].getBlock(r, c));
+              newMaze2.setBlock(r, c, crossoverPool[index1].getBlockState(r, c));
             } else {
-              newMaze1.setBlock(r, c, crossoverPool[index2].getBlock(r, c));
+              newMaze1.setBlock(r, c, crossoverPool[index2].getBlockState(r, c));
             }
           }
         }
@@ -173,7 +173,7 @@ public partial class MazeGenerator : MonoBehaviour {
           mutationNumber--;
           int r = random.Next(MAZE_R) + 1;
           int c = random.Next(MAZE_C) + 1;
-          population[i].setBlock(r, c, !population[i].getBlock(r, c));
+          population[i].setBlock(r, c, !population[i].getBlockState(r, c));
         }
       }
       population[i].setFitness();

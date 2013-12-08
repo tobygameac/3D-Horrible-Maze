@@ -42,7 +42,7 @@ public partial class MazeGenerator : MonoBehaviour {
         Debug.Log("Range of parameter h in function getOffset is wrong.");
       }
 
-      return new Point(0, 0);
+      return null;
     }
 
     // The offset between different floors
@@ -64,6 +64,20 @@ public partial class MazeGenerator : MonoBehaviour {
     int r = (int)(Mathf.Round(position.z) / BLOCK_SIZE) - offset.r;
     int c = (int)(Mathf.Round(position.x) / BLOCK_SIZE) - offset.c;
     return new Point(r, c);
+  }
+
+  public Point getRandomAvailableBlock (int h) {
+
+    // Error
+    if (h < 0 || h >= MAZE_H) {
+      
+      if (isDebugging) {
+        Debug.Log("Range of parameter h in function getOffset is wrong.");
+      }
+
+      return null;
+    }
+    return basicMazes[h].getRandomAvailableBlock();
   }
 
   public List<Vector3> getShortestPath (Vector3 position1, Vector3 position2) {

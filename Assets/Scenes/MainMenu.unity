@@ -84,7 +84,7 @@ GameObject:
   - 4: {fileID: 919995536}
   - 114: {fileID: 919995537}
   m_Layer: 0
-  m_Name: MainMenu
+  m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,3 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be431a24d49b884b91dce6f493a8125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
+  startButtonTexture: {fileID: 2800000, guid: 48a32d947c68b004a92e13b917257e79, type: 3}
+  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
+  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+  buttonWidth: 200
+  buttonHeight: 80

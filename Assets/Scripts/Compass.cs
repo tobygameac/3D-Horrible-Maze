@@ -14,7 +14,7 @@ public class Compass : MonoBehaviour {
   private int positionOnScreenY;
 
   // Virtual object for calculating position
-  private GameObject compass;
+  private GameObject virtualCompass;
 
   // Compass rotating parameter
   private float angle = 0;
@@ -32,8 +32,8 @@ public class Compass : MonoBehaviour {
 
     pivotPoint = new Vector2(positionOnScreenX + width / 2, positionOnScreenY + height / 2);
 
-    compass = new GameObject();
-    compass.name = "virtual compass";
+    virtualCompass = new GameObject();
+    virtualCompass.name = "virtual compass";
 
     // Get base Y position of all floors
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -103,9 +103,9 @@ public class Compass : MonoBehaviour {
           nearestTransform = targetAtFloor[i].transform;
         }
       }
-      compass.transform.position = new Vector3(transform.position.x, nearestTransform.position.y, transform.position.z);
-      compass.transform.LookAt(nearestTransform.position);
-      angle = compass.transform.eulerAngles.y - transform.eulerAngles.y;
+      virtualCompass.transform.position = new Vector3(transform.position.x, nearestTransform.position.y, transform.position.z);
+      virtualCompass.transform.LookAt(nearestTransform.position);
+      angle = virtualCompass.transform.eulerAngles.y - transform.eulerAngles.y;
     } else {
       Application.LoadLevel("MainMenu");
     }
