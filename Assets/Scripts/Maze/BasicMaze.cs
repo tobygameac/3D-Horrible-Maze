@@ -28,10 +28,28 @@ public class BasicMaze {
       }
     }
 
-    // Set random value on each block
-    for (int r = 1; r <= R; r++) {
-      for (int c = 1; c <= C; c++) {
-        blocks[r][c] = (random.Next(2) == 0) ? false : true;
+    string mazeData = MazeData.getRandomMazeData(R, C);
+
+    if (mazeData != null) {
+
+      string[] token = mazeData.Split();
+
+      startPoint.r = Convert.ToInt32(token[0]);
+      startPoint.c = Convert.ToInt32(token[1]);
+
+      // +2 because of the border on both side
+      for (int r = 0; r < R + 2; r++) {
+        for (int c = 0; c < C + 2; c++) {
+          blocks[r][c] = (token[2][r * (C + 2) + c] == '0') ? false : true;
+        }
+      }
+
+    } else {
+      // Set random value on each block
+      for (int r = 1; r <= R; r++) {
+        for (int c = 1; c <= C; c++) {
+          blocks[r][c] = (random.Next(2) == 0) ? false : true;
+        }
       }
     }
 
@@ -248,20 +266,24 @@ public class BasicMaze {
     
     availableBlocks = new List<Point>();
 
-    // Find the start point
+    if (startPoint.r == 0 || startPoint.c == 0) {
+      // Find the start point
 
-    int findCount = 0;
+      int findCount = 0;
 
-    do {
-      startPoint = new Point(random.Next(R) + 1, random.Next(C) + 1);
-      findCount++;
+      do {
+        startPoint = new Point(random.Next(R) + 1, random.Next(C) + 1);
+        findCount++;
 
-      // Unable to find a start point in 100 times of loop
-      if (findCount == 100) {
-        blocks[startPoint.r][startPoint.c] = true;
-      }
+        // Unable to find a start point in 100 times of loop
+        if (findCount == 100) {
+          break;
+        }
 
-    } while (!blocks[startPoint.r][startPoint.c]);
+      } while (!blocks[startPoint.r][startPoint.c]);
+    }
+
+    blocks[startPoint.r][startPoint.c] = true;
 
     List<List<bool>> visited = new List<List<bool>>();
 

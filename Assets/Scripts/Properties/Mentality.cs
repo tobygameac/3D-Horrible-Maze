@@ -16,7 +16,7 @@ public class Mentality : MonoBehaviour {
 
   void Start () {
     mentalityPoint = maxMentalityPoint;
-    sight = transform.FindChild("Sight").gameObject;
+    sight = transform.FindChild("sight").gameObject;
   }
 
   void Update () {

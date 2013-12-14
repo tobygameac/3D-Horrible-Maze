@@ -19,6 +19,7 @@ public class Boss : MonoBehaviour {
   public float staringTriggerRadius = 10.0f;
   // Maximun angle for changing to attacking state
   public float attackingTriggerAngle = 45.0f;
+  public float attackingTriggerCheckDeltaAngle = 5.0f;
   public float attackingRadius = 5.0f;
 
   public float mentalityRestorePercentPerSecond = 0.02f;
@@ -74,12 +75,14 @@ public class Boss : MonoBehaviour {
     if (isStaring) {
       if (isStaringAtPlayer()) {
         if (playerIsStaringAtTheBoss() || playerIsInTheRadius(attackingRadius)) {
+          // Change to attacking state
           isStaring = false;
           isAttacking = true;
         }
         return;
       }
       if (!isStaringAtPlayer()) {
+        // Change to making decision state
         isStaring = false;
         isMakingDecision = true;
       }
@@ -91,42 +94,57 @@ public class Boss : MonoBehaviour {
       if (isAttacking) {
         if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
           float maxMentalityPoint = player.GetComponent<Mentality>().maxMentalityPoint;
+
           if (playerIsInTheRadius(attackingRadius)) {
+
+            // Absorb the mentality of the player
             player.GetComponent<Mentality>().use(maxMentalityPoint * mentalityAbsorbPercentPerSecond * Time.deltaTime);
             
+            /*
+             * QTE events here
+             * Change to stunning state
             if (Input.GetKey(KeyCode.RightArrow)) {
               isAttacking = false;
               isStunning = true;
               stunnedTime = 0;
             }
+            */
 
           } else if (playerIsInTheRadius(staringTriggerRadius)) {
             if (playerIsStaringAtTheBoss()) {
+              // Restore the mentality of the player
               player.GetComponent<Mentality>().gain(maxMentalityPoint * mentalityRestorePercentPerSecond * Time.deltaTime);
             }
           }
+
         }
+
         path = maze.getSimpleShortestPath(transform.position, player.transform.position);
         if (path.Count > 0) {
-           StartCoroutine(move(path[0]));
+          // Do the first moving instruction
+          StartCoroutine(move(path[0]));
         }
+
         return;
       }
 
       if (isStaringAtPlayer()) {
-        isStaring = true;
+        // Stop all other states
         isWandering = false;
         isGettingItem = false;
         isChasingPlayer = false;
+        // Change to staring state
+        isStaring = true;
         return;
       }
       
       if (isWandering) {
-        if (pathIndex >= path.Count) {
+        if (pathIndex >= path.Count) { // Finish
           isWandering = false;
           isMakingDecision = true;
           return;
         }
+        // Do the next moving instruction
         StartCoroutine(move(path[pathIndex++]));
       }
 
@@ -136,6 +154,7 @@ public class Boss : MonoBehaviour {
       if (isChasingPlayer) {
         path = maze.getSimpleShortestPath(transform.position, player.transform.position);
         if (path.Count > 0) {
+          // Do the first moving instruction
            StartCoroutine(move(path[0]));
         } else {
           isChasingPlayer = false;
@@ -173,15 +192,16 @@ public class Boss : MonoBehaviour {
     // At the same floor
     if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
       
-      Vector3 bossPosition = transform.position;
-      bossPosition.y = player.transform.position.y;
-
       virtualPlayer.transform.position = player.transform.position;
-      virtualPlayer.transform.LookAt(bossPosition);
+      // Make sure virtual player only rotate with Y-axis
+      virtualPlayer.transform.position = new Vector3(virtualPlayer.transform.position.x, transform.position.y, virtualPlayer.transform.position.z);
+      // Let virtual player look at the boss
+      virtualPlayer.transform.LookAt(transform.position);
 
       float angleDifference = Mathf.Abs(virtualPlayer.transform.eulerAngles.y - player.transform.eulerAngles.y);
       if (angleDifference <= attackingTriggerAngle || angleDifference >= 360 - attackingTriggerAngle) {
         if (virtualPlayer.transform.eulerAngles.y > player.transform.eulerAngles.y) {
+          // Check all angles between player's angle and virtual player's angle
           while (virtualPlayer.transform.eulerAngles.y >= player.transform.eulerAngles.y) {
             RaycastHit hit;
             if (Physics.Raycast(virtualPlayer.transform.position, virtualPlayer.transform.forward, out hit)) {
@@ -189,9 +209,10 @@ public class Boss : MonoBehaviour {
                 return true;
               }
             }
-            virtualPlayer.transform.eulerAngles += new Vector3(0, -5, 0);
+            virtualPlayer.transform.eulerAngles += new Vector3(0, -attackingTriggerCheckDeltaAngle, 0);
           }
         } else {
+          // Check all angles between player's angle and virtual player's angle
           while (virtualPlayer.transform.eulerAngles.y <= player.transform.eulerAngles.y) {
             RaycastHit hit;
             if (Physics.Raycast(virtualPlayer.transform.position, virtualPlayer.transform.forward, out hit)) {
@@ -199,7 +220,7 @@ public class Boss : MonoBehaviour {
                 return true;
               }
             }
-            virtualPlayer.transform.eulerAngles += new Vector3(0, 5, 0);
+            virtualPlayer.transform.eulerAngles += new Vector3(0, attackingTriggerCheckDeltaAngle, 0);
           }
         }
       }

@@ -197,10 +197,11 @@ MonoBehaviour:
   pOfChasingPlayer: .100000001
   staringTriggerRadius: 10
   attackingTriggerAngle: 45
+  attackingTriggerCheckDeltaAngle: 5
   attackingRadius: 3
   mentalityRestorePercentPerSecond: .0199999996
   mentalityAbsorbPercentPerSecond: .0399999991
-  stunningTime: 5
+  stunningTime: 20
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

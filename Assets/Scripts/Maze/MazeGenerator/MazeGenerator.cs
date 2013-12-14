@@ -24,7 +24,16 @@ public partial class MazeGenerator : MonoBehaviour {
   void Start () {
 
     for (int h = 0; h < MAZE_H; h++) {
-      generateBasicMaze();
+
+      // Online
+      //generateBasicMaze();
+
+      // Offline
+      basicMazes.Add(new BasicMaze(MAZE_R, MAZE_C));
+
+      if (isDebugging) {
+        basicMazes[h].log();
+      }
     }
 
     instantiateMaze();
@@ -53,8 +62,8 @@ public partial class MazeGenerator : MonoBehaviour {
   }
 
   // Genetic algorithm parameter
-  readonly int NUM_OF_POPULATION = 30;
-  readonly int TIMES_OF_ITERATION = 100;
+  public int NUM_OF_POPULATION = 30;
+  public int TIMES_OF_ITERATION = 100;
 
   private BasicMaze best; // Best maze for each generation
   private BasicMaze allBest; // Best maze for all generation
@@ -74,9 +83,6 @@ public partial class MazeGenerator : MonoBehaviour {
       if (isDebugging) {
         Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
       }
-    }
-    if (isDebugging) {
-      allBest.log();
     }
     basicMazes.Add(new BasicMaze(allBest));
   }
