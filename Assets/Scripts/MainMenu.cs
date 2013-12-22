@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour {
 
     if (GUI.Button(new Rect(0, (buttonHeight + buttonHeight / 2) * 0, buttonWidth, buttonHeight), startButtonTexture)) {
       //audio.PlayOneShot(buttonSound);
-      Application.LoadLevel("OldCastle");
+      Application.LoadLevel("Entrance");
     }
 
     if (GUI.Button(new Rect(0, (buttonHeight + buttonHeight / 2) * 1, buttonWidth, buttonHeight), optionButtonTexture)) {
