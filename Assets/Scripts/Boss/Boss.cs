@@ -188,6 +188,7 @@ public class Boss : MonoBehaviour {
       if (success) {
         QTEEvent.RemoveAt(0);
         if (QTEEvent.Count == 0) {
+          MessageShower.showMessage("");
           playerCharacterMotor.canControl = true;
           isAttacking = false;
 
@@ -199,8 +200,6 @@ public class Boss : MonoBehaviour {
           stunnedTime = 0;
         }
       }
-
-      MessageShower.showMessage("");
 
       return;
     }
