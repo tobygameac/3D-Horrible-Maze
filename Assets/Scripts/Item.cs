@@ -9,15 +9,9 @@ public class Item : MonoBehaviour {
   public string detail;
   public string skillName;
 
-  private MessageViewer messageViewer;
-
-  void Start () {
-    messageViewer = GameObject.FindWithTag("Main").GetComponent<MessageViewer>();
-  }
-
   void OnTriggerStay (Collider other) {
     if (other.tag == "Player") {
-      messageViewer.viewMessage("Press Z to pick up " + itemName + ".", 0.1f);
+      MessageShower.showMessage("Press Z to pick up " + itemName + ".", 0.1f);
       if (Input.GetKey(KeyCode.Z)) {
         if (skillName != null && skillName != "") {
           other.gameObject.AddComponent(skillName);

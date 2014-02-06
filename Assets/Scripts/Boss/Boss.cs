@@ -26,6 +26,9 @@ public class Boss : MonoBehaviour {
   public float mentalityRestorePercentPerSecond = 0.02f;
   public float mentalityAbsorbPercentPerSecond = 0.04f;
 
+  public int QTEEventLength = 10;
+  private List<int> QTEEvent = new List<int>();
+
   public float stunningTime = 5.0f;
   private float stunnedTime;
 
@@ -83,9 +86,7 @@ public class Boss : MonoBehaviour {
     if (isStaring) {
       if (lookAtAndCheckIfSeenPlayer()) {
         if (playerIsStaringAtTheBoss() || playerIsInTheRadius(attackingRadius)) {
-          // Change to attacking state
-          isStaring = false;
-          isTracing = true;
+          turnToTracingState();
         }
         return;
       }
@@ -113,8 +114,7 @@ public class Boss : MonoBehaviour {
       if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
 
         if (playerIsInTheRadius(attackingRadius)) {
-          isTracing = false;
-          isAttacking = true;
+          turnToAttackingState();
         } else if (playerIsInTheRadius(staringTriggerRadius)) {
           if (playerIsStaringAtTheBoss()) {
             float maxMentalityPoint = playerMentality.maxMentalityPoint;
@@ -139,32 +139,74 @@ public class Boss : MonoBehaviour {
       float maxMentalityPoint = playerMentality.maxMentalityPoint;
       // Absorb the mentality of the player
       playerMentality.use(maxMentalityPoint * mentalityAbsorbPercentPerSecond * Time.deltaTime);
-      
-      /*
-       * QTE events here
-       * Change to stunning state
-      */
-      if (Input.GetKey(KeyCode.RightArrow)) {
-        playerCharacterMotor.canControl = true;
-        isAttacking = false;
 
-        if (itemCarring) {
-          //putItem
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+      // Temporary method
+      string message = "";
+      for (int i = 0; i < QTEEvent.Count; i++) {
+        switch (QTEEvent[i]) {
+          case 0:
+            message += "up ";
+            break;
+          case 1:
+            message += "down ";
+            break;
+          case 2:
+            message += "right ";
+            break;
+          case 3:
+            message += "left ";
+            break;
         }
-
-        isStunning = true;
-        stunnedTime = 0;
       }
+      MessageShower.showMessage(message);
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+      ///////////////////////////////////////
+
+      bool wrong = false;
+      bool success = false;
+
+      for (int direction = 0; direction < 4; direction++) {
+        if (Input.GetKeyDown(KeyCode.UpArrow + direction)) {
+          if (QTEEvent[0] == direction) {
+            success = true;
+          } else {
+            wrong = true;
+          }
+        }
+      }
+      
+      if (wrong) {
+        QTEEvent = QTE.generateQTEEvent(QTEEventLength);
+      }
+
+      if (success) {
+        QTEEvent.RemoveAt(0);
+        if (QTEEvent.Count == 0) {
+          playerCharacterMotor.canControl = true;
+          isAttacking = false;
+
+          if (itemCarring) {
+            //putItem
+          }
+
+          isStunning = true;
+          stunnedTime = 0;
+        }
+      }
+
+      MessageShower.showMessage("");
+
       return;
     }
 
     if (lookAtAndCheckIfSeenPlayer()) {
-      // Stop all other states
-      isWandering = false;
-      isGettingItem = false;
-      isChasingPlayer = false;
-      // Change to staring state
-      isStaring = true;
+      turnToStaringState();
       return;
     }
     
@@ -327,6 +369,27 @@ public class Boss : MonoBehaviour {
     }
 
     isMakingDecision = false;
+  }
+
+  private void turnToStaringState () {
+    // Stop all other states
+    isWandering = false;
+    isGettingItem = false;
+    isChasingPlayer = false;
+
+    isStaring = true;
+  }
+
+  private void turnToTracingState () {
+    isStaring = false;
+    isTracing = true;
+  }
+
+  private void turnToAttackingState () {
+    isTracing = false;
+    isAttacking = true;
+    // Generate the first event
+    QTEEvent = QTE.generateQTEEvent(QTEEventLength);
   }
 
 }
