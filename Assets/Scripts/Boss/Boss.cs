@@ -26,8 +26,8 @@ public class Boss : MonoBehaviour {
   public float mentalityRestorePercentPerSecond = 0.02f;
   public float mentalityAbsorbPercentPerSecond = 0.04f;
 
-  public int QTEEventLength = 10;
-  private List<int> QTEEvent = new List<int>();
+  public int QTELength = 10;
+  private List<int> QTEvent = new List<int>();
 
   public float stunningTime = 5.0f;
   private float stunnedTime;
@@ -140,40 +140,14 @@ public class Boss : MonoBehaviour {
       // Absorb the mentality of the player
       playerMentality.use(maxMentalityPoint * mentalityAbsorbPercentPerSecond * Time.deltaTime);
 
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-      // Temporary method
-      string message = "";
-      for (int i = 0; i < QTEEvent.Count; i++) {
-        switch (QTEEvent[i]) {
-          case 0:
-            message += "up ";
-            break;
-          case 1:
-            message += "down ";
-            break;
-          case 2:
-            message += "right ";
-            break;
-          case 3:
-            message += "left ";
-            break;
-        }
-      }
-      MessageShower.showMessage(message);
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-      ///////////////////////////////////////
-
+      QTE.showQTE(QTEvent);
+      
       bool wrong = false;
       bool success = false;
 
       for (int direction = 0; direction < 4; direction++) {
         if (Input.GetKeyDown(KeyCode.UpArrow + direction)) {
-          if (QTEEvent[0] == direction) {
+          if (QTEvent[0] == direction) {
             success = true;
           } else {
             wrong = true;
@@ -182,13 +156,13 @@ public class Boss : MonoBehaviour {
       }
       
       if (wrong) {
-        QTEEvent = QTE.generateQTEEvent(QTEEventLength);
+        QTEvent = QTE.generateQTE(QTELength);
       }
 
       if (success) {
-        QTEEvent.RemoveAt(0);
-        if (QTEEvent.Count == 0) {
-          MessageShower.showMessage("");
+        QTEvent.RemoveAt(0);
+        QTE.showQTE(QTEvent);
+        if (QTEvent.Count == 0) {
           playerCharacterMotor.canControl = true;
           isAttacking = false;
 
@@ -388,7 +362,7 @@ public class Boss : MonoBehaviour {
     isTracing = false;
     isAttacking = true;
     // Generate the first event
-    QTEEvent = QTE.generateQTEEvent(QTEEventLength);
+    QTEvent = QTE.generateQTE(QTELength);
   }
 
 }

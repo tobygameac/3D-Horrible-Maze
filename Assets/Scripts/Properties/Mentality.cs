@@ -24,6 +24,11 @@ public class Mentality : MonoBehaviour {
     if (mentalityPoint <= 0) {
       Application.LoadLevel("MainMenu");
     }
+    // Fading
+    float ambientR = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
+    float ambientG = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
+    float ambientB = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
+    RenderSettings.ambientLight = new Color(ambientR, ambientG, ambientB);
     sight.light.range = baseSightRange + baseSightRange * (mentalityPoint / 100.0f);
     sight.light.spotAngle = 30 + 0.6f * mentalityPoint;
   }

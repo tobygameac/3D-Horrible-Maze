@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour {
     // Background
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
 
-    GUI.Label(new Rect(0, 0, 100, 100), "2013/12/13 7.00");
+    GUI.Label(new Rect(0, 0, 100, 100), "2014/2/17 7.00");
 
     // Buttons
     GUILayout.BeginArea(new Rect(Screen.width / 2 - buttonWidth / 2, 200, 500, 500));

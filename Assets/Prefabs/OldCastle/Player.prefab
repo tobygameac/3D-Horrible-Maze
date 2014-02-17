@@ -132,7 +132,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
+  m_BackGroundColor: {r: .501960814, g: .501960814, b: .501960814, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -141,7 +141,7 @@ Camera:
     height: 1
   near clip plane: .00999999978
   far clip plane: 10
-  field of view: 90
+  field of view: 45
   orthographic: 0
   orthographic size: 100
   m_Depth: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
   canControl: 1
   useFixedUpdate: 0
   movement:
-    maxForwardSpeed: 2
-    maxSidewaysSpeed: 1.5
+    maxForwardSpeed: 3
+    maxSidewaysSpeed: 2
     maxBackwardsSpeed: 1
     slopeSpeedMultiplier:
       serializedVersion: 2

@@ -242,15 +242,16 @@ MonoBehaviour:
   isDebugging: 1
   movingSpeed: 3
   acceleration: .00999999978
-  pOfWandering: .699999988
-  pOfGettingItem: .200000003
-  pOfChasingPlayer: .100000001
+  probabilityOfWandering: .699999988
+  probabilityOfGettingItem: .200000003
+  probabilityOfChasingPlayer: .100000001
   staringTriggerRadius: 10
-  attackingTriggerAngle: 45
-  attackingTriggerCheckDeltaAngle: 5
+  tracingTriggerAngle: 45
+  tracingTriggerCheckDeltaAngle: 5
   attackingRadius: 3
-  mentalityRestorePercentPerSecond: .0199999996
-  mentalityAbsorbPercentPerSecond: .0399999991
+  mentalityRestorePercentPerSecond: .0399999991
+  mentalityAbsorbPercentPerSecond: .0799999982
+  QTELength: 10
   stunningTime: 20
 --- !u!135 &13500000
 SphereCollider:

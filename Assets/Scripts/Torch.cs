@@ -12,13 +12,13 @@ public class Torch : MonoBehaviour {
   public float IntensityLight;
 
   void Start () {
-    TorchLight.light.intensity=IntensityLight;
-    MainFlame.GetComponent<ParticleSystem>().emissionRate=IntensityLight*20f;
-    BaseFlame.GetComponent<ParticleSystem>().emissionRate=IntensityLight*15f;	
-    Etincelles.GetComponent<ParticleSystem>().emissionRate=IntensityLight*7f;
-    Fumee.GetComponent<ParticleSystem>().emissionRate=IntensityLight*12f;
+    TorchLight.light.intensity = IntensityLight;
+    MainFlame.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 20;
+    BaseFlame.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 15;	
+    Etincelles.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 7;
+    Fumee.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 12;
   }
-  
+
   void Update () {
     if (IntensityLight < 0) {
       IntensityLight = 0;
@@ -28,12 +28,12 @@ public class Torch : MonoBehaviour {
       IntensityLight = MaxLightIntensity;
     }
 
-    TorchLight.light.intensity=IntensityLight/2f+Mathf.Lerp(IntensityLight-0.1f,IntensityLight+0.1f,Mathf.Cos(Time.time*30));
-    TorchLight.light.color=new Color(Mathf.Min(IntensityLight/1.5f,1f),Mathf.Min(IntensityLight/2f,1f),0f);
-    MainFlame.GetComponent<ParticleSystem>().emissionRate=IntensityLight*20f;
-    BaseFlame.GetComponent<ParticleSystem>().emissionRate=IntensityLight*15f;
-    Etincelles.GetComponent<ParticleSystem>().emissionRate=IntensityLight*7f;
-    Fumee.GetComponent<ParticleSystem>().emissionRate=IntensityLight*12f;
+    TorchLight.light.intensity = IntensityLight / 2f + Mathf.Lerp(IntensityLight - 0.1f, IntensityLight + 0.1f, Mathf.Cos(Time.time * 30));
+    TorchLight.light.color = new Color(Mathf.Min(IntensityLight / 1.5f, 1f), Mathf.Min(IntensityLight / 2f, 1), 0);
+    MainFlame.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 20;
+    BaseFlame.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 15;
+    Etincelles.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 7;
+    Fumee.GetComponent<ParticleSystem>().emissionRate = IntensityLight * 12;
   }
 
 }
