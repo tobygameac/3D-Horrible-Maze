@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour {
   public float tracingTriggerAngle = 45.0f;
   public float tracingTriggerCheckDeltaAngle = 5.0f;
   // Maximun distance for changing to attacking state
-  public float attackingRadius = 5.0f;
+  public float attackingRadius = 3.5f;
 
   public float mentalityRestorePercentPerSecond = 0.02f;
   public float mentalityAbsorbPercentPerSecond = 0.04f;
@@ -89,7 +89,7 @@ public class Boss : MonoBehaviour {
 
     if (isStaring) {
       if (lookAtAndCheckIfSeenPlayer()) {
-        if (playerIsStaringAtTheBoss() || playerIsInTheRadius(attackingRadius)) {
+        if (playerIsStaringAtTheBoss()) {
           turnToTracingState();
         }
         return;
@@ -171,8 +171,7 @@ public class Boss : MonoBehaviour {
             //putItem
           }
 
-          isStunning = true;
-          stunnedTime = 0;
+          turnToStunningState();
         }
       }
 
@@ -366,6 +365,14 @@ public class Boss : MonoBehaviour {
     isAttacking = true;
     // Generate the first event
     QTEvent = QTE.generateQTE(QTELength);
+  }
+
+  private void turnToStunningState () {
+    isStaring = false;
+    isTracing = false;
+    isAttacking = false;
+    isStunning = true;
+    stunnedTime = 0;
   }
 
   private void playAudio(AudioClip audioClip) {
