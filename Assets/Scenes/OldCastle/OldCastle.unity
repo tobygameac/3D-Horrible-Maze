@@ -86,6 +86,7 @@ GameObject:
   - 114: {fileID: 127766898}
   - 114: {fileID: 127766897}
   - 114: {fileID: 127766899}
+  - 82: {fileID: 127766900}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -177,6 +178,64 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 67b552fa057fa0644ba756c10d3fbfa8, type: 3}
   - {fileID: 2800000, guid: 009528244ab99fb48a2d989a00a3ed11, type: 3}
   - {fileID: 2800000, guid: c50abffb6be61b14ca635a55e49533a8, type: 3}
+--- !u!82 &127766900
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 01ebb6e33aaefec44bd325cbbd4c3d3c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .25
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &1210905212
 Prefab:
   m_ObjectHideFlags: 0
@@ -231,6 +290,10 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: TIMES_OF_ITERATION
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: MAZE_H
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}

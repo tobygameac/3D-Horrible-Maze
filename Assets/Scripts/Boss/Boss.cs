@@ -16,12 +16,12 @@ public class Boss : MonoBehaviour {
   public float probabilityOfChasingPlayer = 0.1f;
 
   // Maximun distance for changing to staring state
-  public float staringTriggerRadius = 10.0f;
+  public float staringTriggerRadius = 15.0f;
   // Maximun angle for changing to attacking state
   public float tracingTriggerAngle = 45.0f;
   public float tracingTriggerCheckDeltaAngle = 5.0f;
   // Maximun distance for changing to attacking state
-  public float attackingRadius = 3.0f;
+  public float attackingRadius = 5.0f;
 
   public float mentalityRestorePercentPerSecond = 0.02f;
   public float mentalityAbsorbPercentPerSecond = 0.04f;
@@ -57,6 +57,10 @@ public class Boss : MonoBehaviour {
 
   private List<Vector3> path;
   private int pathIndex;
+
+  // Sounds
+  public AudioClip tracingSound;
+  public AudioClip cryingSound;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -102,12 +106,8 @@ public class Boss : MonoBehaviour {
       
       if (!lookAtAndCheckIfSeenPlayer()) {
         isTracing = false;
-
-        if (itemCarring) {
-          //putItem
-        }
-
-        isStunning = true;
+        isMakingDecision = true;
+        audio.Stop();
         return;
       }
 
@@ -115,6 +115,7 @@ public class Boss : MonoBehaviour {
 
         if (playerIsInTheRadius(attackingRadius)) {
           turnToAttackingState();
+          return;
         } else if (playerIsInTheRadius(staringTriggerRadius)) {
           if (playerIsStaringAtTheBoss()) {
             float maxMentalityPoint = playerMentality.maxMentalityPoint;
@@ -356,13 +357,21 @@ public class Boss : MonoBehaviour {
   private void turnToTracingState () {
     isStaring = false;
     isTracing = true;
+    playAudio(tracingSound);
   }
 
   private void turnToAttackingState () {
+    playAudio(cryingSound);
     isTracing = false;
     isAttacking = true;
     // Generate the first event
     QTEvent = QTE.generateQTE(QTELength);
+  }
+
+  private void playAudio(AudioClip audioClip) {
+    audio.Stop();
+    audio.clip = audioClip;
+    audio.Play();
   }
 
 }
