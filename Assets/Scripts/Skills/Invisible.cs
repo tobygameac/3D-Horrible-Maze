@@ -27,10 +27,14 @@ public class Invisible : MonoBehaviour {
     if (isInvisible) {
       float need = vitalityCostPerSecond * Time.deltaTime;
       if (vitality.enough(need)) {
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         vitality.use(need);
       } else {
+        gameObject.layer = LayerMask.NameToLayer("Default");
         isInvisible = false;
       }
+    } else {
+      gameObject.layer = LayerMask.NameToLayer("Default");
     }
   }
 

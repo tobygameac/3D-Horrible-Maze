@@ -154,9 +154,9 @@ MonoBehaviour:
   bloodPrefab: {fileID: 100000, guid: 887d816e652f5a44799b2ea5f4873f4f, type: 2}
   elevatorPrefab: {fileID: 100002, guid: ea1e1b03a8884df4fbbd7bbd81fbe0f8, type: 2}
   isDebugging: 0
-  MAZE_R: 10
-  MAZE_C: 10
-  MAZE_H: 1
+  MAZE_R: 30
+  MAZE_C: 30
+  MAZE_H: 3
   BLOCK_SIZE: 2
   playerPrefab: {fileID: 100004, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
   bossPrefab: {fileID: 100000, guid: 22b797747c581b54a90891d841f89cb1, type: 2}
@@ -277,11 +277,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: MAZE_R
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: MAZE_C
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: NUM_OF_POPULATION
@@ -293,7 +293,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: MAZE_H
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
