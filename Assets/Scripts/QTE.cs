@@ -7,8 +7,8 @@ public class QTE : MonoBehaviour {
   private static System.Random random = new System.Random(); // Only need one random seed
 
   public Texture[] QTETextures;
-  public Texture greenTexture;
-  public Texture redTexture;
+  public Texture barTexture;
+  public Texture barBackgroundTexture;
   private static int textureIndex;
   private static int QTEFullLength;
   private static int QTENowLength;
@@ -53,13 +53,18 @@ public class QTE : MonoBehaviour {
 
   void OnGUI () {
     if (isShowing) {
+
       if (small) {
         GUI.DrawTexture(new Rect(110, 110, 80, 80), QTETextures[textureIndex]);
       } else {
         GUI.DrawTexture(new Rect(100, 100, 100, 100), QTETextures[textureIndex]);
       }
-      GUI.DrawTexture(new Rect(100, 250, 10 * QTEFullLength, 20), redTexture);
-      GUI.DrawTexture(new Rect(100, 250, 10 * QTENowLength, 20), greenTexture);
+
+      GUI.DrawTexture(new Rect(100, 250, 20 * QTEFullLength, 50), barBackgroundTexture);
+      
+      GUI.BeginGroup(new Rect(100, 250, 20 * QTENowLength, 50));
+      GUI.DrawTexture(new Rect(0, 0, 20 * QTEFullLength, 50), barTexture);
+      GUI.EndGroup();
     }
   }
 }
