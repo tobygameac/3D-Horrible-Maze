@@ -113,6 +113,7 @@ GameObject:
   - 114: {fileID: 127766898}
   - 114: {fileID: 127766897}
   - 114: {fileID: 127766899}
+  - 114: {fileID: 127766901}
   - 82: {fileID: 127766900}
   m_Layer: 0
   m_Name: main
@@ -267,6 +268,23 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &127766901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a9f766509572242886cbecf449011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
+  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+  buttonWidth: 100
+  buttonHeight: 50
 --- !u!1001 &974032041
 Prefab:
   m_ObjectHideFlags: 0

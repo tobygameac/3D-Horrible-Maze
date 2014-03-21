@@ -14,6 +14,11 @@ public class MainMenu : MonoBehaviour {
   public int buttonWidth = 100;
   public int buttonHeight = 50;
 
+  void Start () {
+    GameState.state = GameState.PLAYING;
+    Time.timeScale = 1;
+  }
+
   void OnGUI () {
     GUI.skin = skin;
 
