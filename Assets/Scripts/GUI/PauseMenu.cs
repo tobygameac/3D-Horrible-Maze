@@ -14,14 +14,26 @@ public class PauseMenu : MonoBehaviour {
   public int buttonHeight = 50;
 
   void Update () {
+
     if (Input.GetKeyDown(KeyCode.Escape)) {
-      GameState.state = (GameState.state == GameState.PAUSING) ? GameState.PLAYING : GameState.PAUSING;
-      if (GameState.state == GameState.PAUSING) {
-        Time.timeScale = 0.0001f;
-      } else {
-        Time.timeScale = 1;
+
+      switch (GameState.state) {
+        case GameState.PAUSING:
+          GameState.state = GameState.PLAYING;
+          Time.timeScale = 1;
+          break;
+        case GameState.PLAYING:
+          GameState.state = GameState.PAUSING;
+          Time.timeScale = 0.0001f;
+          break;
+        case GameState.SKILLVIEWING:
+          GameState.state = GameState.PLAYING;
+          Time.timeScale = 1;
+          break;
       }
+
     }
+
   }
 
   void OnGUI () {

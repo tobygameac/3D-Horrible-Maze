@@ -36,6 +36,8 @@ public class Sprint : MonoBehaviour {
     sprintForwardSpeed = originalForwardSpeed * timesOfSpeed;
     sprintSidewaysSpeed = originalSidewaysSpeed * timesOfSpeed;
     sprintBackwardsSpeed = originalBackwardsSpeed * timesOfSpeed;
+
+    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(0);
   }
 
   void Update () {

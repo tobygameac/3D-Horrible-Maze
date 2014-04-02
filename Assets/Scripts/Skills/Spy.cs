@@ -18,6 +18,7 @@ public class Spy : MonoBehaviour {
     vitality = GetComponent<Vitality>();
     bossCamera = GameObject.FindGameObjectWithTag("BossCamera").camera;
     isSpying = false;
+    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(3);
   }
 
   void Update () {

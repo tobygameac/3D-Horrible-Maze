@@ -15,6 +15,7 @@ public class Roar : MonoBehaviour {
   void Start () {
     vitality = GetComponent<Vitality>();
     mentality = GetComponent<Mentality>();
+    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(1);
   }
 
   void Update () {

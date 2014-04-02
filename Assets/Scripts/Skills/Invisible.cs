@@ -14,6 +14,7 @@ public class Invisible : MonoBehaviour {
   void Start () {
     vitality = GetComponent<Vitality>();
     isInvisible = false;
+    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(2);
   }
 
   void Update () {

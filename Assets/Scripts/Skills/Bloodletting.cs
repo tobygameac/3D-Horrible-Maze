@@ -20,6 +20,7 @@ public class Bloodletting : MonoBehaviour {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
     bloodPrefab =  GameObject.FindGameObjectWithTag("BloodFromPlayer");
     mentality = GetComponent<Mentality>();
+    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(4);
   }
 
   void Update () {
