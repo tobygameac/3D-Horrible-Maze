@@ -6,12 +6,10 @@ public class PauseMenu : MonoBehaviour {
   public GUISkin skin;
 
   public Texture backgroundTexture;
+  public Texture pauseMenuBackgroundTexture;
 
   public Texture optionButtonTexture;
   public Texture exitButtonTexture;
-
-  public int buttonWidth = 100;
-  public int buttonHeight = 50;
 
   void Update () {
 
@@ -45,16 +43,24 @@ public class PauseMenu : MonoBehaviour {
     GUI.skin = skin;
 
     // Background
-    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
+    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
-    // Buttons
-    GUILayout.BeginArea(new Rect(Screen.width / 2 - buttonWidth / 2, 200, 500, 500));
+    // Menu background
+    int width = Screen.height - 100;
+    int height = width;
 
-    if (GUI.Button(new Rect(0, (buttonHeight + buttonHeight / 2) * 1, buttonWidth, buttonHeight), optionButtonTexture)) {
+    int buttonWidth = width / 3;
+    int buttonHeight = height / 6;
+
+    GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
+
+    GUI.DrawTexture(new Rect(0, 0, width, height), pauseMenuBackgroundTexture);
+
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + height / 7, buttonWidth, buttonHeight), optionButtonTexture)) {
       //audio.PlayOneShot(buttonSound);
     }
 
-    if (GUI.Button(new Rect(0, (buttonHeight + buttonHeight / 2) * 2, buttonWidth, buttonHeight), exitButtonTexture)) {
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + height / 7, buttonWidth, buttonHeight), exitButtonTexture)) {
       Application.LoadLevel("MainMenu");
     }
 

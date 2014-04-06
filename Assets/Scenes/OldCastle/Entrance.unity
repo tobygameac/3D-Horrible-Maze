@@ -8650,6 +8650,8 @@ GameObject:
   - 114: {fileID: 807427816}
   - 114: {fileID: 807427815}
   - 114: {fileID: 807427814}
+  - 114: {fileID: 807427821}
+  - 82: {fileID: 807427813}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -8671,6 +8673,65 @@ Transform:
   - {fileID: 2121719182}
   - {fileID: 1465613781}
   m_Father: {fileID: 0}
+--- !u!82 &807427813
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: a397231bd91b2b54280ba596aeaf1e28,
+    type: 2}
+  m_PrefabInternal: {fileID: 1484258665}
+  m_GameObject: {fileID: 807427811}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &807427814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8685,6 +8746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timesOfSpeed: 1.5
   vitalityCostPerSecond: 10
+  restTime: 10
 --- !u!114 &807427815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8761,8 +8823,8 @@ MonoBehaviour:
   canControl: 1
   useFixedUpdate: 0
   movement:
-    maxForwardSpeed: 2
-    maxSidewaysSpeed: 1.5
+    maxForwardSpeed: 3
+    maxSidewaysSpeed: 2
     maxBackwardsSpeed: 1
     slopeSpeedMultiplier:
       serializedVersion: 2
@@ -8812,6 +8874,21 @@ CharacterController:
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &807427821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: a397231bd91b2b54280ba596aeaf1e28,
+    type: 2}
+  m_PrefabInternal: {fileID: 1484258665}
+  m_GameObject: {fileID: 807427811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4f98c9723a96b44b66557c83a0e078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  walkingSound: {fileID: 8300000, guid: 28928f35422308e44ad16380a2d4a146, type: 3}
+  runningSound: {fileID: 8300000, guid: 345168359a1e51b488d1f39def0f3e17, type: 3}
 --- !u!1001 &817699590
 Prefab:
   m_ObjectHideFlags: 0
@@ -10107,6 +10184,8 @@ GameObject:
   - 4: {fileID: 878738420}
   - 114: {fileID: 878738419}
   - 114: {fileID: 878738418}
+  - 114: {fileID: 878738422}
+  - 114: {fileID: 878738421}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -10149,6 +10228,53 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &878738421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878738417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba02f11a4979534fae957c2228ddd28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  skillMenuBackgroundTexture: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4,
+    type: 3}
+  skillMenuButtonTexture: {fileID: 2800000, guid: 0fd9bbf0d3297a44a8342f3cfe8bd0e6,
+    type: 3}
+  skillTextures:
+  - {fileID: 2800000, guid: a8ac6cc1a1dfaf3418dbd2c3f97c2d78, type: 3}
+  - {fileID: 2800000, guid: 387711f9c5686354990ae5f80c0d9d8b, type: 3}
+  - {fileID: 2800000, guid: 242d0c5cdd62ab04d84df11791e6dc13, type: 3}
+  - {fileID: 2800000, guid: 4e2468869c85f4b4ebc59bbab28de7d9, type: 3}
+  - {fileID: 2800000, guid: 253960184259961428dbe21648374b72, type: 3}
+  hotkeyTextures:
+  - {fileID: 2800000, guid: c9faecab9ed424045a5fe9d450f7457a, type: 3}
+  - {fileID: 2800000, guid: ea21d2a94be1c7d4dbbb3f4d26d5913d, type: 3}
+  - {fileID: 2800000, guid: 76a3392d31479024fa15c295f2d37742, type: 3}
+  - {fileID: 2800000, guid: f44fb8d1af3745c4289bf49cbc26d9c2, type: 3}
+  - {fileID: 2800000, guid: 346b249ac90f7804a87614267001bcf7, type: 3}
+  unknownTexture: {fileID: 2800000, guid: ab5141ae02b68dc4482ae0d0769d5eae, type: 3}
+--- !u!114 &878738422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878738417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a9f766509572242886cbecf449011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
+    type: 3}
+  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
+  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
 --- !u!1 &908175149
 GameObject:
   m_ObjectHideFlags: 0
@@ -24743,6 +24869,14 @@ Prefab:
       propertyPath: m_Intensity
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
+      propertyPath: runningSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 345168359a1e51b488d1f39def0f3e17, type: 3}
+    - target: {fileID: 11400014, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
+      propertyPath: walkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 28928f35422308e44ad16380a2d4a146, type: 3}
     m_RemovedComponents:
     - {fileID: 11400012, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
@@ -32115,7 +32249,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
+  m_BackGroundColor: {r: .501960814, g: .501960814, b: .501960814, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

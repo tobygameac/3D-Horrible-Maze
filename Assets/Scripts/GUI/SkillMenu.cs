@@ -6,12 +6,14 @@ public class SkillMenu : MonoBehaviour {
   public GUISkin skin;
 
   public Texture backgroundTexture;
+  public Texture skillMenuBackgroundTexture;
+
+  public Texture skillMenuButtonTexture;
 
   public Texture[] skillTextures;
-  public Texture unknownTexture;
+  public Texture[] hotkeyTextures;
 
-  public int iconWidth = 100;
-  public int iconHeight = 100;
+  public Texture unknownTexture;
 
   private bool[] unlocked = new bool[5];
 
@@ -46,26 +48,39 @@ public class SkillMenu : MonoBehaviour {
 
   void OnGUI () {
     
+    // Only show menu button
     if (GameState.state != GameState.SKILLVIEWING) {
+      GUI.DrawTexture(new Rect(10, Screen.height - 75, 50, 50), skillMenuButtonTexture);
       return;
     }
 
     GUI.skin = skin;
 
     // Background
-    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
+    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
-    // Skill
-    GUILayout.BeginArea(new Rect(Screen.width / 2 - iconWidth / 2, 100, 1000, 1000));
+    // Menu background
+    int width = Screen.height - 100;
+    int height = width;
+
+    int skillIconWidth = width / 8;
+    int skillIconHeight = height / 8;
+    int hotkeyIconWidth = skillIconWidth * 2;
+    int hotkeyIconHeight = skillIconHeight;
+
+    GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
+
+    GUI.DrawTexture(new Rect(0, 0, width, height), skillMenuBackgroundTexture);
 
     for (int i = 0; i < unlocked.Length; i++) {
-      Texture iconTexture;
+      Texture skillTexture;
       if (unlocked[i]) {
-        iconTexture = skillTextures[i];
+        skillTexture = skillTextures[i];
       } else {
-        iconTexture = unknownTexture;
+        skillTexture = unknownTexture;
       }
-      GUI.DrawTexture(new Rect(0, i * (iconHeight + 10), iconWidth, iconHeight), iconTexture);
+      GUI.DrawTexture(new Rect(width / 7, i * (hotkeyIconHeight + 10) + height / 7, hotkeyIconWidth, hotkeyIconHeight), hotkeyTextures[i]);
+      GUI.DrawTexture(new Rect(width / 7 + hotkeyIconWidth + 10, i * (skillIconHeight + 10) + height / 7, skillIconWidth, skillIconHeight), skillTexture);
     }
 
     GUILayout.EndArea();

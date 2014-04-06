@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviour {
 
     if (GUI.Button(new Rect(0, (buttonHeight + buttonHeight / 2) * 2, buttonWidth, buttonHeight), exitButtonTexture)) {
       //audio.PlayOneShot(buttonSound);
+      Application.Quit();
     }
 
     GUILayout.EndArea();

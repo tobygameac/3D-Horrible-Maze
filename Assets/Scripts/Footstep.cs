@@ -16,7 +16,7 @@ public class Footstep : MonoBehaviour {
     }
     float deltaH = Input.GetAxis("Horizontal");
     float deltaV = Input.GetAxis("Vertical");
-    if (deltaH != 0 || deltaV != 0) {
+    if (GameState.state == GameState.PLAYING && (deltaH != 0 || deltaV != 0)) {
        if (!audio.isPlaying) {
         audio.Play();
        }
