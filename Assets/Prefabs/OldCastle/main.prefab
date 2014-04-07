@@ -9,8 +9,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400008}
+  - 114: {fileID: 11400010}
+  - 114: {fileID: 11400012}
+  - 114: {fileID: 11400002}
+  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -29,6 +34,64 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 01ebb6e33aaefec44bd325cbbd4c3d3c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .25
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -48,9 +111,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee257c93c6ab9b14f9b98808afacdb3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bb6a784225309642b54ac3698161264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
+  errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,14 +141,93 @@ MonoBehaviour:
   bloodPrefab: {fileID: 100000, guid: 887d816e652f5a44799b2ea5f4873f4f, type: 2}
   elevatorPrefab: {fileID: 100002, guid: ea1e1b03a8884df4fbbd7bbd81fbe0f8, type: 2}
   isDebugging: 0
-  MAZE_R: 30
-  MAZE_C: 30
-  MAZE_H: 3
+  MAZE_R: 10
+  MAZE_C: 10
+  MAZE_H: 1
   BLOCK_SIZE: 2
   playerPrefab: {fileID: 100004, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
   bossPrefab: {fileID: 100000, guid: 22b797747c581b54a90891d841f89cb1, type: 2}
   NUM_OF_POPULATION: 20
-  TIMES_OF_ITERATION: 100
+  TIMES_OF_ITERATION: 0
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee257c93c6ab9b14f9b98808afacdb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddbde19cc99b514a9ec8a8c64034e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QTETextures:
+  - {fileID: 2800000, guid: d566da0bd2cdf294a92305f83c51380a, type: 3}
+  - {fileID: 2800000, guid: 67b552fa057fa0644ba756c10d3fbfa8, type: 3}
+  - {fileID: 2800000, guid: 009528244ab99fb48a2d989a00a3ed11, type: 3}
+  - {fileID: 2800000, guid: c50abffb6be61b14ca635a55e49533a8, type: 3}
+  barTexture: {fileID: 2800000, guid: a4e66b3e5729357439095cb8e6b71a8c, type: 3}
+  barBackgroundTexture: {fileID: 2800000, guid: 17c98fae67c0d4349bef812ef0a9bac7,
+    type: 3}
+  showingTime: .100000001
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a9f766509572242886cbecf449011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
+    type: 3}
+  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
+  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba02f11a4979534fae957c2228ddd28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  skillMenuBackgroundTexture: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4,
+    type: 3}
+  skillMenuButtonTexture: {fileID: 2800000, guid: 0fd9bbf0d3297a44a8342f3cfe8bd0e6,
+    type: 3}
+  hasNewSkillTexture: {fileID: 2800000, guid: a17ab001d77554946a8f835d6d693823, type: 3}
+  skillTextures:
+  - {fileID: 2800000, guid: a8ac6cc1a1dfaf3418dbd2c3f97c2d78, type: 3}
+  - {fileID: 2800000, guid: 387711f9c5686354990ae5f80c0d9d8b, type: 3}
+  - {fileID: 2800000, guid: 242d0c5cdd62ab04d84df11791e6dc13, type: 3}
+  - {fileID: 2800000, guid: 4e2468869c85f4b4ebc59bbab28de7d9, type: 3}
+  - {fileID: 2800000, guid: 253960184259961428dbe21648374b72, type: 3}
+  hotkeyTextures:
+  - {fileID: 2800000, guid: c9faecab9ed424045a5fe9d450f7457a, type: 3}
+  - {fileID: 2800000, guid: ea21d2a94be1c7d4dbbb3f4d26d5913d, type: 3}
+  - {fileID: 2800000, guid: 76a3392d31479024fa15c295f2d37742, type: 3}
+  - {fileID: 2800000, guid: f44fb8d1af3745c4289bf49cbc26d9c2, type: 3}
+  - {fileID: 2800000, guid: 346b249ac90f7804a87614267001bcf7, type: 3}
+  unknownTexture: {fileID: 2800000, guid: ab5141ae02b68dc4482ae0d0769d5eae, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

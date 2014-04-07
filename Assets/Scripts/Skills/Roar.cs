@@ -12,10 +12,19 @@ public class Roar : MonoBehaviour {
   public float vitalityCost = 50;
   public float mentalityGain = 10;
 
+  private SkillMenu skillMenu;
+
+  private SoundEffectManager soundEffectManager;
+
   void Start () {
     vitality = GetComponent<Vitality>();
     mentality = GetComponent<Mentality>();
-    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(1);
+
+    skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
+    skillMenu.unlockSkill(1);
+    skillMenu.setSkillMessage(1, "RRRRR~~~~~~");
+
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
 
   void Update () {
@@ -23,12 +32,11 @@ public class Roar : MonoBehaviour {
       if (vitality.enough(vitalityCost)) {
         vitality.use(vitalityCost);
         mentality.gain(mentalityGain);
+      } else {
+        soundEffectManager.playErrorSound();
+        MessageViewer.showErrorMessage("Not enough vitality");
       }
     }
-  }
-
-  void OnGUI () {
-    GUI.Label(new Rect(10, 80, 200, 20), "1 : Roar");
   }
 
 }

@@ -83,11 +83,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 919995536}
   - 114: {fileID: 919995537}
+  - 114: {fileID: 919995540}
   - 82: {fileID: 919995538}
   - 81: {fileID: 919995539}
   m_Layer: 0
-  m_Name: Main
-  m_TagString: Untagged
+  m_Name: main
+  m_TagString: Main
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,8 +120,6 @@ MonoBehaviour:
   startButtonTexture: {fileID: 2800000, guid: 48a32d947c68b004a92e13b917257e79, type: 3}
   optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
   exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
-  buttonWidth: 200
-  buttonHeight: 80
 --- !u!82 &919995538
 AudioSource:
   m_ObjectHideFlags: 0
@@ -131,7 +130,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 270525a1a697d454fb8d547ea573c502, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -186,3 +185,16 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919995535}
   m_Enabled: 1
+--- !u!114 &919995540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919995535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb6a784225309642b54ac3698161264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
+  errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}

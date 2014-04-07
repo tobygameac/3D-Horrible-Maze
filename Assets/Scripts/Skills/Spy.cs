@@ -5,24 +5,32 @@ using System.Collections;
 
 public class Spy : MonoBehaviour {
 
-  private Vitality vitality;
-  private Camera bossCamera;
-
   public float vitalityCost = 50;
   public float spyingTime = 10;
 
   private float spiedTime;
-  private bool isSpying;
+  private bool isSpying = false;
+
+  private Vitality vitality;
+  private Camera bossCamera;
+
+  private SkillMenu skillMenu;
+
+  private SoundEffectManager soundEffectManager;
 
   void Start () {
     vitality = GetComponent<Vitality>();
+
     bossCamera = GameObject.FindGameObjectWithTag("BossCamera").camera;
-    isSpying = false;
-    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(3);
+
+    skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
+    skillMenu.unlockSkill(3);
+    skillMenu.setSkillMessage(3, "I see u~~~~~~");
+
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
 
-  void Update () {
-    
+  void Update () {  
     if (isSpying) {
       spiedTime += Time.deltaTime;
       if (spiedTime >= spyingTime) {
@@ -38,13 +46,12 @@ public class Spy : MonoBehaviour {
           isSpying = true;
           spiedTime = 0;
           bossCamera.enabled = true;
+        } else {
+          soundEffectManager.playErrorSound();
+          MessageViewer.showErrorMessage("Not enough vitality");
         }
       }
     }
-
   }
 
-  void OnGUI () {
-    GUI.Label(new Rect(10, 120, 200, 20), "3 : Spy");
-  }
 }

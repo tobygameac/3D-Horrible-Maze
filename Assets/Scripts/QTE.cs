@@ -54,6 +54,8 @@ public class QTE : MonoBehaviour {
   void OnGUI () {
     if (isShowing) {
 
+      GUI.depth = 1;
+
       if (small) {
         GUI.DrawTexture(new Rect(110, 110, 80, 80), QTETextures[textureIndex]);
       } else {

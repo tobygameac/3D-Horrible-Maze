@@ -11,10 +11,14 @@ public class PauseMenu : MonoBehaviour {
   public Texture optionButtonTexture;
   public Texture exitButtonTexture;
 
+  private SoundEffectManager soundEffectManager;
+
+  void Start () {
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+  }
+
   void Update () {
-
     if (Input.GetKeyDown(KeyCode.Escape)) {
-
       switch (GameState.state) {
         case GameState.PAUSING:
           GameState.state = GameState.PLAYING;
@@ -29,9 +33,7 @@ public class PauseMenu : MonoBehaviour {
           Time.timeScale = 1;
           break;
       }
-
     }
-
   }
 
   void OnGUI () {
@@ -41,6 +43,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     GUI.skin = skin;
+    GUI.depth = 0;
 
     // Background
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
@@ -52,15 +55,17 @@ public class PauseMenu : MonoBehaviour {
     int buttonWidth = width / 3;
     int buttonHeight = height / 6;
 
+    // Buttons
     GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
 
     GUI.DrawTexture(new Rect(0, 0, width, height), pauseMenuBackgroundTexture);
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + height / 7, buttonWidth, buttonHeight), optionButtonTexture)) {
-      //audio.PlayOneShot(buttonSound);
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), optionButtonTexture)) {
+      soundEffectManager.playButtonSound();
     }
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + height / 7, buttonWidth, buttonHeight), exitButtonTexture)) {
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), exitButtonTexture)) {
+      soundEffectManager.playButtonSound();
       Application.LoadLevel("MainMenu");
     }
 

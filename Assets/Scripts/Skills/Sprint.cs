@@ -7,10 +7,6 @@ using System.Collections;
 
 public class Sprint : MonoBehaviour {
 
-  private CharacterMotor characterMotor;
-  private Vitality vitality;
-  private Footstep footstep;
-
   private float originalForwardSpeed;
   private float originalSidewaysSpeed;
   private float originalBackwardsSpeed;
@@ -25,19 +21,32 @@ public class Sprint : MonoBehaviour {
   public float restTime = 10.0f;
   private float restedTime;
 
+  private CharacterMotor characterMotor;
+
+  private Vitality vitality;
+
+  private Footstep footstep;
+
+  private SkillMenu skillMenu;
+
+  private SoundEffectManager soundEffectManager;
+
   void Start () {
     characterMotor = GetComponent<CharacterMotor>();
     vitality = GetComponent<Vitality>();
     footstep = GetComponent<Footstep>();
 
+    skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
+    skillMenu.unlockSkill(0);
+    skillMenu.setSkillMessage(0, "Gogogogo~~~~~~");
+
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     originalForwardSpeed = characterMotor.movement.maxForwardSpeed;
     originalSidewaysSpeed = characterMotor.movement.maxSidewaysSpeed;
     originalBackwardsSpeed = characterMotor.movement.maxBackwardsSpeed;
     sprintForwardSpeed = originalForwardSpeed * timesOfSpeed;
     sprintSidewaysSpeed = originalSidewaysSpeed * timesOfSpeed;
     sprintBackwardsSpeed = originalBackwardsSpeed * timesOfSpeed;
-
-    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(0);
   }
 
   void Update () {
@@ -60,6 +69,8 @@ public class Sprint : MonoBehaviour {
         vitality.use(need);
       } else {
         if (!isTired) {
+          soundEffectManager.playErrorSound();
+          MessageViewer.showErrorMessage("Not enough vitality");
           isTired = true;
           restedTime = 0;
         }
@@ -77,7 +88,4 @@ public class Sprint : MonoBehaviour {
 
   }
 
-  void OnGUI () {
-    GUI.Label(new Rect(10, 60, 200, 20), "shift : Sprint");
-  }
 }

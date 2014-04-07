@@ -10,11 +10,21 @@ public class Invisible : MonoBehaviour {
   public float vitalityCostPerSecond = 10;
 
   private bool isInvisible;
+  
+  private SkillMenu skillMenu;
+  
+  private SoundEffectManager soundEffectManager;
 
   void Start () {
     vitality = GetComponent<Vitality>();
+
     isInvisible = false;
-    GameObject.FindWithTag("Main").GetComponent<SkillMenu>().unlockSkill(2);
+
+    skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
+    skillMenu.unlockSkill(2);
+    skillMenu.setSkillMessage(2, "hide~~~~~~");
+
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
 
   void Update () {
@@ -39,7 +49,4 @@ public class Invisible : MonoBehaviour {
     }
   }
 
-  void OnGUI () {
-    GUI.Label(new Rect(10, 100, 200, 20), "2 : Invisible");
-  }
 }

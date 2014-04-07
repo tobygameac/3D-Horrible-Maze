@@ -11,7 +11,7 @@ public class Item : MonoBehaviour {
 
   void OnTriggerStay (Collider other) {
     if (other.tag == "Player") {
-      MessageShower.showMessage("Press Z to pick up " + itemName + ".", 0.1f);
+      MessageViewer.showMessage("Press Z to pick up " + itemName + ".", 0.1f);
       if (Input.GetKey(KeyCode.Z)) {
         if (skillName != null && skillName != "") {
           other.gameObject.AddComponent(skillName);
