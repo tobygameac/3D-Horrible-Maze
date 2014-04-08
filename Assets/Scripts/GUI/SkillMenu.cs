@@ -42,7 +42,7 @@ public class SkillMenu : MonoBehaviour {
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
     for (int i = 0; i < skillMessages.Length; i++) {
-      if (skillMessages[i] == "") {
+      if (skillMessages[i] == null || skillMessages[i] == "") {
         skillMessages[i] = "Unknown skill";
       }
     }
