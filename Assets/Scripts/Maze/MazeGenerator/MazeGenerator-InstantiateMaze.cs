@@ -11,7 +11,6 @@ public partial class MazeGenerator : MonoBehaviour {
   public GameObject wallPrefab;
   public GameObject bloodPrefab;
   public GameObject elevatorPrefab;
-  public GameObject[] randomEventPrefabs;
 
   private void instantiateMaze () {
 
@@ -25,7 +24,6 @@ public partial class MazeGenerator : MonoBehaviour {
       GameObject walls = new GameObject();
       GameObject bloods = new GameObject();
       GameObject elevators = new GameObject();
-      GameObject randomEvents = new GameObject();
 
       ceilings.transform.parent = floor.transform;
       ceilings.name = "ceilings";
@@ -37,8 +35,6 @@ public partial class MazeGenerator : MonoBehaviour {
       bloods.name = "bloods";
       elevators.transform.parent = floor.transform;
       elevators.name = "elevators";
-      randomEvents.transform.parent = floor.transform;
-      randomEvents.name = "randomEvents";
 
       Point startPoint = basicMazes[h].getStartPoint();
       Point endPoint = basicMazes[h].getEndPoint();
@@ -102,17 +98,6 @@ public partial class MazeGenerator : MonoBehaviour {
               blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
               blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
               blood.transform.parent = bloods.transform;
-            }
-
-            // Random events
-            if (random.Next(100) < 3) { // 3% to generate events
-              if (randomEventPrefabs.Length > 0) {
-                int randomEventIndex = random.Next(randomEventPrefabs.Length);
-                Vector3 randomEventPosition = new Vector3(realC, baseY + 1.25f, realR);
-                GameObject randomEvent = Instantiate(randomEventPrefabs[randomEventIndex], randomEventPosition, Quaternion.identity) as GameObject;
-                randomEvent.transform.localScale = new Vector3(BLOCK_SIZE / 2, 0.025f, BLOCK_SIZE / 2);
-                randomEvent.transform.parent = randomEvents.transform;
-              }
             }
 
           } else {

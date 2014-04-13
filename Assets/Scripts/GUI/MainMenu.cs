@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour {
     // Background
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
 
-    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/6 21.00");
+    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/13 21.00");
 
     int width = Screen.height - 100;
     int height = width;

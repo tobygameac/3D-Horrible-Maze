@@ -18,7 +18,7 @@ public class SkillMenu : MonoBehaviour {
   public Texture unknownTexture;
   public Texture lockedTexture;
 
-  public int additionalQTELengthPerSkill = 2;
+  public int additionalQTELengthPerSkill = 1;
 
   private const int skillCount = 5;
   private bool[] unlocked = new bool[skillCount];

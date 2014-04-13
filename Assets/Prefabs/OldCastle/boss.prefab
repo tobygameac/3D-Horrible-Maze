@@ -310,7 +310,7 @@ MonoBehaviour:
   attackingRadius: 3.5
   mentalityRestorePercentPerSecond: .0399999991
   mentalityAbsorbPercentPerSecond: .0799999982
-  QTELength: 4
+  QTELength: 2
   stunningTime: 20
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}

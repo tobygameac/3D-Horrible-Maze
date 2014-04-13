@@ -1,34 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MentalityBonus : MonoBehaviour {
+public class Score : MonoBehaviour {
 
-  public float mentalityGain = 10;
+  public int scoreGain = 1;
 
   private MazeGenerator maze;
 
   private SoundEffectManager soundEffectManager;
 
-  private Mentality mentality;
+  private Scoreboard scoreboard;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
       
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
-    
-    mentality = null;
+
+    scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
   }
 
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
       soundEffectManager.playBonusSound();
-      if (!mentality) {
-        mentality = other.GetComponent<Mentality>();
-      }
-      mentality.gain(mentalityGain);
+      scoreboard.addScore(scoreGain);
       Vector3 randomEventPosition = maze.getNewEventPosition();
       transform.position = randomEventPosition;
     }
   }
-
 }

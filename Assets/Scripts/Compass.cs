@@ -50,65 +50,60 @@ public class Compass : MonoBehaviour {
 
     GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
 
-    if (items.Length > 0) {
+    List<GameObject> targetAtFloor = new List<GameObject>();
 
-      List<GameObject> targetAtFloor = new List<GameObject>();
-
-      // Get all items at the same floor
-      for (int i = 0; i < items.Length; i++) {
-        Transform parentTransform = items[i].transform;
-        while (parentTransform.parent != null && parentTransform.name.IndexOf("floor") == -1) {
-          parentTransform = parentTransform.parent;
-        }
-        if (parentTransform.name == ("floor" + floorOfPlayer)) {
-          targetAtFloor.Add(items[i]);
-        }
+    // Get all items at the same floor
+    for (int i = 0; i < items.Length; i++) {
+      Transform parentTransform = items[i].transform;
+      while (parentTransform.parent != null && parentTransform.name.IndexOf("floor") == -1) {
+        parentTransform = parentTransform.parent;
       }
+      if (parentTransform.name == ("floor" + floorOfPlayer)) {
+        targetAtFloor.Add(items[i]);
+      }
+    }
 
-      // Get all elevators at the same floor
-      GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
+    // Get all elevators at the same floor
+    GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
+    for (int i = 0; i < elevators.Length; i++) {
+      Transform parentTransform = elevators[i].transform;
+      while (parentTransform.parent != null && parentTransform.name.IndexOf("floor") == -1) {
+        parentTransform = parentTransform.parent;
+      }
+      if (parentTransform.name == ("floor" + floorOfPlayer)) {
+        targetAtFloor.Add(elevators[i]);
+      }
+    }
+
+    // If there's nothing to point, then point to the elevator of previous floor
+    if (targetAtFloor.Count == 0) {
       for (int i = 0; i < elevators.Length; i++) {
         Transform parentTransform = elevators[i].transform;
         while (parentTransform.parent != null && parentTransform.name.IndexOf("floor") == -1) {
           parentTransform = parentTransform.parent;
         }
-        if (parentTransform.name == ("floor" + floorOfPlayer)) {
+        if (parentTransform.name == ("floor" + (floorOfPlayer - 1))) {
           targetAtFloor.Add(elevators[i]);
         }
       }
-
-      // If there's nothing to point, then point to the elevator of previous floor
-      if (targetAtFloor.Count == 0) {
-        for (int i = 0; i < elevators.Length; i++) {
-          Transform parentTransform = elevators[i].transform;
-          while (parentTransform.parent != null && parentTransform.name.IndexOf("floor") == -1) {
-            parentTransform = parentTransform.parent;
-          }
-          if (parentTransform.name == ("floor" + (floorOfPlayer - 1))) {
-            targetAtFloor.Add(elevators[i]);
-          }
-        }
-      }
-
-      Vector3 nowPosition2D = new Vector3(transform.position.x, 0, transform.position.z);
-
-      Vector3 targetPosition2D = new Vector3(targetAtFloor[0].transform.position.x, 0, targetAtFloor[0].transform.position.z);
-      float minDistance = Vector3.Distance(nowPosition2D, targetPosition2D);
-      Transform nearestTransform = targetAtFloor[0].transform;
-      for (int i = 1; i < targetAtFloor.Count; i++) {
-        targetPosition2D = new Vector3(targetAtFloor[i].transform.position.x, 0, targetAtFloor[i].transform.position.z);
-        float distance = Vector3.Distance(nowPosition2D, targetPosition2D);
-        if (distance < minDistance) {
-          minDistance = distance;
-          nearestTransform = targetAtFloor[i].transform;
-        }
-      }
-      virtualCompass.transform.position = new Vector3(transform.position.x, nearestTransform.position.y, transform.position.z);
-      virtualCompass.transform.LookAt(nearestTransform.position);
-      angle = virtualCompass.transform.eulerAngles.y - transform.eulerAngles.y;
-    } else {
-      Application.LoadLevel("MainMenu");
     }
+
+    Vector3 nowPosition2D = new Vector3(transform.position.x, 0, transform.position.z);
+
+    Vector3 targetPosition2D = new Vector3(targetAtFloor[0].transform.position.x, 0, targetAtFloor[0].transform.position.z);
+    float minDistance = Vector3.Distance(nowPosition2D, targetPosition2D);
+    Transform nearestTransform = targetAtFloor[0].transform;
+    for (int i = 1; i < targetAtFloor.Count; i++) {
+      targetPosition2D = new Vector3(targetAtFloor[i].transform.position.x, 0, targetAtFloor[i].transform.position.z);
+      float distance = Vector3.Distance(nowPosition2D, targetPosition2D);
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestTransform = targetAtFloor[i].transform;
+      }
+    }
+    virtualCompass.transform.position = new Vector3(transform.position.x, nearestTransform.position.y, transform.position.z);
+    virtualCompass.transform.LookAt(nearestTransform.position);
+    angle = virtualCompass.transform.eulerAngles.y - transform.eulerAngles.y;
   }
 
   void OnGUI () {

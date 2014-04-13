@@ -5,19 +5,29 @@ public class VitalityBonus : MonoBehaviour {
 
   public float vitalityGain = 10;
 
+  private MazeGenerator maze;
+
   private SoundEffectManager soundEffectManager;
 
   private Vitality vitality;
 
+  void Start () {
+    maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
+      
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+    
+    vitality = null;
+  }
+
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
-      vitality = GameObject.FindWithTag("Player").GetComponent<Vitality>();
-
-      soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
-      
       soundEffectManager.playBonusSound();
+      if (!vitality) {
+        vitality = other.GetComponent<Vitality>();
+      }
       vitality.gain(vitalityGain);
-      Destroy(gameObject);
+      Vector3 randomEventPosition = maze.getNewEventPosition();
+      transform.position = randomEventPosition;
     }
   }
 

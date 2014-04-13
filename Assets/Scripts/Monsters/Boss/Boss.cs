@@ -42,6 +42,9 @@ public class Boss : MonoBehaviour {
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
 
+  private Transform[] childrenTransforms;
+  private SphereCollider sphereCollider;
+
   // State
   private bool isMakingDecision = true;
   private bool isMoving = false;
@@ -69,6 +72,9 @@ public class Boss : MonoBehaviour {
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
+
+    childrenTransforms = GetComponentsInChildren<Transform>();
+    sphereCollider = GetComponent<SphereCollider>();
   }
 
   void Update () {
@@ -78,6 +84,10 @@ public class Boss : MonoBehaviour {
       if (stunnedTime >= stunningTime) {
         isStunning = false;
         isMakingDecision = true;
+        for (int i = 0; i < childrenTransforms.Length; i++) {
+          childrenTransforms[i].active = true;
+        }
+        collider.enabled = true;
       }
       return;
     }
@@ -382,6 +392,12 @@ public class Boss : MonoBehaviour {
     isAttacking = false;
     isStunning = true;
     stunnedTime = 0;
+    for (int i = 0; i < childrenTransforms.Length; i++) {
+      if (childrenTransforms[i].gameObject.tag != "Boss") {
+        childrenTransforms[i].active = false;
+      }
+    }
+    sphereCollider.enabled = false;
   }
 
   private void playAudio (AudioClip audioClip) {

@@ -40,6 +40,8 @@ public partial class MazeGenerator : MonoBehaviour {
 
     allocateItem();
 
+    initialRandomEvent();
+
     // Instantiate player
     int playerFloor = 0;
     Point startPoint = basicMazes[playerFloor].getStartPoint();
