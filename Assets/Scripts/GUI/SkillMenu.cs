@@ -32,7 +32,9 @@ public class SkillMenu : MonoBehaviour {
     if (skillIndex >= 0 && skillIndex < unlocked.Length) {
       unlocked[skillIndex] = true;
       hasNewSkill = true;
-      boss.addQTELength(additionalQTELengthPerSkill);
+      if (Application.loadedLevelName == "OldCastle") {
+        boss.addQTELength(additionalQTELengthPerSkill);
+      }
     }
   }
 
@@ -43,7 +45,9 @@ public class SkillMenu : MonoBehaviour {
   }
 
   void Start () {
-    boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+    if (Application.loadedLevelName == "OldCastle") {
+      boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+    }
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
