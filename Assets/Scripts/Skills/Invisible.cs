@@ -13,7 +13,7 @@ public class Invisible : MonoBehaviour {
   
   private SkillMenu skillMenu;
   
-  private SoundEffectManager soundEffectManager;
+  //private SoundEffectManager soundEffectManager;
 
   void Start () {
     vitality = GetComponent<Vitality>();
@@ -24,7 +24,7 @@ public class Invisible : MonoBehaviour {
     skillMenu.unlockSkill(2);
     skillMenu.setSkillMessage(2, "hide~~~~~~");
 
-    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+    //soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
 
   void Update () {

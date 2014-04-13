@@ -17,10 +17,14 @@ public class SkillMenu : MonoBehaviour {
 
   public Texture unknownTexture;
 
+  public int additionalQTELengthPerSkill = 2;
+
   private const int skillCount = 5;
   private bool[] unlocked = new bool[skillCount];
   private bool hasNewSkill;
   private string[] skillMessages = new string[skillCount];
+
+  private Boss boss;
 
   private SoundEffectManager soundEffectManager;
 
@@ -28,6 +32,7 @@ public class SkillMenu : MonoBehaviour {
     if (skillIndex >= 0 && skillIndex < unlocked.Length) {
       unlocked[skillIndex] = true;
       hasNewSkill = true;
+      boss.addQTELength(additionalQTELengthPerSkill);
     }
   }
 
@@ -38,6 +43,7 @@ public class SkillMenu : MonoBehaviour {
   }
 
   void Start () {
+    boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
@@ -80,10 +86,14 @@ public class SkillMenu : MonoBehaviour {
     
     // Only show menu button
     if (GameState.state != GameState.SKILLVIEWING) {
+      int buttonWidth = Screen.height / 9;
+      int buttonHeight = buttonWidth;
       if (hasNewSkill) {
-        GUI.DrawTexture(new Rect(10, Screen.height - 130, 100, 50), hasNewSkillTexture);
+        int messageWidth = buttonWidth * 2;
+        int messageHeight = messageWidth / 2;
+        GUI.DrawTexture(new Rect(messageWidth / 10, (int)(Screen.height - messageHeight - buttonHeight * 1.5), messageWidth, messageHeight), hasNewSkillTexture);
       }
-      GUI.DrawTexture(new Rect(10, Screen.height - 75, 50, 50), skillMenuButtonTexture);
+      GUI.DrawTexture(new Rect(buttonWidth / 10, (int)(Screen.height - buttonHeight * 1.5), buttonWidth, buttonHeight), skillMenuButtonTexture);
       return;
     }
 

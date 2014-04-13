@@ -6,15 +6,15 @@ using System.Collections;
 
 public class Roar : MonoBehaviour {
 
-  private Vitality vitality;
-  private Mentality mentality;
-
   public float vitalityCost = 50;
   public float mentalityGain = 10;
 
   private SkillMenu skillMenu;
 
   private SoundEffectManager soundEffectManager;
+
+  private Vitality vitality;
+  private Mentality mentality;
 
   void Start () {
     vitality = GetComponent<Vitality>();

@@ -198,3 +198,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
+  cryingSound: {fileID: 0}

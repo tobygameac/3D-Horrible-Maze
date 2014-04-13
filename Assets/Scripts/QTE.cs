@@ -56,16 +56,21 @@ public class QTE : MonoBehaviour {
 
       GUI.depth = 1;
 
+      int arrowSize;
       if (small) {
-        GUI.DrawTexture(new Rect(110, 110, 80, 80), QTETextures[textureIndex]);
+        arrowSize = Screen.height / 10;
       } else {
-        GUI.DrawTexture(new Rect(100, 100, 100, 100), QTETextures[textureIndex]);
+        arrowSize = Screen.height / 8;
       }
+      GUI.DrawTexture(new Rect((Screen.width - arrowSize) / 2, Screen.height / 5, arrowSize, arrowSize), QTETextures[textureIndex]);
 
-      GUI.DrawTexture(new Rect(100, 250, 20 * QTEFullLength, 50), barBackgroundTexture);
+      int barWidth = Screen.width / 5;
+      int barHeight = Screen.height / 16;
+
+      GUI.DrawTexture(new Rect((Screen.width - barWidth) / 2, Screen.height / 8, barWidth, barHeight), barBackgroundTexture);
       
-      GUI.BeginGroup(new Rect(100, 250, 20 * QTENowLength, 50));
-      GUI.DrawTexture(new Rect(0, 0, 20 * QTEFullLength, 50), barTexture);
+      GUI.BeginGroup(new Rect((Screen.width - barWidth) / 2, Screen.height / 8, (int)(barWidth * QTENowLength / (float)QTEFullLength), barHeight));
+      GUI.DrawTexture(new Rect(0, 0, barWidth, barHeight), barTexture);
       GUI.EndGroup();
     }
   }

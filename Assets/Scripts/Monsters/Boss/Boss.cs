@@ -26,7 +26,7 @@ public class Boss : MonoBehaviour {
   public float mentalityRestorePercentPerSecond = 0.02f;
   public float mentalityAbsorbPercentPerSecond = 0.04f;
 
-  public int QTELength = 10;
+  public int QTELength = 4;
   private List<int> QTEvent = new List<int>();
 
   public float stunningTime = 5.0f;
@@ -146,8 +146,13 @@ public class Boss : MonoBehaviour {
       bool wrong = false;
       bool success = false;
 
+      KeyCode[] secondHotkeys = new KeyCode[4];
+      secondHotkeys[0] = KeyCode.W;
+      secondHotkeys[1] = KeyCode.S;
+      secondHotkeys[2] = KeyCode.D;
+      secondHotkeys[3] = KeyCode.A;
       for (int direction = 0; direction < 4; direction++) {
-        if (Input.GetKeyDown(KeyCode.UpArrow + direction)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow + direction) || Input.GetKeyDown(secondHotkeys[direction])) {
           if (QTEvent[0] == direction) {
             success = true;
           } else {
@@ -212,6 +217,10 @@ public class Boss : MonoBehaviour {
       makeDecision();
     }
 
+  }
+
+  public void addQTELength (int addedLength) {
+    QTELength += addedLength;
   }
 
   private void lookAtPlayer () {
@@ -375,7 +384,7 @@ public class Boss : MonoBehaviour {
     stunnedTime = 0;
   }
 
-  private void playAudio(AudioClip audioClip) {
+  private void playAudio (AudioClip audioClip) {
     audio.Stop();
     audio.clip = audioClip;
     audio.Play();

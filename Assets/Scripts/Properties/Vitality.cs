@@ -23,6 +23,13 @@ public class Vitality : MonoBehaviour {
     return (vitalityPoint >= need);
   }
 
+  public void gain (float point) {
+    vitalityPoint += point;
+    if (vitalityPoint > maxVitalityPoint) {
+      vitalityPoint = maxVitalityPoint;
+    }
+  }
+
   public void use (float need) {
     if (vitalityPoint >= need) {
       vitalityPoint -= need;
