@@ -10211,6 +10211,8 @@ MonoBehaviour:
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 0}
+  bonusSound: {fileID: 0}
+  trapSound: {fileID: 0}
 --- !u!114 &878738419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10317,14 +10319,15 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 387711f9c5686354990ae5f80c0d9d8b, type: 3}
   - {fileID: 2800000, guid: 242d0c5cdd62ab04d84df11791e6dc13, type: 3}
   - {fileID: 2800000, guid: 4e2468869c85f4b4ebc59bbab28de7d9, type: 3}
-  - {fileID: 2800000, guid: 253960184259961428dbe21648374b72, type: 3}
+  - {fileID: 2800000, guid: aabf5d0cdef05cb44960f6856775565a, type: 3}
   hotkeyTextures:
   - {fileID: 2800000, guid: c9faecab9ed424045a5fe9d450f7457a, type: 3}
   - {fileID: 2800000, guid: ea21d2a94be1c7d4dbbb3f4d26d5913d, type: 3}
   - {fileID: 2800000, guid: 76a3392d31479024fa15c295f2d37742, type: 3}
   - {fileID: 2800000, guid: f44fb8d1af3745c4289bf49cbc26d9c2, type: 3}
   - {fileID: 2800000, guid: 346b249ac90f7804a87614267001bcf7, type: 3}
-  unknownTexture: {fileID: 2800000, guid: ab5141ae02b68dc4482ae0d0769d5eae, type: 3}
+  unknownTexture: {fileID: 2800000, guid: e68035d418602f14780dcced23f58cda, type: 3}
+  lockedTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
   additionalQTELengthPerSkill: 2
 --- !u!114 &878738423
 MonoBehaviour:
@@ -26597,6 +26600,22 @@ Prefab:
       propertyPath: messageBackgroundTexture
       value: 
       objectReference: {fileID: 2800000, guid: 5eed3647ef31dc64296f47728a6472dc, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: skillTextures.Array.data[4]
+      value: 
+      objectReference: {fileID: 2800000, guid: aabf5d0cdef05cb44960f6856775565a, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: unknownTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: e68035d418602f14780dcced23f58cda, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: skillMenuBackgroundTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: lockedTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
     m_RemovedComponents:
     - {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}

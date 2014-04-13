@@ -15,6 +15,7 @@ public class MentalityBonus : MonoBehaviour {
       
       soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
       
+      soundEffectManager.playBonusSound();
       mentality.gain(mentalityGain);
       Destroy(gameObject);
     }

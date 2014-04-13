@@ -16,6 +16,7 @@ public class SkillMenu : MonoBehaviour {
   public Texture[] hotkeyTextures;
 
   public Texture unknownTexture;
+  public Texture lockedTexture;
 
   public int additionalQTELengthPerSkill = 2;
 
@@ -110,33 +111,40 @@ public class SkillMenu : MonoBehaviour {
     int width = Screen.height - 100;
     int height = width;
 
-    int skillIconWidth = width / 8;
-    int skillIconHeight = height / 8;
-    int hotkeyIconWidth = width / 4;
-    int hotkeyIconHeight = height / 8;
+    int skillIconWidth = width / 10;
+    int skillIconHeight = height / 10;
+    int hotkeyIconWidth = width / 5;
+    int hotkeyIconHeight = height / 10;
     int skillMessageWidth = width;
-    int skillMessageHeight = height / 8;
+    int skillMessageHeight = height / 10;
 
     GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
 
     GUI.DrawTexture(new Rect(0, 0, width, height), skillMenuBackgroundTexture);
 
+    int startX = width / 6;
+    int startY = height / 4;
+
     for (int i = 0; i < unlocked.Length; i++) {
+      if (unlocked[i]) {
+        GUI.DrawTexture(new Rect(startX, i * (hotkeyIconHeight + 10) + startY, hotkeyIconWidth, hotkeyIconHeight), hotkeyTextures[i]);
+      }
       Texture skillTexture;
       if (unlocked[i]) {
         skillTexture = skillTextures[i];
       } else {
         skillTexture = unknownTexture;
       }
-      GUI.DrawTexture(new Rect(width / 7, i * (hotkeyIconHeight + 10) + height / 7, hotkeyIconWidth, hotkeyIconHeight), hotkeyTextures[i]);
-      GUI.DrawTexture(new Rect(width / 7 + hotkeyIconWidth + 10, i * (skillIconHeight + 10) + height / 7, skillIconWidth, skillIconHeight), skillTexture);
+      GUI.DrawTexture(new Rect(startX + hotkeyIconWidth + 10, i * (skillIconHeight + 10) + startY, skillIconWidth, skillIconHeight), skillTexture);
       Color originalColor = GUI.color;
       GUI.color = Color.black;
-      GUI.Label(new Rect(width / 7 + hotkeyIconWidth + 10 + skillIconWidth + 20,
-                        i * (skillMessageHeight + 10) + height / 7 + skillMessageHeight / 3,
+      GUI.Label(new Rect(startX + hotkeyIconWidth + 10 + skillIconWidth + 20,
+                        i * (skillMessageHeight + 10) + startY + skillMessageHeight / 3,
                         skillMessageWidth, skillMessageHeight), skillMessages[i]);
-
       GUI.color = originalColor;
+      if (!unlocked[i]) {
+        GUI.DrawTexture(new Rect(startX, i * (hotkeyIconHeight + 10) + startY, width - startX * 2, skillIconHeight), lockedTexture);
+      }
     }
 
     GUILayout.EndArea();

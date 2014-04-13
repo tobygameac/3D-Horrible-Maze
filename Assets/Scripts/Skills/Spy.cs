@@ -39,7 +39,7 @@ public class Spy : MonoBehaviour {
       }
     }
 
-    if (Input.GetKey(KeyCode.Keypad3) || Input.GetKey(KeyCode.Alpha3)) {
+    if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3)) {
       if (!isSpying) {
         if (vitality.enough(vitalityCost)) {
           vitality.use(vitalityCost);

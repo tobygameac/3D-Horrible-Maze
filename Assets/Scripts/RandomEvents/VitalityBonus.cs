@@ -14,7 +14,8 @@ public class VitalityBonus : MonoBehaviour {
       vitality = GameObject.FindWithTag("Player").GetComponent<Vitality>();
 
       soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
-
+      
+      soundEffectManager.playBonusSound();
       vitality.gain(vitalityGain);
       Destroy(gameObject);
     }

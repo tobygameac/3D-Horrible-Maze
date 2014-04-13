@@ -48,6 +48,8 @@ public class SlowingTrap : MonoBehaviour {
 
       soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
+      soundEffectManager.playTrapSound();
+
       originalForwardSpeed = characterMotor.movement.maxForwardSpeed;
       originalSidewaysSpeed = characterMotor.movement.maxSidewaysSpeed;
       originalBackwardsSpeed = characterMotor.movement.maxBackwardsSpeed;

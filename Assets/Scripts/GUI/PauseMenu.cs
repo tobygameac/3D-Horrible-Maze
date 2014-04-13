@@ -60,11 +60,13 @@ public class PauseMenu : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(0, 0, width, height), pauseMenuBackgroundTexture);
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), optionButtonTexture)) {
+    int startY = height / 4;
+
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
       soundEffectManager.playButtonSound();
     }
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), exitButtonTexture)) {
+    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("MainMenu");
     }
