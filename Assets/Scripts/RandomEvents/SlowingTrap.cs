@@ -37,8 +37,12 @@ public class SlowingTrap : MonoBehaviour {
 
   void Update () {
     if (isSlowing) {
-      maskAlpha = ((int)(Time.time * 100) % 100) / 100.0f;
-      print(maskAlpha);
+      int ms = (int)((Time.time * 100) % 100);
+      if (ms < 50) {
+        maskAlpha = (ms * 2) / 100.0f;
+      } else {
+        maskAlpha = ((100 - ms) * 2) / 100.0f;
+      }
       slowedTime += Time.deltaTime;
       if (slowedTime >= slowingTime) {
         sprint.enabled = true;

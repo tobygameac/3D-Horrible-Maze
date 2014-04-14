@@ -63,7 +63,7 @@ public class FaceUnderTheGround : MonoBehaviour {
     for (int i = 0; i < childrenRenderers.Length; i++) {
       childrenRenderers[i].enabled = false;
     }
-    attackTime = Time.time + random.Next(minAttackCooldown + maxAttackCooldown);
+    attackTime = Time.time + random.Next(minAttackCooldown, maxAttackCooldown);
     risedDistance = 0;
     attacking = false;
   }

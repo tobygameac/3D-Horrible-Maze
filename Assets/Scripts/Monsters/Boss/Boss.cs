@@ -67,9 +67,8 @@ public class Boss : MonoBehaviour {
   private List<Vector3> path;
   private int pathIndex;
 
-  // Sounds
   public AudioClip tracingSound;
-  public AudioClip cryingSound;
+  private SoundEffectManager soundEffectManager;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -78,6 +77,9 @@ public class Boss : MonoBehaviour {
     playerMentality = player.GetComponent<Mentality>();
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
     playerMouseLook = player.GetComponent<MouseLook>();
+
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
 
@@ -173,8 +175,10 @@ public class Boss : MonoBehaviour {
       for (int direction = 0; direction < 4; direction++) {
         if (Input.GetKeyDown(KeyCode.UpArrow + direction) || Input.GetKeyDown(secondHotkeys[direction])) {
           if (QTEvent[0] == direction) {
+            soundEffectManager.playQTEHitSound();
             success = true;
           } else {
+            soundEffectManager.playQTEMissSound();
             wrong = true;
           }
         }
@@ -392,13 +396,13 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToTracingState () {
+    playAudio(tracingSound);
     isStaring = false;
     isTracing = true;
-    playAudio(tracingSound);
   }
 
   private void turnToAttackingState () {
-    playAudio(cryingSound);
+    soundEffectManager.playCryingSound();
     isTracing = false;
     isAttacking = true;
     playerMouseLook.enabled = false;
@@ -408,6 +412,7 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToStunningState () {
+    audio.Stop();
     isStaring = false;
     isTracing = false;
     isAttacking = false;

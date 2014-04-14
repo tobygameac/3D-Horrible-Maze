@@ -11,6 +11,7 @@ public class SkillMenu : MonoBehaviour {
   public Texture skillMenuButtonTexture;
 
   public Texture hasNewSkillTexture;
+  private float hasNewSkillTextureAlpha;
 
   public Texture[] skillTextures;
   public Texture[] hotkeyTextures;
@@ -60,7 +61,13 @@ public class SkillMenu : MonoBehaviour {
   }
 
   void Update () {
-
+    int ms = (int)((Time.time * 100) % 100);
+    if (ms < 50) {
+      hasNewSkillTextureAlpha = (ms * 2) / 100.0f;
+    } else {
+      hasNewSkillTextureAlpha = ((100 - ms) * 2) / 100.0f;
+    }
+    
     if (Input.GetKeyDown(KeyCode.K)) {
 
       switch (GameState.state) {
@@ -96,7 +103,10 @@ public class SkillMenu : MonoBehaviour {
       if (hasNewSkill) {
         int messageWidth = buttonWidth * 2;
         int messageHeight = messageWidth / 2;
+        Color originalColor = GUI.color;
+        GUI.color = new Color(1, 1, 1, hasNewSkillTextureAlpha);
         GUI.DrawTexture(new Rect(messageWidth / 10, (int)(Screen.height - messageHeight - buttonHeight * 1.5), messageWidth, messageHeight), hasNewSkillTexture);
+        GUI.color = originalColor;
       }
       GUI.DrawTexture(new Rect(buttonWidth / 10, (int)(Screen.height - buttonHeight * 1.5), buttonWidth, buttonHeight), skillMenuButtonTexture);
       return;

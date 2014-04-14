@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour {
   public Texture backgroundTexture;
 
   public Texture startButtonTexture;
+  public Texture scoreboardButtonTexture;
   public Texture optionButtonTexture;
   public Texture exitButtonTexture;
 
@@ -23,10 +24,9 @@ public class MainMenu : MonoBehaviour {
   void OnGUI () {
     GUI.skin = skin;
 
-    // Background
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
 
-    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/13 21.00");
+    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/14 18.00");
 
     int width = Screen.height - 100;
     int height = width;
@@ -37,16 +37,24 @@ public class MainMenu : MonoBehaviour {
     // Buttons
     GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), startButtonTexture)) {
+    int startX = (width - buttonWidth) / 2;
+    int startY = height / 5;
+
+    if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), startButtonTexture)) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("Entrance");
     }
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), optionButtonTexture)) {
+    if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), scoreboardButtonTexture)) {
+      soundEffectManager.playButtonSound();
+      Application.LoadLevel("ViewScoreboard");
+    }
+
+    if (GUI.Button(new Rect(startX, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
       soundEffectManager.playButtonSound();
     }
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + height / 5, buttonWidth, buttonHeight), exitButtonTexture)) {
+    if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
       soundEffectManager.playButtonSound();
       Application.Quit();
     }

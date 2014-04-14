@@ -14,15 +14,23 @@ public class Mentality : MonoBehaviour {
 
   private GameObject sight;
 
+  private bool gameover = false;
+  private Scoreboard scoreboard;
+
   void Start () {
     mentalityPoint = maxMentalityPoint;
     sight = transform.FindChild("sight").gameObject;
+
+    scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
   }
 
   void Update () {
     mentalityPoint -= Time.deltaTime * faintPerSecond;
     if (mentalityPoint <= 0) {
-      Application.LoadLevel("MainMenu");
+      if (!gameover) {
+        gameover = true;
+        StartCoroutine(scoreboard.postScore());
+      }
     }
     // Fading
     float ambientR = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;

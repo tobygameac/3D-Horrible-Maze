@@ -74,18 +74,18 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &919995535
+--- !u!1 &1467129971
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 919995536}
-  - 114: {fileID: 919995537}
-  - 114: {fileID: 919995540}
-  - 82: {fileID: 919995538}
-  - 81: {fileID: 919995539}
+  - 4: {fileID: 1467129972}
+  - 114: {fileID: 1467129973}
+  - 82: {fileID: 1467129975}
+  - 114: {fileID: 1467129974}
+  - 81: {fileID: 1467129976}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -93,46 +93,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &919995536
+--- !u!4 &1467129972
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919995535}
+  m_GameObject: {fileID: 1467129971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &919995537
+--- !u!114 &1467129973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919995535}
+  m_GameObject: {fileID: 1467129971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be431a24d49b884b91dce6f493a8125, type: 3}
+  m_Script: {fileID: 11500000, guid: ee63ad0e45c8a8741a9828a0263f7717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
-  backgroundTexture: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
-  startButtonTexture: {fileID: 2800000, guid: 48a32d947c68b004a92e13b917257e79, type: 3}
-  scoreboardButtonTexture: {fileID: 2800000, guid: 7d2607d363ed17e499dfa2d97913d5d6,
+  backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
+  scoreboardBackgroundTexture: {fileID: 2800000, guid: 5527c60c9388334489d0becfd86784e3,
     type: 3}
-  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
-  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
---- !u!82 &919995538
+  returnButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+--- !u!114 &1467129974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1467129971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb6a784225309642b54ac3698161264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
+  errorSound: {fileID: 0}
+  cryingSound: {fileID: 0}
+  tracingSound: {fileID: 0}
+  bonusSound: {fileID: 0}
+  trapSound: {fileID: 0}
+  QTEHitSound: {fileID: 0}
+  QTEMissSound: {fileID: 0}
+--- !u!82 &1467129975
 AudioSource:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919995535}
+  m_GameObject: {fileID: 1467129971}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 270525a1a697d454fb8d547ea573c502, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: .25
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -180,29 +197,10 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!81 &919995539
+--- !u!81 &1467129976
 AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919995535}
+  m_GameObject: {fileID: 1467129971}
   m_Enabled: 1
---- !u!114 &919995540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919995535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bb6a784225309642b54ac3698161264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
-  errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
-  cryingSound: {fileID: 0}
-  tracingSound: {fileID: 0}
-  bonusSound: {fileID: 0}
-  trapSound: {fileID: 0}
-  QTEHitSound: {fileID: 0}
-  QTEMissSound: {fileID: 0}
