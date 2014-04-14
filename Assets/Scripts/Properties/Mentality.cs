@@ -51,6 +51,8 @@ public class Mentality : MonoBehaviour {
   }
 
   void OnGUI () {
+    GUI.depth = 0;
+
     GUI.DrawTexture(new Rect(10, 20, (int)mentalityPoint, 10), mentalityBarTexture, ScaleMode.StretchToFill);
   }
 }

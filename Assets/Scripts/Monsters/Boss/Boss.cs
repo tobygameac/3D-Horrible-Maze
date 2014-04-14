@@ -6,6 +6,9 @@ public class Boss : MonoBehaviour {
 
   public bool isDebugging;
 
+  public Texture attackingMaskTexture;
+  private float maskAlpha;
+
   // Speed parameter
   public float movingSpeed = 0.75f;
   public float acceleration = 0.01f;
@@ -151,6 +154,7 @@ public class Boss : MonoBehaviour {
     }
 
     if (isAttacking) {
+      maskAlpha = ((int)(Time.time * 100) % 100) / 100.0f;
       playerCharacterMotor.canControl = false;
       float maxMentalityPoint = playerMentality.maxMentalityPoint;
       // Absorb the mentality of the player
@@ -232,6 +236,16 @@ public class Boss : MonoBehaviour {
       makeDecision();
     }
 
+  }
+
+  void OnGUI () {
+    if (isAttacking) {
+      Color originalColor = GUI.color;
+      GUI.color = new Color(1, 1, 1, maskAlpha);
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), attackingMaskTexture);
+      GUI.color = originalColor;
+      return;
+    }
   }
 
   public void addQTELength (int addedLength) {

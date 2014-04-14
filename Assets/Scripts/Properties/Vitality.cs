@@ -37,6 +37,8 @@ public class Vitality : MonoBehaviour {
   }
 
   void OnGUI () {
+    GUI.depth = 0;
+
     GUI.DrawTexture(new Rect(10, 40, (int)vitalityPoint, 10), vitalityBarTexture, ScaleMode.StretchToFill);
   }
 }

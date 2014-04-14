@@ -102,6 +102,8 @@ public class Compass : MonoBehaviour {
   }
 
   void OnGUI () {
+    GUI.depth = 0;
+
     width = Screen.width / 6;
     height = width;
     positionOnScreenX = Screen.width - width - width / 4;

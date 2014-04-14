@@ -506,6 +506,14 @@ Prefab:
       propertyPath: additionalQTELengthPerSkill
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: randomEventPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 100000, guid: 092c57a89a0b41c4e90c5ec9d8a8bde2, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: randomEventCount.Array.data[4]
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

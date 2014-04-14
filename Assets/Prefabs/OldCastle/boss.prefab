@@ -326,6 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugging: 1
+  attackingMaskTexture: {fileID: 2800000, guid: 94a4f923620ca4f45abea065b129edee,
+    type: 3}
   movingSpeed: 3
   acceleration: .00999999978
   probabilityOfWandering: .699999988

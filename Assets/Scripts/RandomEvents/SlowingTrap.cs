@@ -3,6 +3,9 @@ using System.Collections;
 
 public class SlowingTrap : MonoBehaviour {
 
+  public Texture slowingTrapMaskTexture;
+  private float maskAlpha;
+
   private float originalForwardSpeed;
   private float originalSidewaysSpeed;
   private float originalBackwardsSpeed;
@@ -34,6 +37,8 @@ public class SlowingTrap : MonoBehaviour {
 
   void Update () {
     if (isSlowing) {
+      maskAlpha = ((int)(Time.time * 100) % 100) / 100.0f;
+      print(maskAlpha);
       slowedTime += Time.deltaTime;
       if (slowedTime >= slowingTime) {
         sprint.enabled = true;
@@ -44,6 +49,16 @@ public class SlowingTrap : MonoBehaviour {
         Vector3 randomEventPosition = maze.getNewEventPosition();
         transform.position = randomEventPosition;
       }
+      return;
+    }
+  }
+
+  void OnGUI () {
+    if (isSlowing) {
+      Color originalColor = GUI.color;
+      GUI.color = new Color(1, 1, 1, maskAlpha);
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), slowingTrapMaskTexture);
+      GUI.color = originalColor;
       return;
     }
   }
