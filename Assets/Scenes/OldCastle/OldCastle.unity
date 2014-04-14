@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb9711716fb7814ca6e501b3e891787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomEventCount: 1e0000000f0000000f00000005000000
+  randomEventCount: 190000000a0000000a00000005000000
   randomEventPrefabs:
   - {fileID: 100000, guid: 4004efc6cede9d44f932a1c7d27857d8, type: 2}
   - {fileID: 100000, guid: e5fba8a4f1b1e4048a064033e2c38132, type: 2}
@@ -196,7 +196,7 @@ MonoBehaviour:
   isDebugging: 0
   MAZE_R: 10
   MAZE_C: 10
-  MAZE_H: 20
+  MAZE_H: 5
   BLOCK_SIZE: 2
   playerPrefab: {fileID: 100004, guid: a397231bd91b2b54280ba596aeaf1e28, type: 2}
   bossPrefab: {fileID: 100000, guid: 22b797747c581b54a90891d841f89cb1, type: 2}
@@ -424,7 +424,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: MAZE_H
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: messageBackgroundTexture
@@ -484,15 +484,15 @@ Prefab:
       objectReference: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[0]
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[1]
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[2]
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[3]

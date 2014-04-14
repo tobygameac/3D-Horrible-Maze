@@ -7,7 +7,7 @@ TagManager:
   - Elevator
   - Item
   - Boss
-  - BossCamera
+  - LookAtPoint
   - BloodFromPlayer
   - 
   Builtin Layer 0: Default

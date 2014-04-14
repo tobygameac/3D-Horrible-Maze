@@ -8,8 +8,8 @@ public class Compass : MonoBehaviour {
   public Texture compassTexture;
 
   // GUI parameters
-  public int width = 200;
-  public int height = 200;
+  public int width;
+  public int height;
   private int positionOnScreenX;
   private int positionOnScreenY;
 
@@ -27,11 +27,6 @@ public class Compass : MonoBehaviour {
   private List<float> baseY = new List<float>();
 
   void Start () {
-    positionOnScreenX = Screen.width - 250;
-    positionOnScreenY = Screen.height - 250;
-
-    pivotPoint = new Vector2(positionOnScreenX + width / 2, positionOnScreenY + height / 2);
-
     virtualCompass = new GameObject();
     virtualCompass.name = "virtual compass";
 
@@ -107,6 +102,11 @@ public class Compass : MonoBehaviour {
   }
 
   void OnGUI () {
+    width = Screen.width / 6;
+    height = width;
+    positionOnScreenX = Screen.width - width - width / 4;
+    positionOnScreenY = Screen.height - height - height / 4;
+    pivotPoint = new Vector2(positionOnScreenX + width / 2, positionOnScreenY + height / 2);
     GUI.DrawTexture(new Rect(positionOnScreenX, positionOnScreenY, width, height), compassBackgroundTexture);
     GUIUtility.RotateAroundPivot(angle, pivotPoint);
     GUI.DrawTexture(new Rect(positionOnScreenX, positionOnScreenY, width, height), compassTexture);

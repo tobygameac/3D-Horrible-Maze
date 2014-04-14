@@ -36,9 +36,12 @@ public class Boss : MonoBehaviour {
 
   private MazeGenerator maze;
 
+  private GameObject lookAtPoint;
+
   private GameObject player;
   private Mentality playerMentality;
   private CharacterMotor playerCharacterMotor;
+  private MouseLook playerMouseLook;
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
 
@@ -67,9 +70,11 @@ public class Boss : MonoBehaviour {
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
+    lookAtPoint = GameObject.FindWithTag("LookAtPoint");
     player = GameObject.FindWithTag("Player");
     playerMentality = player.GetComponent<Mentality>();
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
+    playerMouseLook = player.GetComponent<MouseLook>();
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
 
@@ -382,6 +387,8 @@ public class Boss : MonoBehaviour {
     playAudio(cryingSound);
     isTracing = false;
     isAttacking = true;
+    playerMouseLook.enabled = false;
+    player.transform.LookAt(lookAtPoint.transform);
     // Generate the first event
     QTEvent = QTE.generateQTE(QTELength);
   }
@@ -392,6 +399,7 @@ public class Boss : MonoBehaviour {
     isAttacking = false;
     isStunning = true;
     stunnedTime = 0;
+    playerMouseLook.enabled = true;
     for (int i = 0; i < childrenTransforms.Length; i++) {
       if (childrenTransforms[i].gameObject.tag != "Boss") {
         childrenTransforms[i].active = false;

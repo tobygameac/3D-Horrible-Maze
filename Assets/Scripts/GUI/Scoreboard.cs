@@ -21,13 +21,13 @@ public class Scoreboard : MonoBehaviour {
     GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
     Color originalColor = GUI.color;
     GUI.color = Color.black;
-    GUI.Label(new Rect(startX + width / 4, startY + height / 3, width, height),  score.ToString());
+    GUI.Label(new Rect(startX + width / 4, startY + height / 3, width, height),  "Score : " + score);
     GUI.color = originalColor;
   }
 
   public void addScore (int addedScore) {
     score += addedScore;
-    if ((score % 10) == 0) {
+    if ((score % 1000) == 0) {
       boss.addQTELength(1);
     }
   }

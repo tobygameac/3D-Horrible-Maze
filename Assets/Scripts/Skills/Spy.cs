@@ -12,6 +12,7 @@ public class Spy : MonoBehaviour {
   private bool isSpying = false;
 
   private Vitality vitality;
+  private Light bossLight;
   private Camera bossCamera;
 
   private SkillMenu skillMenu;
@@ -21,7 +22,8 @@ public class Spy : MonoBehaviour {
   void Start () {
     vitality = GetComponent<Vitality>();
 
-    bossCamera = GameObject.FindGameObjectWithTag("BossCamera").camera;
+    bossCamera = GameObject.FindWithTag("Boss").GetComponentInChildren<Camera>();
+    bossLight = GameObject.FindWithTag("Boss").GetComponentInChildren<Light>();
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(3);
@@ -34,8 +36,9 @@ public class Spy : MonoBehaviour {
     if (isSpying) {
       spiedTime += Time.deltaTime;
       if (spiedTime >= spyingTime) {
-        bossCamera.enabled = false;
         isSpying = false;
+        bossCamera.enabled = false;
+        bossLight.enabled = false;
       }
     }
 
@@ -46,6 +49,7 @@ public class Spy : MonoBehaviour {
           isSpying = true;
           spiedTime = 0;
           bossCamera.enabled = true;
+          bossLight.enabled = true;
         } else {
           soundEffectManager.playErrorSound();
           MessageViewer.showErrorMessage("Not enough vitality");

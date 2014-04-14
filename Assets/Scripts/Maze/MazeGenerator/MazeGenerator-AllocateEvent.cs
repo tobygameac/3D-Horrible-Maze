@@ -33,7 +33,7 @@ public partial class MazeGenerator : MonoBehaviour {
     for (int i = 0; i < number; i++) {
       Vector3 randomEventPosition = getNewEventPosition();
       GameObject randomEvent = Instantiate(randomEventPrefabs[randomEventIndex], randomEventPosition, Quaternion.identity) as GameObject;
-      randomEvent.transform.localScale = new Vector3(BLOCK_SIZE / 2, 0.025f, BLOCK_SIZE / 2);
+      randomEvent.transform.localScale = new Vector3(BLOCK_SIZE / 2.5f, 0.025f, BLOCK_SIZE / 2.5f);
       randomEvent.transform.parent = randomEvents.transform;
     }
   }

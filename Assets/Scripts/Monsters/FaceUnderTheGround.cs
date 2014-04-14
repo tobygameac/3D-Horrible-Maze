@@ -3,8 +3,8 @@ using System.Collections;
 
 public class FaceUnderTheGround : MonoBehaviour {
 
-  private int minAttackCooldown = 30;
-  private int maxAttackCooldown = 120;
+  public int minAttackCooldown = 30;
+  public int maxAttackCooldown = 120;
 
   private Vector3 originalLocalPosition;
   private Vector3 originalLocalRotation;
@@ -32,6 +32,13 @@ public class FaceUnderTheGround : MonoBehaviour {
     originalLocalPosition = transform.localPosition;
     originalLocalRotation = transform.eulerAngles;
     childrenRenderers = GetComponentsInChildren<Renderer>();
+    for (int i = 0; i < childrenRenderers.Length; i++) {
+      float r = childrenRenderers[i].material.color.r;
+      float g = childrenRenderers[i].material.color.g;
+      float b = childrenRenderers[i].material.color.b;
+      float a = 0.4f;
+      childrenRenderers[i].material.color = new Color(r, g, b, a);
+    }
     resetAttack();
   }
 
