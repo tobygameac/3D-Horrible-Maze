@@ -76,6 +76,13 @@ public class BasicMaze {
     conerNumber = other.conerNumber;
     deadendNumber = other.deadendNumber;
     blocksSize = other.blocksSize;
+    possible = new List<List<bool>>();
+    for (int r = 0; r < other.possible.Count; r++) {
+      possible.Add(new List<bool>());
+      for (int c = 0; c < other.possible[r].Count; c++) {
+        possible[r].Add(other.possible[r][c]);
+      }
+    }
   }
 
   public void log () {
@@ -250,6 +257,9 @@ public class BasicMaze {
   private int conerNumber;
   private int deadendNumber;
   private int blocksSize;
+  
+  private List<List<bool>> possible;
+
 
   public int getFitness () {
     return fitness;
@@ -259,7 +269,11 @@ public class BasicMaze {
     setBlocksSize();
     setConerNumber();
     setDeadendNumber();
-    fitness = conerNumber * 5 + deadendNumber * 15 + blocksSize * 2;
+    if ((conerNumber > 0) && (deadendNumber > 0)) {
+      fitness = conerNumber * 5 + deadendNumber * 15 + blocksSize;
+    } else {
+      fitness = 0;
+    }
   }
 
   private void setBlocksSize () {
@@ -285,16 +299,16 @@ public class BasicMaze {
 
     blocks[startPoint.r][startPoint.c] = true;
 
-    List<List<bool>> visited = new List<List<bool>>();
-
+    possible = new List<List<bool>>();
+    
     for (int r = 0; r < R + 2; r++) {
-      visited.Add(new List<bool>());
+      possible.Add(new List<bool>());
       for (int c = 0; c < C + 2; c++) {
-        visited[r].Add(false);
+        possible[r].Add(false);
       }
     }
-
-    visited[startPoint.r][startPoint.c] = true;
+    
+    possible[startPoint.r][startPoint.c] = true;
 
     // Find all possible block
 
@@ -313,9 +327,9 @@ public class BasicMaze {
       int c = now.c;
       for (int d = 0; d < 4; d++) {
         int nr = r + dr[d], nc = c + dc[d];
-        if (getBlockState(nr, nc) && !visited[nr][nc]) {
+        if (getBlockState(nr, nc) && !possible[nr][nc]) {
           q.Enqueue(new Point(nr, nc));
-          visited[nr][nc] = true;
+          possible[nr][nc] = true;
         }
       }
 
@@ -440,7 +454,7 @@ public class BasicMaze {
     int count = 0;
     for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        count += isConer[r][c] ? 1 : 0;
+        count += (isConer[r][c] && possible[r][c]) ? 1 : 0;
       }
     }
 
@@ -512,7 +526,7 @@ public class BasicMaze {
     int count = 0;
     for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        count += isDeadend[r][c] ? 1 : 0;
+        count += (isDeadend[r][c] && possible[r][c]) ? 1 : 0;
       }
     }
 

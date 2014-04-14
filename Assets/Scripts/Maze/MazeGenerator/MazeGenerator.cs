@@ -25,11 +25,13 @@ public partial class MazeGenerator : MonoBehaviour {
 
     for (int h = 0; h < MAZE_H; h++) {
 
-      // Online
-      //generateBasicMaze();
-
-      // Offline
-      basicMazes.Add(new BasicMaze(MAZE_R, MAZE_C));
+      if (MazeData.getRandomMazeData(MAZE_R, MAZE_C) != null) {
+        // Offline
+        basicMazes.Add(new BasicMaze(MAZE_R, MAZE_C));
+      } else {
+        // Online
+        generateBasicMaze();
+      }
 
       if (isDebugging) {
         basicMazes[h].log();
@@ -111,13 +113,15 @@ public partial class MazeGenerator : MonoBehaviour {
     crossoverPool.Clear();
 
     int remain = population.Count;
-    for (int i = 0; i < population.Count && remain > 0; i++) {
-      int need = (int)(population[i].getFitness() / (double)fitnessSum + 0.5);
-      need = need > remain ? remain : need;
-      remain -= need;
-      while (need > 0) {
-        need--;
-        crossoverPool.Add(new BasicMaze(population[i]));
+    if (fitnessSum != 0) {
+      for (int i = 0; i < population.Count && remain > 0; i++) {
+        int need = (int)(population[i].getFitness() / (double)fitnessSum + 0.5);
+        need = need > remain ? remain : need;
+        remain -= need;
+        while (need > 0) {
+          need--;
+          crossoverPool.Add(new BasicMaze(population[i]));
+        }
       }
     }
 
