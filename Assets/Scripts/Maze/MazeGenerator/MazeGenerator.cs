@@ -152,7 +152,7 @@ public partial class MazeGenerator : MonoBehaviour {
         index2 = random.Next(crossoverPool.Count);
       } while (index1 == index2);
 
-      if (random.Next(100) < 50) { // 50% chance to crossover
+      if (random.Next(100) < 80) { // 80% chance to crossover
         int midR = random.Next(MAZE_R) + 1;
         int midC = random.Next(MAZE_C) + 1;
         BasicMaze newMaze1 = new BasicMaze(crossoverPool[index1]);
@@ -179,13 +179,11 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private void mutation () {
     for (int i = 0; i < population.Count; i++) {
-      if (random.Next(100) < 10) { // 10% chance to crossover
-        int mutationNumber = random.Next((MAZE_R + MAZE_C) / 2 + 1);
-        while (mutationNumber > 0) {
-          mutationNumber--;
-          int r = random.Next(MAZE_R) + 1;
-          int c = random.Next(MAZE_C) + 1;
-          population[i].setBlock(r, c, !population[i].getBlockState(r, c));
+      for (int r = 1; r <= MAZE_R; r++) {
+        for (int c = 1; c <= MAZE_C; c++) {
+          if (random.Next(1000) < 1) { // 0.1% chance to crossover
+            population[i].setBlock(r, c, !population[i].getBlockState(r, c));
+          }
         }
       }
       population[i].setFitness();

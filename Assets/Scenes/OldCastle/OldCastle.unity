@@ -177,9 +177,9 @@ MonoBehaviour:
   randomEventCount: 1e0000000f0000000f00000005000000
   randomEventPrefabs:
   - {fileID: 100000, guid: 4004efc6cede9d44f932a1c7d27857d8, type: 2}
-  - {fileID: 100000, guid: e5fba8a4f1b1e4048a064033e2c38132, type: 2}
-  - {fileID: 100000, guid: 5992936231a5ed043a6482a210e5ef36, type: 2}
-  - {fileID: 100000, guid: 3c102589f4776984aa41b226e794e891, type: 2}
+  - {fileID: 100000, guid: db101335eb9c1734683870c8dd98ebd8, type: 2}
+  - {fileID: 100000, guid: 395569d42b4891640b72df8db909c0f2, type: 2}
+  - {fileID: 100008, guid: 0b99508c7153aca449e8e0ea0da44700, type: 2}
   itemPrefabs:
   - {fileID: 100002, guid: b00b1d52e39e47e4bb0ec4d8b7f35a13, type: 2}
   - {fileID: 100002, guid: 4024c2413210d714eb9b1b21c2be236d, type: 2}
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
+  flipSound: {fileID: 0}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
@@ -456,11 +457,11 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 100000, guid: e5fba8a4f1b1e4048a064033e2c38132, type: 2}
+      objectReference: {fileID: 100000, guid: db101335eb9c1734683870c8dd98ebd8, type: 2}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 100000, guid: 5992936231a5ed043a6482a210e5ef36, type: 2}
+      objectReference: {fileID: 100000, guid: 395569d42b4891640b72df8db909c0f2, type: 2}
     - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: skillTextures.Array.data[4]
       value: 
@@ -504,7 +505,7 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 100000, guid: 3c102589f4776984aa41b226e794e891, type: 2}
+      objectReference: {fileID: 100008, guid: 0b99508c7153aca449e8e0ea0da44700, type: 2}
     - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: additionalQTELengthPerSkill
       value: 1

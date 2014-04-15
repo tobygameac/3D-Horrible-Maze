@@ -7,6 +7,7 @@ using System.Collections;
 public class SoundEffectManager : MonoBehaviour {
 
   public AudioClip buttonSound;
+  public AudioClip flipSound;
   public AudioClip errorSound;
   public AudioClip cryingSound;
   public AudioClip tracingSound;
@@ -17,6 +18,10 @@ public class SoundEffectManager : MonoBehaviour {
 
   public void playButtonSound () {
     audio.PlayOneShot(buttonSound);
+  }
+
+  public void playFlipSound () {
+    audio.PlayOneShot(flipSound);
   }
 
   public void playErrorSound () {

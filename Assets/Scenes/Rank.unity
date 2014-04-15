@@ -117,9 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  scoreboardBackgroundTexture: {fileID: 2800000, guid: 5527c60c9388334489d0becfd86784e3,
+  rankBackgroundTexture: {fileID: 2800000, guid: d716a7e2e3408cd4981c56bcd014ebc5,
     type: 3}
-  returnButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
 --- !u!114 &1467129974
 MonoBehaviour:
   m_ObjectHideFlags: 0

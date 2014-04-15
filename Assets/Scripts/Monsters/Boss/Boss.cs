@@ -63,6 +63,10 @@ public class Boss : MonoBehaviour {
   private bool isTracing = false;
   private bool isStunning = false;
   private bool isAttacking = false;
+  private bool isCameraMoving = false;
+  public float cameraMovingTime = 0.5f;
+  private float cameraMovedTime;
+  private Vector3 cameraMovingVector;
 
   private List<Vector3> path;
   private int pathIndex;
@@ -88,7 +92,6 @@ public class Boss : MonoBehaviour {
   }
 
   void Update () {
-
     if (isStunning) {
       stunnedTime += Time.deltaTime;
       if (stunnedTime >= stunningTime) {
@@ -100,6 +103,14 @@ public class Boss : MonoBehaviour {
         collider.enabled = true;
       }
       return;
+    }
+
+    if (isCameraMoving) {
+      cameraMovedTime += Time.deltaTime;
+      player.transform.eulerAngles += cameraMovingVector * (Time.deltaTime / cameraMovingTime);
+      if (cameraMovedTime >= cameraMovingTime) {
+        isCameraMoving = false;
+      }
     }
 
     if (isMoving) {
@@ -406,7 +417,11 @@ public class Boss : MonoBehaviour {
     isTracing = false;
     isAttacking = true;
     playerMouseLook.enabled = false;
-    player.transform.LookAt(lookAtPoint.transform);
+    isCameraMoving = true;
+    cameraMovedTime = 0;
+    virtualPlayer.transform.position = player.transform.position;
+    virtualPlayer.transform.LookAt(lookAtPoint.transform);
+    cameraMovingVector = virtualPlayer.transform.eulerAngles - player.transform.eulerAngles;
     // Generate the first event
     QTEvent = QTE.generateQTE(QTELength);
   }

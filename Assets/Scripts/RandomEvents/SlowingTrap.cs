@@ -26,11 +26,15 @@ public class SlowingTrap : MonoBehaviour {
 
   private CharacterMotor characterMotor;
 
+  private Renderer[] childrenRenderers;
+
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
       
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     
+    childrenRenderers = GetComponentsInChildren<Renderer>();
+
     sprint = null;
     characterMotor = null;
   }
@@ -87,7 +91,9 @@ public class SlowingTrap : MonoBehaviour {
         slowingSidewaysSpeed = originalSidewaysSpeed * timesOfSpeed;
         slowingBackwardsSpeed = originalBackwardsSpeed * timesOfSpeed;
       }
-      renderer.enabled = false;
+      for (int i = 0; i < childrenRenderers.Length; i++) {
+        childrenRenderers[i].enabled = false;
+      }
       isSlowing = true;
       slowedTime = 0;
       characterMotor.movement.maxForwardSpeed = slowingForwardSpeed;

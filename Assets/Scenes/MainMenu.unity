@@ -118,8 +118,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
   backgroundTexture: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
   startButtonTexture: {fileID: 2800000, guid: 48a32d947c68b004a92e13b917257e79, type: 3}
-  scoreboardButtonTexture: {fileID: 2800000, guid: 7d2607d363ed17e499dfa2d97913d5d6,
-    type: 3}
+  rankButtonTexture: {fileID: 2800000, guid: 01dde9a0577746543b4d1fd3a2553365, type: 3}
   optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
   exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
 --- !u!82 &919995538
@@ -134,7 +133,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: .25
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1

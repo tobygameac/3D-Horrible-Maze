@@ -10209,10 +10209,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
+  flipSound: {fileID: 0}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 0}
+  tracingSound: {fileID: 0}
   bonusSound: {fileID: 0}
   trapSound: {fileID: 0}
+  QTEHitSound: {fileID: 0}
+  QTEMissSound: {fileID: 0}
 --- !u!114 &878738419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10328,7 +10332,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 346b249ac90f7804a87614267001bcf7, type: 3}
   unknownTexture: {fileID: 2800000, guid: e68035d418602f14780dcced23f58cda, type: 3}
   lockedTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  additionalQTELengthPerSkill: 2
+  additionalQTELengthPerSkill: 1
 --- !u!114 &878738423
 MonoBehaviour:
   m_ObjectHideFlags: 0

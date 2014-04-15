@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScoreboardViewer : MonoBehaviour {
+public class Rank : MonoBehaviour {
 
   public GUISkin skin;
 
   public Texture backgroundTexture;
-  public Texture scoreboardBackgroundTexture;
+  public Texture rankBackgroundTexture;
   public Texture returnButtonTexture;
 
-  private string scoreboardUrl = "http://134.208.43.1:5631/3DhorribleMaze/scoreboard.php";
+  private string rankUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank.php";
 
   private string text;
 
@@ -35,7 +35,7 @@ public class ScoreboardViewer : MonoBehaviour {
 
     GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
 
-    GUI.DrawTexture(new Rect(0, 0, width, height), scoreboardBackgroundTexture);
+    GUI.DrawTexture(new Rect(0, 0, width, height), rankBackgroundTexture);
 
     int startX = (width - buttonWidth) / 2;
     int startY = height / 5;
@@ -57,10 +57,10 @@ public class ScoreboardViewer : MonoBehaviour {
 
   private IEnumerator GetScores() {
     text = "Loading...";
-    WWW hs_get = new WWW(scoreboardUrl);
+    WWW hs_get = new WWW(rankUrl);
     yield return hs_get;
     if (hs_get.error != null) {
-      print("There was an error getting the scoreboard : " + hs_get.error);
+      print("There was an error getting the rank : " + hs_get.error);
     } else {
       text = hs_get.text;
     }

@@ -27,6 +27,10 @@ public class Scoreboard : MonoBehaviour {
     GUI.color = originalColor;
   }
 
+  public int getScore () {
+    return score;
+  }
+
   public void addScore (int addedScore) {
     score += addedScore;
     if ((score % 1000) == 0) {
@@ -66,7 +70,7 @@ public class Scoreboard : MonoBehaviour {
       print("There was an error posting the high score: " + hs_post.error);
     }
 
-    Application.LoadLevel("ViewScoreboard");
+    Application.LoadLevel("Rank");
   }
 
 }

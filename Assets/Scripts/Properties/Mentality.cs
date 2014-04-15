@@ -15,11 +15,18 @@ public class Mentality : MonoBehaviour {
   private GameObject sight;
 
   private bool gameover = false;
+
   private Scoreboard scoreboard;
+
+  private CharacterMotor playerCharacterMotor;
+  private MouseLook playerMouseLook;
 
   void Start () {
     mentalityPoint = maxMentalityPoint;
     sight = transform.FindChild("sight").gameObject;
+
+    playerCharacterMotor = GetComponent<CharacterMotor>();
+    playerMouseLook = GetComponent<MouseLook>();
 
     scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
   }
@@ -29,6 +36,8 @@ public class Mentality : MonoBehaviour {
     if (mentalityPoint <= 0) {
       if (!gameover) {
         gameover = true;
+        playerCharacterMotor.enabled = false;
+        playerMouseLook.enabled = false;
         StartCoroutine(scoreboard.postScore());
       }
     }

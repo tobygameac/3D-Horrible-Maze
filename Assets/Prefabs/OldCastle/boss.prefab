@@ -160,7 +160,7 @@ Camera:
     width: .25
     height: .25
   near clip plane: .300000012
-  far clip plane: 10
+  far clip plane: 20
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -341,6 +341,7 @@ MonoBehaviour:
   mentalityAbsorbPercentPerSecond: .0799999982
   QTELength: 2
   stunningTime: 20
+  cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
 --- !u!135 &13500000
 SphereCollider:
