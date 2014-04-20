@@ -63,6 +63,9 @@ public partial class MazeGenerator : MonoBehaviour {
     GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
     Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(bossFloor) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
     boss.transform.position = bossPosition;
+
+    GameState.state = GameState.PLAYING;
+    Time.timeScale = 1;
   }
 
   // Genetic algorithm parameter

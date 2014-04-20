@@ -50,6 +50,9 @@ public class Sprint : MonoBehaviour {
   }
 
   void Update () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     
     if (isTired) {
       restedTime += Time.deltaTime;

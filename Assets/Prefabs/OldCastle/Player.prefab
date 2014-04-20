@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a83cbf377b9e644bcd0d74b2916f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitalityBarTexture: {fileID: 2800000, guid: 43f375ea866fd81458f5705361ac8c77, type: 3}
+  vitalityBarTexture: {fileID: 2800000, guid: a3208c344fb8a6d4284bd430ccfd88d1, type: 3}
   maxVitalityPoint: 100
 --- !u!114 &11400008
 MonoBehaviour:
@@ -565,9 +565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbab7c445aa9caf4dbef01b6e0a1ffa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mentalityBarTexture: {fileID: 2800000, guid: 73c5cbb13d45b9342bcfaca23700e4c9, type: 3}
+  mentalityBarTexture: {fileID: 2800000, guid: e9c3b23f57f10f3418ab45f9e9187515, type: 3}
   maxMentalityPoint: 100
-  faintPerSecond: .0666666701
+  faintPerSecond: .0666600019
   baseSightRange: 5
 --- !u!114 &11400012
 MonoBehaviour:

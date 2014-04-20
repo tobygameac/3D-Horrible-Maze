@@ -4,7 +4,7 @@ using System.Collections;
 public class MouseHidder : MonoBehaviour {
 
   void Update () {
-    if (GameState.state != GameState.PAUSING) {
+    if (GameState.state == GameState.PLAYING) {
       Screen.showCursor = false;
       Screen.lockCursor = true;
     } else {

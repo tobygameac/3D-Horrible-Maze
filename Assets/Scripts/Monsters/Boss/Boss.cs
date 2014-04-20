@@ -15,7 +15,6 @@ public class Boss : MonoBehaviour {
 
   // Probabilities for states
   public float probabilityOfWandering = 0.7f;
-  public float probabilityOfGettingItem = 0.2f;
   public float probabilityOfChasingPlayer = 0.1f;
 
   // Maximun distance for changing to staring state
@@ -31,6 +30,7 @@ public class Boss : MonoBehaviour {
 
   public int QTELength = 4;
   private List<int> QTEvent = new List<int>();
+  private bool perfectQTE;
 
   public float stunningTime = 5.0f;
   private float stunnedTime;
@@ -48,16 +48,14 @@ public class Boss : MonoBehaviour {
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
 
-  private Transform[] childrenTransforms;
+  private Renderer[] childrenRenderers;
   private SphereCollider sphereCollider;
 
   // State
   private bool isMakingDecision = true;
   private bool isMoving = false;
-  private GameObject itemCarring = null;
 
   private bool isWandering = false;
-  private bool isGettingItem = false;
   private bool isChasingPlayer = false;
   private bool isStaring = false;
   private bool isTracing = false;
@@ -68,11 +66,13 @@ public class Boss : MonoBehaviour {
   private float cameraMovedTime;
   private Vector3 cameraMovingVector;
 
-  private List<Vector3> path;
-  private int pathIndex;
-
   public AudioClip tracingSound;
   private SoundEffectManager soundEffectManager;
+
+  private Scoreboard scoreboard;
+
+  private List<Vector3> path;
+  private int pathIndex;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -84,21 +84,31 @@ public class Boss : MonoBehaviour {
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
+    scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
+
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
 
-    childrenTransforms = GetComponentsInChildren<Transform>();
+    childrenRenderers = GetComponentsInChildren<Renderer>();
     sphereCollider = GetComponent<SphereCollider>();
   }
 
   void Update () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
+
     if (isStunning) {
       stunnedTime += Time.deltaTime;
       if (stunnedTime >= stunningTime) {
         isStunning = false;
         isMakingDecision = true;
-        for (int i = 0; i < childrenTransforms.Length; i++) {
-          childrenTransforms[i].active = true;
+        for (int i = 0; i < childrenRenderers.Length; i++) {
+          float r = childrenRenderers[i].material.color.r;
+          float g = childrenRenderers[i].material.color.g;
+          float b = childrenRenderers[i].material.color.b;
+          float a = 1;
+          childrenRenderers[i].material.color = new Color(r, g, b, a);
         }
         collider.enabled = true;
       }
@@ -191,6 +201,7 @@ public class Boss : MonoBehaviour {
           } else {
             soundEffectManager.playQTEMissSound();
             wrong = true;
+            perfectQTE = false;
           }
         }
       }
@@ -205,12 +216,8 @@ public class Boss : MonoBehaviour {
         if (QTEvent.Count == 0) {
           playerCharacterMotor.canControl = true;
           isAttacking = false;
-
-          if (itemCarring) {
-            //putItem
-          }
-
           turnToStunningState();
+          scoreboard.addScore(100 * (QTELength * (1 + (perfectQTE ? 1 : 0))));
         }
       }
 
@@ -230,9 +237,6 @@ public class Boss : MonoBehaviour {
       }
       // Do the next moving instruction
       StartCoroutine(move(path[pathIndex++]));
-    }
-
-    if (isGettingItem) {
     }
 
     if (isChasingPlayer) {
@@ -384,12 +388,6 @@ public class Boss : MonoBehaviour {
 
       pathIndex = 0;
       isWandering = true;
-    } else if (itemCarring == null && dice < probabilityOfWandering + probabilityOfGettingItem) {
-      /*
-      pathIndex = 0;
-      isGettingItem = true;
-      */
-      return;
     } else {
       isChasingPlayer = true;
     }
@@ -400,7 +398,6 @@ public class Boss : MonoBehaviour {
   private void turnToStaringState () {
     // Stop all other states
     isWandering = false;
-    isGettingItem = false;
     isChasingPlayer = false;
 
     isStaring = true;
@@ -423,6 +420,7 @@ public class Boss : MonoBehaviour {
     virtualPlayer.transform.LookAt(lookAtPoint.transform);
     cameraMovingVector = virtualPlayer.transform.eulerAngles - player.transform.eulerAngles;
     // Generate the first event
+    perfectQTE = true;
     QTEvent = QTE.generateQTE(QTELength);
   }
 
@@ -434,10 +432,12 @@ public class Boss : MonoBehaviour {
     isStunning = true;
     stunnedTime = 0;
     playerMouseLook.enabled = true;
-    for (int i = 0; i < childrenTransforms.Length; i++) {
-      if (childrenTransforms[i].gameObject.tag != "Boss") {
-        childrenTransforms[i].active = false;
-      }
+    for (int i = 0; i < childrenRenderers.Length; i++) {
+      float r = childrenRenderers[i].material.color.r;
+      float g = childrenRenderers[i].material.color.g;
+      float b = childrenRenderers[i].material.color.b;
+      float a = 0.4f;
+      childrenRenderers[i].material.color = new Color(r, g, b, a);
     }
     sphereCollider.enabled = false;
   }

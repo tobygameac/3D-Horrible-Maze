@@ -6,13 +6,30 @@ public class Scoreboard : MonoBehaviour {
   public Texture scoreboardTexture;
 
   private int score = 0;
+  private bool scoreSubmitted;
+  private string playerName = "anonymous";
 
   private Boss boss;
 
   private string secretKey = "tobygameac";
 
+  private int newAddedScore;
+  private bool isShowingNewAddedScore;
+  public float showingNewAddedScoreTime = 1.5f;
+  private float showedNewAddedScoreTime;
+
   void Start () {
     boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+    scoreSubmitted = false;
+  }
+
+  void Update () {
+    if (isShowingNewAddedScore) {
+      showedNewAddedScoreTime += Time.deltaTime;
+      if (showedNewAddedScoreTime > showingNewAddedScoreTime) {
+        isShowingNewAddedScore = false;
+      }
+    }
   }
 
   void OnGUI () {
@@ -23,8 +40,28 @@ public class Scoreboard : MonoBehaviour {
     GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
     Color originalColor = GUI.color;
     GUI.color = Color.black;
-    GUI.Label(new Rect(startX + width / 4, startY + height / 3, width, height),  "Score : " + score);
+    GUI.Label(new Rect(startX + width / 3.5f, startY + height / 3, width, height),  "Score : " + score);
+    if (isShowingNewAddedScore) {
+      float alpha = (showingNewAddedScoreTime - showedNewAddedScoreTime) / showingNewAddedScoreTime;
+      GUI.color = new Color(1, 1, 0, alpha);
+      GUI.Label(new Rect(startX + width / 3, startY + height / (8 - alpha * 6), width, height),  "+" + newAddedScore);
+    }
     GUI.color = originalColor;
+    
+    if (GameState.state == GameState.LOSING) {
+      int buttonWidth = Screen.height / 8;
+      int buttonHeight = Screen.height / 16;
+      if (scoreSubmitted) {
+        GUI.Button(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submitting");
+      } else {
+        int textAreaWidth = Screen.height / 4;
+        int textAreaHeight = Screen.height / 8;
+        playerName = GUI.TextArea(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 - textAreaHeight, textAreaWidth, textAreaHeight), playerName);
+        if (GUI.Button(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submit")) {
+          StartCoroutine(postScore(playerName));
+        }
+      }
+    }
   }
 
   public int getScore () {
@@ -33,6 +70,9 @@ public class Scoreboard : MonoBehaviour {
 
   public void addScore (int addedScore) {
     score += addedScore;
+    newAddedScore = addedScore;
+    isShowingNewAddedScore = true;
+    showedNewAddedScoreTime = 0;
     if ((score % 1000) == 0) {
       boss.addQTELength(1);
     }
@@ -55,8 +95,8 @@ public class Scoreboard : MonoBehaviour {
     return hashString.PadLeft(32, '0');
   }
 
-  public IEnumerator postScore () {
-    string name = "anonymous";
+  public IEnumerator postScore (string name) {
+    scoreSubmitted = true;
     
     string postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore.php?";
  

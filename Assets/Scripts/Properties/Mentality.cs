@@ -14,10 +14,6 @@ public class Mentality : MonoBehaviour {
 
   private GameObject sight;
 
-  private bool gameover = false;
-
-  private Scoreboard scoreboard;
-
   private CharacterMotor playerCharacterMotor;
   private MouseLook playerMouseLook;
 
@@ -27,18 +23,15 @@ public class Mentality : MonoBehaviour {
 
     playerCharacterMotor = GetComponent<CharacterMotor>();
     playerMouseLook = GetComponent<MouseLook>();
-
-    scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
   }
 
   void Update () {
     mentalityPoint -= Time.deltaTime * faintPerSecond;
     if (mentalityPoint <= 0) {
-      if (!gameover) {
-        gameover = true;
+      if (GameState.state != GameState.LOSING) {
+        GameState.state = GameState.LOSING;
         playerCharacterMotor.enabled = false;
         playerMouseLook.enabled = false;
-        StartCoroutine(scoreboard.postScore());
       }
     }
     // Fading
@@ -70,6 +63,15 @@ public class Mentality : MonoBehaviour {
   void OnGUI () {
     GUI.depth = 0;
 
-    GUI.DrawTexture(new Rect(10, 20, (int)mentalityPoint, 10), mentalityBarTexture, ScaleMode.StretchToFill);
+    int width = Screen.height / 8;
+    int height = Screen.height / 16;
+    int startX = width / 10;
+    int startY = 20;
+
+    GUILayout.BeginArea(new Rect(startX, startY, width * (mentalityPoint / maxMentalityPoint), height));
+
+    GUI.DrawTexture(new Rect(0, 0, width, height), mentalityBarTexture);
+
+    GUILayout.EndArea();
   }
 }

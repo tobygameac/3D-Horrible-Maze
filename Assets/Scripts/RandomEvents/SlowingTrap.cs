@@ -41,6 +41,9 @@ public class SlowingTrap : MonoBehaviour {
 
   void Update () {
     if (isSlowing) {
+      characterMotor.movement.maxForwardSpeed = slowingForwardSpeed;
+      characterMotor.movement.maxSidewaysSpeed = slowingSidewaysSpeed;
+      characterMotor.movement.maxBackwardsSpeed = slowingBackwardsSpeed;
       int ms = (int)((Time.time * 100) % 100);
       if (ms < 50) {
         maskAlpha = (ms * 2) / 100.0f;
@@ -96,9 +99,6 @@ public class SlowingTrap : MonoBehaviour {
       }
       isSlowing = true;
       slowedTime = 0;
-      characterMotor.movement.maxForwardSpeed = slowingForwardSpeed;
-      characterMotor.movement.maxSidewaysSpeed = slowingSidewaysSpeed;
-      characterMotor.movement.maxBackwardsSpeed = slowingBackwardsSpeed;
     }
   }
 

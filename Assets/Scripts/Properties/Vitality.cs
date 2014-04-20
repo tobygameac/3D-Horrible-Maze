@@ -39,6 +39,15 @@ public class Vitality : MonoBehaviour {
   void OnGUI () {
     GUI.depth = 0;
 
-    GUI.DrawTexture(new Rect(10, 40, (int)vitalityPoint, 10), vitalityBarTexture, ScaleMode.StretchToFill);
+    int width = Screen.height / 8;
+    int height = Screen.height / 16;
+    int startX = width / 10;
+    int startY = 60;
+
+    GUILayout.BeginArea(new Rect(startX, startY, width * (vitalityPoint / maxVitalityPoint), height));
+
+    GUI.DrawTexture(new Rect(0, 0, width, height), vitalityBarTexture);
+
+    GUILayout.EndArea();
   }
 }

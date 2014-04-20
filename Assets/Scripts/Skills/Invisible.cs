@@ -28,6 +28,10 @@ public class Invisible : MonoBehaviour {
   }
 
   void Update () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
+
     if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.Alpha2)) {
       isInvisible = true;
     }

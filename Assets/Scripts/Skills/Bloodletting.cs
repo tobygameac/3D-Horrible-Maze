@@ -34,6 +34,9 @@ public class Bloodletting : MonoBehaviour {
   }
 
   void Update () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)) {
       if (cooldownNow <= 0) {
         float baseY = maze.getBaseY(maze.getFloor(transform.position.y));

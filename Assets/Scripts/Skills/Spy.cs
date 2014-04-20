@@ -33,6 +33,10 @@ public class Spy : MonoBehaviour {
   }
 
   void Update () {  
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
+
     if (isSpying) {
       spiedTime += Time.deltaTime;
       if (spiedTime >= spyingTime) {

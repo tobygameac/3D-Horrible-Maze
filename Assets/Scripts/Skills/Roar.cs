@@ -28,6 +28,10 @@ public class Roar : MonoBehaviour {
   }
 
   void Update () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
+
     if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) {
       if (vitality.enough(vitalityCost)) {
         vitality.use(vitalityCost);

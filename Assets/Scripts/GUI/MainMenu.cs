@@ -14,9 +14,6 @@ public class MainMenu : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
-    GameState.state = GameState.PLAYING;
-    Time.timeScale = 1;
-
     soundEffectManager = GetComponent<SoundEffectManager>();
   }
 

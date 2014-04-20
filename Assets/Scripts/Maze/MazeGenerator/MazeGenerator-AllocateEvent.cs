@@ -33,7 +33,7 @@ public partial class MazeGenerator : MonoBehaviour {
     int randomEventIndex = random.Next(randomEventPrefabs.Length);
     for (int i = 0; i < number; i++) {
       Vector3 randomEventPosition = getNewEventPosition();
-      GameObject randomEvent = Instantiate(randomEventPrefabs[randomEventIndex], randomEventPosition, Quaternion.identity) as GameObject;
+      GameObject randomEvent = Instantiate(randomEventPrefabs[randomEventIndex], randomEventPosition, randomEventPrefabs[randomEventIndex].transform.rotation) as GameObject;
       randomEvent.transform.parent = randomEvents.transform;
     }
   }
