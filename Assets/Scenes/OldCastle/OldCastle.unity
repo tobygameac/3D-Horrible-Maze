@@ -189,9 +189,21 @@ MonoBehaviour:
   - {fileID: 100002, guid: 4024c2413210d714eb9b1b21c2be236d, type: 2}
   WALL_HEIGHT: 3
   CEILING_THICKNESS: .200000003
-  ceilingPrefab: {fileID: 100000, guid: cbd6fe98c7b0d8949b878740ce62c993, type: 2}
-  blockPrefab: {fileID: 100000, guid: e609f6916ba14f0478f0874f225ece39, type: 2}
-  wallPrefab: {fileID: 100000, guid: 654dc1d8949d4b64aac82e4390201db9, type: 2}
+  ceilingPrefabs:
+  - {fileID: 100000, guid: 4c1ab5c2239df2c4588876846de8136a, type: 2}
+  - {fileID: 100000, guid: cbd6fe98c7b0d8949b878740ce62c993, type: 2}
+  - {fileID: 100000, guid: 4bb351089a98c6148868a058a6bd0f87, type: 2}
+  - {fileID: 100000, guid: ac0c8a508f52e314f9283b5323b2e213, type: 2}
+  blockPrefabs:
+  - {fileID: 100000, guid: d997cde4959604548955acb7302b7161, type: 2}
+  - {fileID: 100000, guid: e609f6916ba14f0478f0874f225ece39, type: 2}
+  - {fileID: 100000, guid: 7ef2fa0707e0b824eb8ff51505fdcfd0, type: 2}
+  - {fileID: 100000, guid: 4dc38a30ba658ce48a36d6c55fe3ca52, type: 2}
+  wallPrefabs:
+  - {fileID: 100000, guid: 2793ae0ce6ca89a43a66e89785ff995c, type: 2}
+  - {fileID: 100000, guid: 654dc1d8949d4b64aac82e4390201db9, type: 2}
+  - {fileID: 100000, guid: 550149aa8c15a534bb299dbd95d79e56, type: 2}
+  - {fileID: 100000, guid: bb7aad9cc56c30d489259ea39ad49739, type: 2}
   bloodPrefab: {fileID: 100000, guid: 887d816e652f5a44799b2ea5f4873f4f, type: 2}
   elevatorPrefab: {fileID: 100002, guid: ea1e1b03a8884df4fbbd7bbd81fbe0f8, type: 2}
   isDebugging: 0
@@ -380,6 +392,18 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: itemPrefabs.Array.size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: wallPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: blockPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: ceilingPrefabs.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.size
@@ -573,6 +597,54 @@ Prefab:
       propertyPath: cursorTexture
       value: 
       objectReference: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: ceilingPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100000, guid: 4c1ab5c2239df2c4588876846de8136a, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: ceilingPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100000, guid: cbd6fe98c7b0d8949b878740ce62c993, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: ceilingPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 100000, guid: 4bb351089a98c6148868a058a6bd0f87, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: ceilingPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 100000, guid: ac0c8a508f52e314f9283b5323b2e213, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: blockPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100000, guid: d997cde4959604548955acb7302b7161, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: blockPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100000, guid: e609f6916ba14f0478f0874f225ece39, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: blockPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 100000, guid: 7ef2fa0707e0b824eb8ff51505fdcfd0, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: blockPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 100000, guid: 4dc38a30ba658ce48a36d6c55fe3ca52, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: wallPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100000, guid: 2793ae0ce6ca89a43a66e89785ff995c, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: wallPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100000, guid: 654dc1d8949d4b64aac82e4390201db9, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: wallPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 100000, guid: 550149aa8c15a534bb299dbd95d79e56, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: wallPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 100000, guid: bb7aad9cc56c30d489259ea39ad49739, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

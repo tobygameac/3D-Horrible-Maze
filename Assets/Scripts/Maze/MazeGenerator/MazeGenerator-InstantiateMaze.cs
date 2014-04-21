@@ -6,13 +6,17 @@ public partial class MazeGenerator : MonoBehaviour {
   public int WALL_HEIGHT;
   public float CEILING_THICKNESS;
 
-  public GameObject ceilingPrefab;
-  public GameObject blockPrefab;
-  public GameObject wallPrefab;
+  public GameObject[] ceilingPrefabs;
+  public GameObject[] blockPrefabs;
+  public GameObject[] wallPrefabs;
   public GameObject bloodPrefab;
   public GameObject elevatorPrefab;
 
   private void instantiateMaze () {
+    int type = 0;
+    if ((ceilingPrefabs.Length == blockPrefabs.Length) && (blockPrefabs.Length == wallPrefabs.Length)) {
+      type = random.Next(ceilingPrefabs.Length);
+    }
 
     for (int h = 0; h < MAZE_H; h++) {
       // Parent objects
@@ -66,7 +70,7 @@ public partial class MazeGenerator : MonoBehaviour {
             } else {
               // Ceiling
               Vector3 ceilingPosition = new Vector3(realC, baseY + WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS * 0.5f, realR);
-              GameObject ceiling = Instantiate(ceilingPrefab, ceilingPosition, Quaternion.identity) as GameObject;
+              GameObject ceiling = Instantiate(ceilingPrefabs[type], ceilingPosition, Quaternion.identity) as GameObject;
               ceiling.transform.parent = ceilings.transform;
               ceiling.transform.localScale = new Vector3(BLOCK_SIZE, CEILING_THICKNESS, BLOCK_SIZE);
 
@@ -87,7 +91,7 @@ public partial class MazeGenerator : MonoBehaviour {
 
             // Block
             Vector3 blockPosition = new Vector3(realC, baseY, realR);
-            GameObject block = Instantiate(blockPrefab, blockPosition, Quaternion.identity) as GameObject;
+            GameObject block = Instantiate(blockPrefabs[type], blockPosition, Quaternion.identity) as GameObject;
             block.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
             block.transform.parent = blocks.transform;
 
@@ -103,14 +107,14 @@ public partial class MazeGenerator : MonoBehaviour {
           } else {
             // Ceiling
             Vector3 ceilingPosition = new Vector3(realC, baseY + WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS * 0.5f, realR);
-            GameObject ceiling = Instantiate(ceilingPrefab, ceilingPosition, Quaternion.identity) as GameObject;
+            GameObject ceiling = Instantiate(ceilingPrefabs[type], ceilingPosition, Quaternion.identity) as GameObject;
             ceiling.transform.parent = ceilings.transform;
             ceiling.transform.localScale = new Vector3(BLOCK_SIZE, CEILING_THICKNESS, BLOCK_SIZE);
 
             // Wall
             for (int wallCount = 0; wallCount < WALL_HEIGHT; wallCount++) {
               Vector3 wallPosition = new Vector3(realC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, realR);
-              GameObject wall = Instantiate(wallPrefab, wallPosition, Quaternion.identity) as GameObject;
+              GameObject wall = Instantiate(wallPrefabs[type], wallPosition, Quaternion.identity) as GameObject;
               wall.transform.parent = walls.transform;
               wall.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             }

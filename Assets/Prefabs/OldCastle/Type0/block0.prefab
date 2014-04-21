@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
   m_Layer: 0
-  m_Name: ceiling
+  m_Name: block0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: b233eb06538692244b8bb7c63b2fb72c, type: 2}
+  - {fileID: 2100000, guid: 5fe928e6887bfc74fbc4f99b8b7ecb4d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
