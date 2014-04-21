@@ -16,6 +16,7 @@ public class Rank : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
+    GameState.state = GameState.MENUVIEWING;
     soundEffectManager = GetComponent<SoundEffectManager>();
     
     StartCoroutine(GetScores());

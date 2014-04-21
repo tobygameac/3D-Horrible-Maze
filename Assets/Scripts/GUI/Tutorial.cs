@@ -7,12 +7,18 @@ public class Tutorial : MonoBehaviour {
 
   public Texture backgroundTexture;
   public Texture[] tutorialPictures;
+  public Texture menuButtonTexture;
+  public Texture previousButtonTexture;
+  public Texture nextButtonTexture;
+  public Texture finishButtonTexture;
+  public Texture skipButtonTexture;
 
   private int index;
 
   private SoundEffectManager soundEffectManager;
 
   void Start () {
+    GameState.state = GameState.MENUVIEWING;
     index = 0;
 
     soundEffectManager = GetComponent<SoundEffectManager>();
@@ -41,28 +47,28 @@ public class Tutorial : MonoBehaviour {
     int gap = buttonWidth / 15;
 
     if (index != 0) {
-      if (GUI.Button(new Rect(width / 2 - buttonWidth - gap / 2, startY, buttonWidth, buttonHeight), "Previous")) {
+      if (GUI.Button(new Rect(width / 2 - buttonWidth - gap / 2, startY, buttonWidth, buttonHeight), previousButtonTexture)) {
         soundEffectManager.playFlipSound();
         --index;
       }
     }
     if (index < tutorialPictures.Length - 1) {
-      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), "Next")) {
+      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), nextButtonTexture)) {
         soundEffectManager.playFlipSound();
         index++;
       }
     } else {
-      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), "Finish")) {
+      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), finishButtonTexture)) {
         soundEffectManager.playButtonSound();
         Application.LoadLevel("OldCastle");
       }
     }
 
-    if (GUI.Button(new Rect(buttonWidth / 5, startY, buttonWidth, buttonHeight), "Menu")) {
+    if (GUI.Button(new Rect(buttonWidth / 5, startY, buttonWidth, buttonHeight), menuButtonTexture)) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("MainMenu");
     }
-    if (GUI.Button(new Rect(width - buttonWidth - buttonWidth / 5, startY, buttonWidth, buttonHeight), "Skip")) {
+    if (GUI.Button(new Rect(width - buttonWidth - buttonWidth / 5, startY, buttonWidth, buttonHeight), skipButtonTexture)) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("OldCastle");
     }

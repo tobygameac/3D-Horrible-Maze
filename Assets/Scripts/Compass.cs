@@ -5,11 +5,8 @@ using System.Collections.Generic;
 public class Compass : MonoBehaviour {
 
   public Texture compassBackgroundTexture;
-  public Texture compassTexture;
+  public Texture compassPointerTexture;
 
-  // GUI parameters
-  public int width;
-  public int height;
   private int positionOnScreenX;
   private int positionOnScreenY;
 
@@ -102,15 +99,18 @@ public class Compass : MonoBehaviour {
   }
 
   void OnGUI () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     GUI.depth = 0;
 
-    width = Screen.width / 6;
-    height = width;
+    int width = Screen.width / 6;
+    int height = width;
     positionOnScreenX = Screen.width - width - width / 4;
     positionOnScreenY = Screen.height - height - height / 4;
     pivotPoint = new Vector2(positionOnScreenX + width / 2, positionOnScreenY + height / 2);
     GUI.DrawTexture(new Rect(positionOnScreenX, positionOnScreenY, width, height), compassBackgroundTexture);
     GUIUtility.RotateAroundPivot(angle, pivotPoint);
-    GUI.DrawTexture(new Rect(positionOnScreenX, positionOnScreenY, width, height), compassTexture);
+    GUI.DrawTexture(new Rect(positionOnScreenX, positionOnScreenY, width, height), compassPointerTexture);
   }
 }

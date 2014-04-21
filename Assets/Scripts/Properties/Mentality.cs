@@ -61,6 +61,9 @@ public class Mentality : MonoBehaviour {
   }
 
   void OnGUI () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     GUI.depth = 0;
 
     int width = Screen.height / 8;

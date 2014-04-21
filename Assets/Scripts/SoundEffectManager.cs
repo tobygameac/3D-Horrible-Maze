@@ -11,6 +11,7 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip errorSound;
   public AudioClip cryingSound;
   public AudioClip tracingSound;
+  public AudioClip pickingSound;
   public AudioClip bonusSound;
   public AudioClip trapSound;
   public AudioClip QTEHitSound;
@@ -34,6 +35,10 @@ public class SoundEffectManager : MonoBehaviour {
 
   public void playTracingSound () {
     audio.PlayOneShot(tracingSound);
+  }
+
+  public void playPickingSound () {
+    audio.PlayOneShot(pickingSound);
   }
 
   public void playBonusSound () {

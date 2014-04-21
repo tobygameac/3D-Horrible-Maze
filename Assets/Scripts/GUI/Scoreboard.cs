@@ -33,21 +33,6 @@ public class Scoreboard : MonoBehaviour {
   }
 
   void OnGUI () {
-    int width = Screen.height / 4;
-    int height = Screen.height / 8;
-    int startX = Screen.width - width - width / 5;
-    int startY = height / 5;
-    GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
-    Color originalColor = GUI.color;
-    GUI.color = Color.black;
-    GUI.Label(new Rect(startX + width / 3.5f, startY + height / 3, width, height),  "Score : " + score);
-    if (isShowingNewAddedScore) {
-      float alpha = (showingNewAddedScoreTime - showedNewAddedScoreTime) / showingNewAddedScoreTime;
-      GUI.color = new Color(1, 1, 0, alpha);
-      GUI.Label(new Rect(startX + width / 3, startY + height / (8 - alpha * 6), width, height),  "+" + newAddedScore);
-    }
-    GUI.color = originalColor;
-    
     if (GameState.state == GameState.LOSING) {
       int buttonWidth = Screen.height / 8;
       int buttonHeight = Screen.height / 16;
@@ -62,6 +47,23 @@ public class Scoreboard : MonoBehaviour {
         }
       }
     }
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
+    int width = Screen.height / 4;
+    int height = Screen.height / 8;
+    int startX = Screen.width - width - width / 5;
+    int startY = height / 5;
+    GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
+    Color originalColor = GUI.color;
+    GUI.color = Color.black;
+    GUI.Label(new Rect(startX + width / 3.5f, startY + height / 3, width, height),  "Score : " + score);
+    if (isShowingNewAddedScore) {
+      float alpha = (showingNewAddedScoreTime - showedNewAddedScoreTime) / showingNewAddedScoreTime;
+      GUI.color = new Color(1, 1, 0, alpha);
+      GUI.Label(new Rect(startX + width / 3, startY + height / (8 - alpha * 6), width, height),  "+" + newAddedScore);
+    }
+    GUI.color = originalColor;
   }
 
   public int getScore () {

@@ -10,29 +10,29 @@ public class Boss : MonoBehaviour {
   private float maskAlpha;
 
   // Speed parameter
-  public float movingSpeed = 0.75f;
-  public float acceleration = 0.01f;
+  public float movingSpeed;
+  public float acceleration;
 
   // Probabilities for states
-  public float probabilityOfWandering = 0.7f;
-  public float probabilityOfChasingPlayer = 0.1f;
+  public float probabilityOfWandering;
+  public float probabilityOfChasingPlayer;
 
   // Maximun distance for changing to staring state
-  public float staringTriggerRadius = 15.0f;
+  public float staringTriggerRadius;
   // Maximun angle for changing to attacking state
-  public float tracingTriggerAngle = 45.0f;
-  public float tracingTriggerCheckDeltaAngle = 5.0f;
+  public float tracingTriggerAngle;
+  public float tracingTriggerCheckDeltaAngle;
   // Maximun distance for changing to attacking state
-  public float attackingRadius = 3.5f;
+  public float attackingRadius;
 
-  public float mentalityRestorePercentPerSecond = 0.02f;
-  public float mentalityAbsorbPercentPerSecond = 0.04f;
+  public float mentalityRestorePercentPerSecond;
+  public float mentalityAbsorbPercentPerSecond;
 
   public int QTELength = 4;
   private List<int> QTEvent = new List<int>();
   private bool perfectQTE;
 
-  public float stunningTime = 5.0f;
+  public float stunningTime;
   private float stunnedTime;
 
   private static System.Random random = new System.Random(); // Only need one random seed
@@ -258,6 +258,9 @@ public class Boss : MonoBehaviour {
   }
 
   void OnGUI () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     if (isAttacking) {
       Color originalColor = GUI.color;
       GUI.color = new Color(1, 1, 1, maskAlpha);

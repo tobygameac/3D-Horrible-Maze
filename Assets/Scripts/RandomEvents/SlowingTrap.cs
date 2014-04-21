@@ -52,7 +52,9 @@ public class SlowingTrap : MonoBehaviour {
       }
       slowedTime += Time.deltaTime;
       if (slowedTime >= slowingTime) {
-        sprint.enabled = true;
+        if (sprint) {
+          sprint.enabled = true;
+        }
         isSlowing = false;
         characterMotor.movement.maxForwardSpeed = originalForwardSpeed;
         characterMotor.movement.maxSidewaysSpeed = originalSidewaysSpeed;
@@ -84,7 +86,9 @@ public class SlowingTrap : MonoBehaviour {
       if (!sprint) {
         sprint = other.GetComponent<Sprint>();
       }
-      sprint.enabled = false;
+      if (sprint) {
+        sprint.enabled = false;
+      }
       if (!characterMotor) {
         characterMotor = other.GetComponent<CharacterMotor>();
         originalForwardSpeed = characterMotor.movement.maxForwardSpeed;

@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
+    GameState.state = GameState.MENUVIEWING;
     soundEffectManager = GetComponent<SoundEffectManager>();
   }
 
@@ -22,7 +23,7 @@ public class MainMenu : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
 
-    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/14 21.00");
+    GUI.Label(new Rect(0, 0, 100, 100), "2014/4/21 9.00");
 
     int width = Screen.height - 100;
     int height = width;

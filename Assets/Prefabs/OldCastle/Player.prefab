@@ -49,10 +49,10 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400010}
-  - 114: {fileID: 11400008}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
   - 82: {fileID: 8200000}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -546,14 +546,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd75bdf0d499ae8438e32ec90a75f0f0, type: 3}
+  m_Script: {fileID: 11500000, guid: e822906c599504e4795bb33e3a8d8e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timesOfSpeed: 1.5
+  invisibleMaskTexture: {fileID: 2800000, guid: ae62059631f6dd248b616c94fad6f3bb,
+    type: 3}
   vitalityCostPerSecond: 10
-  restTime: 10
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mentalityBarTexture: {fileID: 2800000, guid: e9c3b23f57f10f3418ab45f9e9187515, type: 3}
   maxMentalityPoint: 100
-  faintPerSecond: .0666600019
+  faintPerSecond: .159999996
   baseSightRange: 5
 --- !u!114 &11400012
 MonoBehaviour:
@@ -582,9 +582,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compassBackgroundTexture: {fileID: 2800000, guid: d61133f30c3444e4d9388a96d617a04a,
     type: 3}
-  compassTexture: {fileID: 2800000, guid: 26b2555c099065840838f3d346e9163e, type: 3}
-  width: 200
-  height: 200
+  compassPointerTexture: {fileID: 2800000, guid: dd31e4ed3ca9d4c4ea93a91ceb0c746c,
+    type: 3}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1

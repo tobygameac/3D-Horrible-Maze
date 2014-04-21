@@ -98,6 +98,9 @@ public class SkillMenu : MonoBehaviour {
     
     // Only show menu button
     if (GameState.state != GameState.SKILLVIEWING) {
+      if (GameState.state != GameState.PLAYING) {
+        return;
+      }
       int buttonWidth = Screen.height / 9;
       int buttonHeight = buttonWidth;
       if (hasNewSkill) {

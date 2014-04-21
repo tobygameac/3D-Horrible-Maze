@@ -325,22 +325,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba75f33fd09cfe4682dc5204420dc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugging: 1
+  isDebugging: 0
   attackingMaskTexture: {fileID: 2800000, guid: 94a4f923620ca4f45abea065b129edee,
     type: 3}
   movingSpeed: 3
   acceleration: .00999999978
   probabilityOfWandering: .699999988
-  probabilityOfGettingItem: .200000003
-  probabilityOfChasingPlayer: .100000001
-  staringTriggerRadius: 10
+  probabilityOfChasingPlayer: .300000012
+  staringTriggerRadius: 15
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
-  attackingRadius: 3.5
+  attackingRadius: 5
   mentalityRestorePercentPerSecond: .0399999991
   mentalityAbsorbPercentPerSecond: .0799999982
   QTELength: 2
-  stunningTime: 20
+  stunningTime: 15
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
 --- !u!135 &13500000

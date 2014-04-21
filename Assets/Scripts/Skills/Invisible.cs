@@ -5,6 +5,8 @@ using System.Collections;
 
 public class Invisible : MonoBehaviour {
 
+  public Texture invisibleMaskTexture;
+
   private Vitality vitality;
 
   public float vitalityCostPerSecond = 10;
@@ -50,6 +52,12 @@ public class Invisible : MonoBehaviour {
       }
     } else {
       gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+  }
+
+  void OnGUI () {
+    if (gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), invisibleMaskTexture);
     }
   }
 

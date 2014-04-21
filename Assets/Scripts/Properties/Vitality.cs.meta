@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: 02a83cbf377b9e644bcd0d74b2916f71
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - vitalityBarTexture: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

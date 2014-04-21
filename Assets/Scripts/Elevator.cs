@@ -27,6 +27,9 @@ public class Elevator : MonoBehaviour {
 
   void Update () {
     if (isMoving) {
+     if (!audio.isPlaying) {
+      audio.Play();
+     }
       movedTime += Time.deltaTime;
       if (movedTime >= movingTime) {
         // Change moving direction
@@ -45,6 +48,9 @@ public class Elevator : MonoBehaviour {
       }
 
     } else { // Waiting
+     if (audio.isPlaying) {
+      audio.Stop();
+     }
       waitedTime += Time.deltaTime;
       if (waitedTime >= waitingTime) {
         // Change moving state

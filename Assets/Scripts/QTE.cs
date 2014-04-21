@@ -52,6 +52,9 @@ public class QTE : MonoBehaviour {
   }
 
   void OnGUI () {
+    if (GameState.state != GameState.PLAYING) {
+      return;
+    }
     if (isShowing) {
 
       GUI.depth = 1;

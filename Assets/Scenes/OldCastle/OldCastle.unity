@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aaad001491a3a341afbc56671ca4c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
 --- !u!114 &127766897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,17 +175,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb9711716fb7814ca6e501b3e891787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomEventCount: 1e0000000f0000000f00000005000000
+  randomEventCount: 1e0000000a0000000a00000003000000
   randomEventPrefabs:
   - {fileID: 100000, guid: 4004efc6cede9d44f932a1c7d27857d8, type: 2}
   - {fileID: 100000, guid: db101335eb9c1734683870c8dd98ebd8, type: 2}
   - {fileID: 100000, guid: 395569d42b4891640b72df8db909c0f2, type: 2}
   - {fileID: 100008, guid: 0b99508c7153aca449e8e0ea0da44700, type: 2}
   itemPrefabs:
-  - {fileID: 100002, guid: fc121ce2ac6fde945b3d5e9cba478bda, type: 2}
-  - {fileID: 100002, guid: 4fc8f58226fe069498ccb217412f7ee2, type: 2}
-  - {fileID: 100002, guid: 4024c2413210d714eb9b1b21c2be236d, type: 2}
   - {fileID: 100002, guid: 6631c52c973916445bdcd01c42989709, type: 2}
+  - {fileID: 100002, guid: 4fc8f58226fe069498ccb217412f7ee2, type: 2}
+  - {fileID: 100002, guid: fc121ce2ac6fde945b3d5e9cba478bda, type: 2}
+  - {fileID: 100002, guid: b00b1d52e39e47e4bb0ec4d8b7f35a13, type: 2}
+  - {fileID: 100002, guid: 4024c2413210d714eb9b1b21c2be236d, type: 2}
   WALL_HEIGHT: 3
   CEILING_THICKNESS: .200000003
   ceilingPrefab: {fileID: 100000, guid: cbd6fe98c7b0d8949b878740ce62c993, type: 2}
@@ -350,6 +352,7 @@ MonoBehaviour:
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
+  pickingSound: {fileID: 8300000, guid: 5f36e08cf7078eb4fadc8d566b059884, type: 3}
   bonusSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
   trapSound: {fileID: 8300000, guid: 4b94a99eba80d2a46a8e6911646bf496, type: 3}
   QTEHitSound: {fileID: 8300000, guid: 1588f24734467334382322db31df58d9, type: 3}
@@ -376,7 +379,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: itemPrefabs.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.size
@@ -496,15 +499,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[1]
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[2]
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[3]
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[3]
@@ -545,7 +548,7 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: itemPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 100002, guid: fc121ce2ac6fde945b3d5e9cba478bda, type: 2}
+      objectReference: {fileID: 100002, guid: 6631c52c973916445bdcd01c42989709, type: 2}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: itemPrefabs.Array.data[1]
       value: 
@@ -553,7 +556,23 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: itemPrefabs.Array.data[2]
       value: 
+      objectReference: {fileID: 100002, guid: fc121ce2ac6fde945b3d5e9cba478bda, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: itemPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 100002, guid: b00b1d52e39e47e4bb0ec4d8b7f35a13, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: itemPrefabs.Array.data[4]
+      value: 
       objectReference: {fileID: 100002, guid: 4024c2413210d714eb9b1b21c2be236d, type: 2}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: pickingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5f36e08cf7078eb4fadc8d566b059884, type: 3}
+    - target: {fileID: 11400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: cursorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}
