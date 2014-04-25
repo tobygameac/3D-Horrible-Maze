@@ -21,6 +21,17 @@ public partial class MazeGenerator : MonoBehaviour {
 
   System.Random random = new System.Random();
 
+  // Genetic algorithm parameter
+  public int NUM_OF_POPULATION = 30;
+  public int MAXIMUM_TIMES_OF_ITERATION = 500;
+  public double TARGET_FITNESS = 0.3;
+
+  private BasicMaze best; // Best maze for each generation
+  private BasicMaze allBest; // Best maze for all generation
+
+  private List<BasicMaze> population;
+  private List<BasicMaze> crossoverPool;
+
   void Start () {
 
     for (int h = 0; h < MAZE_H; h++) {
@@ -68,34 +79,28 @@ public partial class MazeGenerator : MonoBehaviour {
     Time.timeScale = 1;
   }
 
-  // Genetic algorithm parameter
-  public int NUM_OF_POPULATION = 30;
-  public int TIMES_OF_ITERATION = 100;
-
-  private BasicMaze best; // Best maze for each generation
-  private BasicMaze allBest; // Best maze for all generation
-
-  private List<BasicMaze> population = new List<BasicMaze>();
-  private List<BasicMaze> crossoverPool = new List<BasicMaze>();
-
   private void generateBasicMaze () {
     initial();
     if (isDebugging) {
       Debug.Log("Original " + " : " + best.getFitness());
     }
-    for (int times = 1; times <= TIMES_OF_ITERATION; times++) {
+    for (int times = 1; times <= MAXIMUM_TIMES_OF_ITERATION; times++) {
       reproduction();
       crossover();
       mutation();
       if (isDebugging) {
         Debug.Log("The fitness of the best maze of generation " + times + " : " + best.getFitness());
       }
+      if (best.getFitness() >= TARGET_FITNESS) {
+        break;
+      }
     }
-    basicMazes.Add(new BasicMaze(allBest));
+    basicMazes.Add(new BasicMaze(best));
   }
 
   private void initial() {
-    population.Clear();
+    population = new List<BasicMaze>();
+    crossoverPool = new List<BasicMaze>();
 
     for (int num = 0; num < NUM_OF_POPULATION; num++) {
       population.Add(new BasicMaze(MAZE_R, MAZE_C));
@@ -108,7 +113,7 @@ public partial class MazeGenerator : MonoBehaviour {
   }
 
   private void reproduction () {
-    int fitnessSum = 0;
+    double fitnessSum = 0;
     for (int i = 0; i < population.Count; i++) {
       fitnessSum += population[i].getFitness();
     }
@@ -118,7 +123,7 @@ public partial class MazeGenerator : MonoBehaviour {
     int remain = population.Count;
     if (fitnessSum != 0) {
       for (int i = 0; i < population.Count && remain > 0; i++) {
-        int need = (int)(population[i].getFitness() / (double)fitnessSum + 0.5);
+        int need = (int)(population[i].getFitness() / fitnessSum + 0.5);
         need = need > remain ? remain : need;
         remain -= need;
         while (need > 0) {

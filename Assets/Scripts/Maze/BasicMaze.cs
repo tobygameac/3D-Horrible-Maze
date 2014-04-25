@@ -9,17 +9,27 @@ public class BasicMaze {
 
   private static System.Random random = new System.Random(); // Only need one random seed
 
-  private int R, C; // SIZE
-  private Point startPoint = new Point();
-  private Point endPoint = new Point();
+  private int R, C;
+  private Point startPoint;
+  private Point endPoint;
 
-  private List<List<bool>> blocks = new List<List<bool>>();
-  private List<Point> availableBlocks = new List<Point>();
+  private List<List<bool>> blocks;
+  private List<Point> availableBlocks;
+  private List<List<bool>> isCorner;
+  private List<List<bool>> isDeadend;
+
+  private double fitness;
+  private int cornerNumber;
+  private int deadendNumber;
+  private int blocksSize;
+  
+  private List<List<bool>> possible;
 
   public BasicMaze (int R, int C) {
     this.R = R;
     this.C = C;
-
+    
+    blocks = new List<List<bool>>();
     // +2 because of the border on both side
     for (int r = 0; r < R + 2; r++) {
       blocks.Add(new List<bool>());
@@ -28,10 +38,12 @@ public class BasicMaze {
       }
     }
 
+    startPoint = new Point();
+    endPoint = new Point();
+
     string mazeData = MazeData.getRandomMazeData(R, C);
 
     if (mazeData != null) {
-
       string[] token = mazeData.Split();
 
       startPoint.r = Convert.ToInt32(token[0]);
@@ -72,8 +84,22 @@ public class BasicMaze {
     for (int i = 0; i < other.availableBlocks.Count; i++) {
       availableBlocks.Add(other.availableBlocks[i]);
     }
+    isCorner = new List<List<bool>>();
+    for (int r = 0; r < other.isCorner.Count; r++) {
+      isCorner.Add(new List<bool>());
+      for (int c = 0; c < other.isCorner[r].Count; c++) {
+        isCorner[r].Add(other.isCorner[r][c]);
+      }
+    }
+    isDeadend = new List<List<bool>>();
+    for (int r = 0; r < other.isDeadend.Count; r++) {
+      isDeadend.Add(new List<bool>());
+      for (int c = 0; c < other.isDeadend[r].Count; c++) {
+        isDeadend[r].Add(other.isDeadend[r][c]);
+      }
+    }
     fitness = other.fitness;
-    conerNumber = other.conerNumber;
+    cornerNumber = other.cornerNumber;
     deadendNumber = other.deadendNumber;
     blocksSize = other.blocksSize;
     possible = new List<List<bool>>();
@@ -91,7 +117,7 @@ public class BasicMaze {
       Debug.Log("R = " + R + ", C = " + C);
       Debug.Log("startR = " + startPoint.r + ", startC = " + startPoint.c);
       Debug.Log("endR = " + endPoint.r + ", endC = " + endPoint.c);
-      Debug.Log("Coner number = " + conerNumber);
+      Debug.Log("corner number = " + cornerNumber);
       Debug.Log("Deadend number = " + deadendNumber);
       Debug.Log("Blocks size = " + blocksSize);
       Debug.Log("Fitness = " + fitness);
@@ -253,26 +279,18 @@ public class BasicMaze {
     return movingActions[r2][c2];
   }
 
-  private int fitness;
-  private int conerNumber;
-  private int deadendNumber;
-  private int blocksSize;
-  
-  private List<List<bool>> possible;
-
-
-  public int getFitness () {
+  public double getFitness () {
     return fitness;
   }
 
   public void setFitness () {
     setBlocksSize();
-    setConerNumber();
+    setcornerNumber();
     setDeadendNumber();
-    if ((conerNumber > 0) && (deadendNumber > 0)) {
-      fitness = conerNumber * 5 + deadendNumber * 15 + blocksSize;
-    } else {
-      fitness = 0;
+    fitness = 0;
+    if (blocksSize != 0) {
+      fitness = (cornerNumber * deadendNumber) / (double)blocksSize;
+      fitness *= Mathf.Sqrt(blocksSize / (float)(R * C));
     }
   }
 
@@ -340,112 +358,46 @@ public class BasicMaze {
 
     blocksSize = availableBlocks.Count;
 
-    /*
-    // Clear unreachable blocks
-    for (int r = 1; r <= R; r++) {
-      for (int c = 1; c <= C; c++) {
-        if (!visited[r][c]) {
-          blocks[r][c] = false;
-        }
-      }
-    }
-    */
   }
 
 
-  private void setConerNumber () {
-    List<List<bool>> isConer = new List<List<bool>>();
+  private void setcornerNumber () {
+    
+    isCorner = new List<List<bool>>();
 
     for (int r = 0; r < R + 2; r++) {
-      isConer.Add(new List<bool>());
+      isCorner.Add(new List<bool>());
       for (int c = 0; c < C + 2; c++) {
-        isConer[r].Add(false);
+        isCorner[r].Add(false);
       }
     }
 
-    // right and up
-    for (int r = 2; r <= R; r++) {
-      for (int c = 1; c <= C - 2; c++) {
-        if (blocks[r][c] && blocks[r][c + 1] && blocks[r][c + 2]) {
-          if (!blocks[r - 1][c] && !blocks[r - 1][c + 1] && blocks[r - 1][c + 2]) {
-            isConer[r][c + 2] = true;
+    int[] dr = new int[]{1, 0, -1, 0};
+    int[] dc = new int[]{0, 1, 0, -1};
+
+    for (int r = 1; r <= R; r++) {
+      for (int c = 1; c <= C; c++) {
+        int nbdCount = 0;
+        // Count four directions
+        for (int d = 0; d < 4; d++) {
+          if (blocks[r + dr[d]][c + dc[d]]) {
+            nbdCount++;
           }
         }
-      }
-    }
-
-    // right and down
-    for (int r = 1; r <= R - 1; r++) {
-      for (int c = 1; c <= C - 2; c++) {
-        if (blocks[r][c] && blocks[r][c + 1] && blocks[r][c + 2]) {
-          if (!blocks[r + 1][c] && !blocks[r + 1][c + 1] && blocks[r + 1][c + 2]) {
-            isConer[r][c + 2] = true;
+        // Count eight directions
+        if (nbdCount == 3) {
+          nbdCount = 0;
+          for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+              if ((i * j) != 0) {
+                if (blocks[r + i][c + j]) {
+                  nbdCount++;
+                }
+              }
+            }
           }
-        }
-      }
-    }
-
-    // left and up
-    for (int r = 2; r <= R; r++) {
-      for (int c = 3; c <= C; c++) {
-        if (blocks[r][c] && blocks[r][c - 1] && blocks[r][c - 2]) {
-          if (!blocks[r - 1][c] && !blocks[r - 1][c - 1] && blocks[r - 1][c - 2]) {
-            isConer[r][c - 2] = true;
-          }
-        }
-      }
-    }
-
-    // left and down
-    for (int r = 1; r <= R - 1; r++) {
-      for (int c = 3; c <= C; c++) {
-        if (blocks[r][c] && blocks[r][c - 1] && blocks[r][c - 2]) {
-          if (!blocks[r + 1][c] && !blocks[r + 1][c - 1] && blocks[r + 1][c - 2]) {
-            isConer[r][c - 2] = true;
-          }
-        }
-      }
-    }
-
-    // up and right
-    for (int r = 3; r <= R; r++) {
-      for (int c = 1; c <= C - 1; c++) {
-        if (blocks[r][c] && blocks[r - 1][c] && blocks[r - 2][c]) {
-          if (!blocks[r][c + 1] && !blocks[r - 1][c + 1] && blocks[r - 2][c + 1]) {
-            isConer[r - 2][c] = true;
-          }
-        }
-      }
-    }
-
-    // up and left
-    for (int r = 3; r <= R; r++) {
-      for (int c = 2; c <= C; c++) {
-        if (blocks[r][c] && blocks[r - 1][c] && blocks[r - 2][c]) {
-          if (!blocks[r][c - 1] && !blocks[r - 1][c - 1] && blocks[r - 2][c - 1]) {
-            isConer[r - 2][c] = true;
-          }
-        }
-      }
-    }
-
-    // down and right
-    for (int r = 1; r <= R - 2; r++) {
-      for (int c = 1; c <= C - 1; c++) {
-        if (blocks[r][c] && blocks[r + 1][c] && blocks[r + 2][c]) {
-          if (!blocks[r][c + 1] && !blocks[r + 1][c + 1] && blocks[r + 2][c + 1]) {
-            isConer[r + 2][c] = true;
-          }
-        }
-      }
-    }
-
-    // down and left
-    for (int r = 1; r <= R - 2; r++) {
-      for (int c = 2; c <= C; c++) {
-        if (blocks[r][c] && blocks[r + 1][c] && blocks[r + 2][c]) {
-          if (!blocks[r][c - 1] && !blocks[r + 1][c - 1] && blocks[r + 2][c - 1]) {
-            isConer[r + 2][c] = true;
+          if (nbdCount == 3) {
+            isCorner[r][c] = true;
           }
         }
       }
@@ -454,15 +406,16 @@ public class BasicMaze {
     int count = 0;
     for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        count += (isConer[r][c] && possible[r][c]) ? 1 : 0;
+        count += (isCorner[r][c] && possible[r][c]) ? 1 : 0;
       }
     }
 
-    conerNumber = count;
+    cornerNumber = count;
   }
 
   private void setDeadendNumber () {
-    List<List<bool>> isDeadend = new List<List<bool>>();
+    
+    isDeadend = new List<List<bool>>();
 
     for (int r = 0; r < R + 2; r++) {
       isDeadend.Add(new List<bool>());
@@ -471,53 +424,39 @@ public class BasicMaze {
       }
     }
 
-    // right
-    for (int r = 1; r <= R - 1; r++) {
-      for (int c = 1; c <= C - 3; c++) {
-        if (!blocks[r - 1][c] && !blocks[r - 1][c + 1] && !blocks[r - 1][c + 2]) {
-          if (!blocks[r + 1][c] && !blocks[r + 1][c + 1] && !blocks[r + 1][c + 2]) {
-            if (blocks[r][c] && blocks[r][c + 1] && blocks[r][c + 2] && !blocks[r][c + 3]) {
-              isDeadend[r][c + 2] = true;
-            }
-          }
-        }
-      }
-    }
+    int[] dr = new int[]{1, 0, -1, 0};
+    int[] dc = new int[]{0, 1, 0, -1};
 
-    // left
-    for (int r = 1; r <= R - 1; r++) {
-      for (int c = 3; c <= C; c++) {
-        if (!blocks[r - 1][c] && !blocks[r - 1][c - 1] && !blocks[r - 1][c - 2]) {
-          if (!blocks[r + 1][c] && !blocks[r + 1][c - 1] && !blocks[r + 1][c - 2]) {
-            if (blocks[r][c] && blocks[r][c - 1] && blocks[r][c - 2] && !blocks[r][c - 3]) {
-              isDeadend[r][c - 2] = true;
-            }
-          }
-        }
-      }
-    }
-
-    // up
-    for (int r = 3; r <= R; r++) {
+    for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        if (!blocks[r][c - 1] && !blocks[r - 1][c - 1] && !blocks[r - 2][c - 1]) {
-          if (!blocks[r][c + 1] && !blocks[r - 1][c + 1] && !blocks[r - 2][c + 1]) {
-            if (blocks[r][c] && blocks[r - 1][c] && blocks[r - 2][c] && !blocks[r - 3][c]) {
-              isDeadend[r - 2][c] = true;
+        int nbdCount = 0, emptyDir = 0;
+        // Count four directions
+        for (int d = 0; d < 4; d++) {
+          if (blocks[r + dr[d]][c + dc[d]]) {
+            nbdCount++;
+          }
+          emptyDir = d;
+        }
+        if (nbdCount == 1) {
+          nbdCount = 0;
+          int d = emptyDir;
+          for (int i = -1; i <= 1; i += 2) {
+            for (int j = -1; j <= 1; j += 2) {
+              int nr = r + dr[d];
+              int nc = c + dc[d];
+              if (dr[d] == 0) {
+                nr += i;
+              }
+              if (dc[d] == 0) {
+                nc += j;
+              }
+              if (blocks[nr][nc]) {
+                nbdCount++;
+              }
             }
           }
-        }
-      }
-    }
-
-    // down
-    for (int r = 1; r <= R - 3; r++) {
-      for (int c = 1; c <= C; c++) {
-        if (!blocks[r][c - 1] && !blocks[r + 1][c - 1] && !blocks[r + 2][c - 1]) {
-          if (!blocks[r][c + 1] && !blocks[r + 1][c + 1] && !blocks[r + 2][c + 1]) {
-            if (blocks[r][c] && blocks[r + 1][c] && blocks[r + 2][c] && !blocks[r + 3][c]) {
-              isDeadend[r + 2][c] = true;
-            }
+          if (nbdCount == 4) {
+            isDeadend[r][c] = true;
           }
         }
       }
