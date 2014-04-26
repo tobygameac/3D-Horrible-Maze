@@ -15,6 +15,7 @@ public class BasicMaze {
 
   private List<List<bool>> blocks;
   private List<Point> availableBlocks;
+  private List<List<bool>> isAvailable;
   private List<List<bool>> isCorner;
   private List<List<bool>> isDeadend;
 
@@ -22,8 +23,6 @@ public class BasicMaze {
   private int cornerNumber;
   private int deadendNumber;
   private int blocksSize;
-  
-  private List<List<bool>> possible;
 
   public BasicMaze (int R, int C) {
     this.R = R;
@@ -41,7 +40,7 @@ public class BasicMaze {
     startPoint = new Point();
     endPoint = new Point();
 
-    string mazeData = MazeData.getRandomMazeData(R, C);
+    string mazeData = MazeData.getRandomMazeData(R, C, GameState.difficulty);
 
     if (mazeData != null) {
       string[] token = mazeData.Split();
@@ -102,11 +101,11 @@ public class BasicMaze {
     cornerNumber = other.cornerNumber;
     deadendNumber = other.deadendNumber;
     blocksSize = other.blocksSize;
-    possible = new List<List<bool>>();
-    for (int r = 0; r < other.possible.Count; r++) {
-      possible.Add(new List<bool>());
-      for (int c = 0; c < other.possible[r].Count; c++) {
-        possible[r].Add(other.possible[r][c]);
+    isAvailable = new List<List<bool>>();
+    for (int r = 0; r < other.isAvailable.Count; r++) {
+      isAvailable.Add(new List<bool>());
+      for (int c = 0; c < other.isAvailable[r].Count; c++) {
+        isAvailable[r].Add(other.isAvailable[r][c]);
       }
     }
   }
@@ -154,14 +153,59 @@ public class BasicMaze {
   public bool inMaze (int r, int c) {
     return (r >= 1 && r <= R && c >= 1 && c <= C);
   }
+  
+  public bool isStartPoint (int r, int c) {
+    return inMaze(r, c) && r == startPoint.r && c == startPoint.c;
+  }
 
-  public bool getBlockState (int r, int c) {
+  public bool isStartPoint (Point point) {
+    int r = point.r, c = point.c;
+    return inMaze(r, c) && r == startPoint.r && c == startPoint.c;
+  }
+
+  public bool isEndPoint (int r, int c) {
+    return inMaze(r, c) && r == endPoint.r && c == endPoint.c;
+  }
+
+  public bool isEndPoint (Point point) {
+    int r = point.r, c = point.c;
+    return inMaze(r, c) && r == endPoint.r && c == endPoint.c;
+  }
+
+  public bool isEmptyBlock (int r, int c) {
     return inMaze(r, c) && blocks[r][c];
   }
 
-  public bool getBlockState (Point point) {
+  public bool isEmptyBlock (Point point) {
     int r = point.r, c = point.c;
     return inMaze(r, c) && blocks[r][c];
+  }
+
+  public bool isAvailableBlock (int r, int c) {
+    return inMaze(r, c) && isAvailable[r][c];
+  }
+  
+  public bool isAvailableBlock (Point point) {
+    int r = point.r, c = point.c;
+    return inMaze(r, c) && isAvailable[r][c];
+  }
+
+  public bool isCornerBlock (int r, int c) {
+    return inMaze(r, c) && isCorner[r][c];
+  }
+  
+  public bool isCornerBlock (Point point) {
+    int r = point.r, c = point.c;
+    return inMaze(r, c) && isCorner[r][c];
+  }
+
+  public bool isDeadendBlock (int r, int c) {
+    return inMaze(r, c) && isDeadend[r][c];
+  }
+  
+  public bool isDeadendBlock (Point point) {
+    int r = point.r, c = point.c;
+    return inMaze(r, c) && isDeadend[r][c];
   }
 
   public Point getRandomAvailableBlock () {
@@ -244,7 +288,7 @@ public class BasicMaze {
       // Basic move
       for (int d = 0; d < 4; d++) {
         int nr = r + drB[d], nc = c + dcB[d];
-        if (getBlockState(nr, nc) && !visited[nr][nc]) {
+        if (isEmptyBlock(nr, nc) && !visited[nr][nc]) {
           q.Enqueue(new Point(nr, nc));
           visited[nr][nc] = true;
           for (int i = 0; i < path.Count; i++) {
@@ -257,7 +301,7 @@ public class BasicMaze {
       // Diagonal move
       for (int d = 0; d < 4; d++) {
         int nr = r + drD[d], nc = c + dcD[d];
-        if (getBlockState(nr, nc) && !visited[nr][nc]) {
+        if (isEmptyBlock(nr, nc) && !visited[nr][nc]) {
 
           // Check basic directions which next to the diagonal direction
           int d1 = d, d2 = (d + 1) % 4;
@@ -265,7 +309,7 @@ public class BasicMaze {
           int nr2 = r + drB[d2], nc2 = c + dcB[d2];
 
           // Moving if both basic blocks are avalible
-          if (getBlockState(nr1, nc1) && getBlockState(nr2, nc2)) {
+          if (isEmptyBlock(nr1, nc1) && isEmptyBlock(nr2, nc2)) {
             q.Enqueue(new Point(nr, nc));
             visited[nr][nc] = true;
             movingActions[nr][nc] = new List<MovingAction>(path);
@@ -285,7 +329,7 @@ public class BasicMaze {
 
   public void setFitness () {
     setBlocksSize();
-    setcornerNumber();
+    setCornerNumber();
     setDeadendNumber();
     fitness = 0;
     if (blocksSize != 0) {
@@ -317,18 +361,18 @@ public class BasicMaze {
 
     blocks[startPoint.r][startPoint.c] = true;
 
-    possible = new List<List<bool>>();
+    isAvailable = new List<List<bool>>();
     
     for (int r = 0; r < R + 2; r++) {
-      possible.Add(new List<bool>());
+      isAvailable.Add(new List<bool>());
       for (int c = 0; c < C + 2; c++) {
-        possible[r].Add(false);
+        isAvailable[r].Add(false);
       }
     }
     
-    possible[startPoint.r][startPoint.c] = true;
+    isAvailable[startPoint.r][startPoint.c] = true;
 
-    // Find all possible block
+    // Find all isAvailable block
 
     Queue<Point> q = new Queue<Point>();
     q.Enqueue(new Point(startPoint.r, startPoint.c));
@@ -345,9 +389,9 @@ public class BasicMaze {
       int c = now.c;
       for (int d = 0; d < 4; d++) {
         int nr = r + dr[d], nc = c + dc[d];
-        if (getBlockState(nr, nc) && !possible[nr][nc]) {
+        if (isEmptyBlock(nr, nc) && !isAvailable[nr][nc]) {
           q.Enqueue(new Point(nr, nc));
-          possible[nr][nc] = true;
+          isAvailable[nr][nc] = true;
         }
       }
 
@@ -361,7 +405,7 @@ public class BasicMaze {
   }
 
 
-  private void setcornerNumber () {
+  private void setCornerNumber () {
     
     isCorner = new List<List<bool>>();
 
@@ -389,10 +433,11 @@ public class BasicMaze {
           nbdCount = 0;
           for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-              if ((i * j) != 0) {
-                if (blocks[r + i][c + j]) {
-                  nbdCount++;
-                }
+              if ((i == 0) && (j == 0)) {
+                continue;
+              }
+              if (blocks[r + i][c + j]) {
+                nbdCount++;
               }
             }
           }
@@ -406,7 +451,7 @@ public class BasicMaze {
     int count = 0;
     for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        count += (isCorner[r][c] && possible[r][c]) ? 1 : 0;
+        count += (isCorner[r][c] && isAvailable[r][c]) ? 1 : 0;
       }
     }
 
@@ -434,8 +479,8 @@ public class BasicMaze {
         for (int d = 0; d < 4; d++) {
           if (blocks[r + dr[d]][c + dc[d]]) {
             nbdCount++;
+            emptyDir = d;
           }
-          emptyDir = d;
         }
         if (nbdCount == 1) {
           nbdCount = 0;
@@ -450,7 +495,7 @@ public class BasicMaze {
               if (dc[d] == 0) {
                 nc += j;
               }
-              if (blocks[nr][nc]) {
+              if (!blocks[nr][nc]) {
                 nbdCount++;
               }
             }
@@ -465,7 +510,7 @@ public class BasicMaze {
     int count = 0;
     for (int r = 1; r <= R; r++) {
       for (int c = 1; c <= C; c++) {
-        count += (isDeadend[r][c] && possible[r][c]) ? 1 : 0;
+        count += (isDeadend[r][c] && isAvailable[r][c]) ? 1 : 0;
       }
     }
 

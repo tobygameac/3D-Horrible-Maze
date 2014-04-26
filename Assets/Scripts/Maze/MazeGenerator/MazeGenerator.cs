@@ -36,11 +36,12 @@ public partial class MazeGenerator : MonoBehaviour {
 
     for (int h = 0; h < MAZE_H; h++) {
 
-      if (MazeData.getRandomMazeData(MAZE_R, MAZE_C) != null) {
+      if (MazeData.getRandomMazeData(MAZE_R, MAZE_C, GameState.difficulty) != null) {
         // Offline
         basicMazes.Add(new BasicMaze(MAZE_R, MAZE_C));
       } else {
         // Online
+        // Online assume difficuty = 0
         generateBasicMaze();
       }
 
@@ -168,9 +169,9 @@ public partial class MazeGenerator : MonoBehaviour {
         for (int r = 1; r <= MAZE_R; r++) {
           for (int c = 1; c <= MAZE_C; c++) {
             if (r < midR || (r == midR && c < midC)) {
-              newMaze2.setBlock(r, c, crossoverPool[index1].getBlockState(r, c));
+              newMaze2.setBlock(r, c, crossoverPool[index1].isEmptyBlock(r, c));
             } else {
-              newMaze1.setBlock(r, c, crossoverPool[index2].getBlockState(r, c));
+              newMaze1.setBlock(r, c, crossoverPool[index2].isEmptyBlock(r, c));
             }
           }
         }
@@ -190,7 +191,7 @@ public partial class MazeGenerator : MonoBehaviour {
       for (int r = 1; r <= MAZE_R; r++) {
         for (int c = 1; c <= MAZE_C; c++) {
           if (random.Next(1000) < 1) { // 0.1% chance to crossover
-            population[i].setBlock(r, c, !population[i].getBlockState(r, c));
+            population[i].setBlock(r, c, !population[i].isEmptyBlock(r, c));
           }
         }
       }

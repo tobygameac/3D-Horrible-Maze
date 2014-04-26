@@ -101,6 +101,10 @@ public class Scoreboard : MonoBehaviour {
     scoreSubmitted = true;
     
     string postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore.php?";
+
+    if (GameState.difficulty > 0) {
+      postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore%20-%20hard.php?";
+    }
  
     string hash = Md5Sum(name + score + secretKey); 
  

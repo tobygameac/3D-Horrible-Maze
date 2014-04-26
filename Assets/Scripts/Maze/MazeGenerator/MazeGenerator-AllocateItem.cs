@@ -49,7 +49,7 @@ public partial class MazeGenerator : MonoBehaviour {
         int c = now.c;
         for (int d = 0; d < 4; d++) {
           int nr = r + dr[d], nc = c + dc[d];
-          if (basicMazes[h].getBlockState(nr, nc) && !visited[nr][nc]) {
+          if (basicMazes[h].isEmptyBlock(nr, nc) && !visited[nr][nc]) {
             q.Enqueue(new Point(nr, nc));
             visited[nr][nc] = true;
           }

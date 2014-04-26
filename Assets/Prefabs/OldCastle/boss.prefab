@@ -335,7 +335,7 @@ MonoBehaviour:
   staringTriggerRadius: 15
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
-  attackingRadius: 5
+  attackingRadius: 3
   mentalityRestorePercentPerSecond: .0399999991
   mentalityAbsorbPercentPerSecond: .0799999982
   QTELength: 2

@@ -10,4 +10,5 @@ public static class GameState {
   public const int MENUVIEWING = 4;
 
   public static int state;
+  public static int difficulty;
 }

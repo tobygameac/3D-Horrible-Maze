@@ -10,18 +10,21 @@ public class MainMenu : MonoBehaviour {
   public Texture rankButtonTexture;
   public Texture optionButtonTexture;
   public Texture exitButtonTexture;
+  private bool isChoosingDifficulty;
 
   private SoundEffectManager soundEffectManager;
+
 
   void Start () {
     GameState.state = GameState.MENUVIEWING;
     soundEffectManager = GetComponent<SoundEffectManager>();
+    isChoosingDifficulty = false;
   }
 
   void OnGUI () {
     GUI.skin = skin;
 
-    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),  backgroundTexture);
+    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
     GUI.Label(new Rect(0, 0, 100, 100), "2014/4/25 9.00");
 
@@ -37,23 +40,42 @@ public class MainMenu : MonoBehaviour {
     int startX = (width - buttonWidth) / 2;
     int startY = height / 5;
 
-    if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), startButtonTexture)) {
-      soundEffectManager.playButtonSound();
-      Application.LoadLevel("Tutorial");
-    }
+    if (isChoosingDifficulty) {
+      if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Easy")) {
+        soundEffectManager.playButtonSound();
+        GameState.difficulty = 0;
+        Application.LoadLevel("Tutorial");
+      }
 
-    if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), rankButtonTexture)) {
-      soundEffectManager.playButtonSound();
-      Application.LoadLevel("Rank");
-    }
+      if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Hard")) {
+        soundEffectManager.playButtonSound();
+        GameState.difficulty = 1;
+        Application.LoadLevel("OldCastle");
+      }
 
-    if (GUI.Button(new Rect(startX, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
-      soundEffectManager.playButtonSound();
-    }
+      if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Return")) {
+        soundEffectManager.playButtonSound();
+        isChoosingDifficulty = false;
+      }
+    } else {
+      if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), startButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        isChoosingDifficulty = true;
+      }
 
-    if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
-      soundEffectManager.playButtonSound();
-      Application.Quit();
+      if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), rankButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        Application.LoadLevel("Rank");
+      }
+
+      if (GUI.Button(new Rect(startX, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
+        soundEffectManager.playButtonSound();
+      }
+
+      if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        Application.Quit();
+      }
     }
 
     GUILayout.EndArea();

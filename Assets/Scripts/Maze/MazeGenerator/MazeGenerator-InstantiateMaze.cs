@@ -56,7 +56,7 @@ public partial class MazeGenerator : MonoBehaviour {
           int realR = (r + offset.r) * BLOCK_SIZE;
           int realC = (c + offset.c) * BLOCK_SIZE;
 
-          if (basicMazes[h].getBlockState(r, c)) {
+          if (basicMazes[h].isEmptyBlock(r, c)) {
 
             if (r == endPoint.r && c == endPoint.c && h < MAZE_H - 1) {
               // Elevator (Elevator do not need a ceiling)

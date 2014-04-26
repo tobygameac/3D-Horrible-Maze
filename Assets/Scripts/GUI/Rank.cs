@@ -10,8 +10,10 @@ public class Rank : MonoBehaviour {
   public Texture returnButtonTexture;
 
   private string rankUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank.php";
+  private string rankHardUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank%20-%20hard.php";
 
   private string text;
+  private string textHard;
 
   private SoundEffectManager soundEffectManager;
 
@@ -46,11 +48,12 @@ public class Rank : MonoBehaviour {
       Application.LoadLevel("MainMenu");
     }
 
-    int textWidth = width / 2;
+    int textWidth = width / 4;
     int textHeight = height / 2;
     Color originalColor = GUI.color;
     GUI.color = Color.black;
-    GUI.Label(new Rect(width / 5, height / 3, textWidth, textHeight),  text);
+    GUI.Label(new Rect(width / 6, height / 3, textWidth, textHeight), text);
+    GUI.Label(new Rect(width / 6 + textWidth + width / 6, height / 3, textWidth, textHeight), textHard);
     GUI.color = originalColor;
 
     GUILayout.EndArea();
@@ -58,12 +61,16 @@ public class Rank : MonoBehaviour {
 
   private IEnumerator GetScores() {
     text = "Loading...";
-    WWW hs_get = new WWW(rankUrl);
-    yield return hs_get;
-    if (hs_get.error != null) {
-      print("There was an error getting the rank : " + hs_get.error);
+    WWW rankHS = new WWW(rankUrl);
+    yield return rankHS;
+    WWW rankHardHS = new WWW(rankHardUrl);
+    yield return rankHardHS;
+    if (rankHS.error != null && rankHardHS != null) {
+      print("There was an error getting the rank : " + rankHS.error);
+      print("There was an error getting the rank hard : " + rankHardHS.error);
     } else {
-      text = hs_get.text;
+      text = rankHS.text;
+      textHard = rankHardHS.text;
     }
   }
 }
