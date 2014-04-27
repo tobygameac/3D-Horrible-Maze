@@ -206,6 +206,8 @@ MonoBehaviour:
   - {fileID: 100000, guid: bb7aad9cc56c30d489259ea39ad49739, type: 2}
   bloodPrefab: {fileID: 100000, guid: 887d816e652f5a44799b2ea5f4873f4f, type: 2}
   elevatorPrefab: {fileID: 100002, guid: ea1e1b03a8884df4fbbd7bbd81fbe0f8, type: 2}
+  drawingPrefab: {fileID: 100004, guid: 5fb9b05457100b742872f74e2d6134ef, type: 2}
+  torchPrefab: {fileID: 100012, guid: d537b6a03426d18498705d035ac3e198, type: 2}
   isDebugging: 0
   MAZE_R: 10
   MAZE_C: 10
@@ -650,6 +652,14 @@ Prefab:
       propertyPath: NUM_OF_POPULATION
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: drawingPrefab
+      value: 
+      objectReference: {fileID: 100004, guid: 5fb9b05457100b742872f74e2d6134ef, type: 2}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: torchPrefab
+      value: 
+      objectReference: {fileID: 100012, guid: d537b6a03426d18498705d035ac3e198, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

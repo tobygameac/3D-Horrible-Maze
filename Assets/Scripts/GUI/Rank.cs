@@ -7,6 +7,8 @@ public class Rank : MonoBehaviour {
 
   public Texture backgroundTexture;
   public Texture rankBackgroundTexture;
+  public Texture easyTexture;
+  public Texture hardTexture;
   public Texture returnButtonTexture;
 
   private string rankUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank.php";
@@ -55,6 +57,10 @@ public class Rank : MonoBehaviour {
     GUI.Label(new Rect(width / 6, height / 3, textWidth, textHeight), text);
     GUI.Label(new Rect(width / 6 + textWidth + width / 6, height / 3, textWidth, textHeight), textHard);
     GUI.color = originalColor;
+    int difficultyTextureWidth = width / 4;
+    int difficultyTextureHeight = width / 8;
+    GUI.DrawTexture(new Rect(width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), easyTexture);
+    GUI.DrawTexture(new Rect(width / 7 + textWidth + width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), hardTexture);
 
     GUILayout.EndArea();
   }

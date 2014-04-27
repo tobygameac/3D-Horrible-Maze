@@ -66,7 +66,7 @@ public partial class MazeGenerator : MonoBehaviour {
     return new Point(r, c);
   }
 
-  public Point getRandomAvailableBlock (int h) {
+  public Point getRandomAvailableBlock (int h, bool noneStartEnd = false) {
 
     // Error
     if (h < 0 || h >= MAZE_H) {
@@ -77,7 +77,24 @@ public partial class MazeGenerator : MonoBehaviour {
 
       return null;
     }
-    return basicMazes[h].getRandomAvailableBlock();
+
+    if (noneStartEnd) {
+      int tried = 0, maximumTried = 100;
+      Point point = basicMazes[h].getRandomAvailableBlock();
+      while (basicMazes[h].isStartPoint(point) || basicMazes[h].isStartPoint(point)) {
+        if (tried > maximumTried) {
+          if (isDebugging) {
+            Debug.Log("No none-start ans none-end point.");
+          }
+          break;
+        }
+        point = basicMazes[h].getRandomAvailableBlock();
+        tried++;
+      }
+      return point;
+    } else {
+      return basicMazes[h].getRandomAvailableBlock();
+    }
   }
 
   public List<Vector3> getShortestPath (Vector3 position1, Vector3 position2) {

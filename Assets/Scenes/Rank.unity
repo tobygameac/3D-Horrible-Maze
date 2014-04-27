@@ -120,6 +120,8 @@ MonoBehaviour:
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
   rankBackgroundTexture: {fileID: 2800000, guid: 5f80962b1944f4341b5d998802199ebe,
     type: 3}
+  easyTexture: {fileID: 2800000, guid: c63d114ca6a607346896a8ef34d93a78, type: 3}
+  hardTexture: {fileID: 2800000, guid: e092b665b395f7b4e9f6cd0cf079005b, type: 3}
   returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
 --- !u!114 &1467129974
 MonoBehaviour:

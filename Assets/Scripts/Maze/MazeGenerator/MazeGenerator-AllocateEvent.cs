@@ -19,7 +19,7 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public Vector3 getNewEventPosition () {
     int randomH = random.Next(MAZE_H);
-    Point point = getRandomAvailableBlock(randomH);
+    Point point = getRandomAvailableBlock(randomH, true);
     int r = point.r;
     int c = point.c;
     Point offset = getOffset(randomH);
