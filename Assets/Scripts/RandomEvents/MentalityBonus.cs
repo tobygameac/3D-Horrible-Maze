@@ -26,7 +26,7 @@ public class MentalityBonus : MonoBehaviour {
         mentality = other.GetComponent<Mentality>();
       }
       mentality.gain(mentalityGain);
-      Vector3 randomEventPosition = maze.getNewEventPosition();
+      Vector3 randomEventPosition = maze.getNewEventPosition(transform.position);
       transform.position = randomEventPosition;
     }
   }

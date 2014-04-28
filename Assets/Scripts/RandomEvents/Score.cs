@@ -23,7 +23,7 @@ public class Score : MonoBehaviour {
     if (other.tag == "Player") {
       soundEffectManager.playBonusSound();
       scoreboard.addScore(scoreGain);
-      Vector3 randomEventPosition = maze.getNewEventPosition();
+      Vector3 randomEventPosition = maze.getNewEventPosition(transform.position);
       transform.position = randomEventPosition;
       if (scoreboard.getScore() >= 5000) {
         maze.allocateRandomEvent(scoreboard.getScore() / 5000);

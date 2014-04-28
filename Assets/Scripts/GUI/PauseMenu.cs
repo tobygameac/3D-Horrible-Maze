@@ -9,11 +9,15 @@ public class PauseMenu : MonoBehaviour {
   public Texture pauseMenuBackgroundTexture;
 
   public Texture optionButtonTexture;
+  public Texture returnButtonTexture;
   public Texture exitButtonTexture;
+
+  private bool isAdjustingOption;
 
   private SoundEffectManager soundEffectManager;
 
   void Start () {
+    isAdjustingOption = false;
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
 
@@ -62,13 +66,30 @@ public class PauseMenu : MonoBehaviour {
 
     int startY = height / 4;
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
-      soundEffectManager.playButtonSound();
-    }
+    if (isAdjustingOption) {
+      GameState.volume = GUI.HorizontalScrollbar(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), GameState.volume, 0.01f, 0, 1);
+      soundEffectManager.adjustSound();
 
-    if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
-      soundEffectManager.playButtonSound();
-      Application.LoadLevel("MainMenu");
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        isAdjustingOption = false;
+      }
+    } else {
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), optionButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        isAdjustingOption = true;
+      }
+
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        GameState.state = GameState.PLAYING;
+        Time.timeScale = 1;
+      }
+
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
+        soundEffectManager.playButtonSound();
+        Application.LoadLevel("MainMenu");
+      }
     }
 
     GUILayout.EndArea();

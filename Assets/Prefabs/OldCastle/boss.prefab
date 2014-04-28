@@ -335,9 +335,10 @@ MonoBehaviour:
   staringTriggerRadius: 15
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
+  offScreenDot: .649999976
   attackingRadius: 3
-  mentalityRestorePercentPerSecond: .0399999991
-  mentalityAbsorbPercentPerSecond: .0799999982
+  mentalityRestorePerSecond: 4
+  mentalityAbsorbPerSecond: 8
   QTELength: 2
   stunningTime: 15
   cameraMovingTime: .5

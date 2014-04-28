@@ -81,7 +81,7 @@ public partial class MazeGenerator : MonoBehaviour {
     if (noneStartEnd) {
       int tried = 0, maximumTried = 100;
       Point point = basicMazes[h].getRandomAvailableBlock();
-      while (basicMazes[h].isStartPoint(point) || basicMazes[h].isStartPoint(point)) {
+      while (basicMazes[h].isStartPoint(point) || basicMazes[h].isEndPoint(point)) {
         if (tried > maximumTried) {
           if (isDebugging) {
             Debug.Log("No none-start ans none-end point.");

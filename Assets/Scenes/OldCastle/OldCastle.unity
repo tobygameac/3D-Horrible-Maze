@@ -175,12 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb9711716fb7814ca6e501b3e891787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomEventCount: 1e0000000a0000000a00000003000000
+  randomEventCount: 1e0000000a0000000a0000000300000003000000
   randomEventPrefabs:
   - {fileID: 100000, guid: 4004efc6cede9d44f932a1c7d27857d8, type: 2}
   - {fileID: 100000, guid: db101335eb9c1734683870c8dd98ebd8, type: 2}
   - {fileID: 100000, guid: 395569d42b4891640b72df8db909c0f2, type: 2}
   - {fileID: 100008, guid: 0b99508c7153aca449e8e0ea0da44700, type: 2}
+  - {fileID: 100008, guid: e84babb925fa70042a12e83d42f2f040, type: 2}
   itemPrefabs:
   - {fileID: 100002, guid: 6631c52c973916445bdcd01c42989709, type: 2}
   - {fileID: 100002, guid: 4fc8f58226fe069498ccb217412f7ee2, type: 2}
@@ -315,6 +316,7 @@ MonoBehaviour:
   pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
     type: 3}
   optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
+  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
   exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
 --- !u!114 &127766902
 MonoBehaviour:
@@ -410,7 +412,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventsPrefab.Array.size
@@ -418,7 +420,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: m_LocalPosition.x
@@ -547,10 +549,10 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[4]
       value: 
-      objectReference: {fileID: 100000, guid: 092c57a89a0b41c4e90c5ec9d8a8bde2, type: 2}
+      objectReference: {fileID: 100008, guid: e84babb925fa70042a12e83d42f2f040, type: 2}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[4]
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: QTEHitSound
@@ -660,6 +662,10 @@ Prefab:
       propertyPath: torchPrefab
       value: 
       objectReference: {fileID: 100012, guid: d537b6a03426d18498705d035ac3e198, type: 2}
+    - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: returnButtonTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

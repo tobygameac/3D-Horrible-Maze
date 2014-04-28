@@ -8,6 +8,8 @@ public class Scoreboard : MonoBehaviour {
   private int score = 0;
   private bool scoreSubmitted;
   private string playerName = "anonymous";
+  private int hard;
+  private bool[] optionStatus;
 
   private Boss boss;
 
@@ -21,6 +23,12 @@ public class Scoreboard : MonoBehaviour {
   void Start () {
     boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
     scoreSubmitted = false;
+    hard = -1;
+    optionStatus = new bool[3];
+    for (int i = 0; i < 3; i++) {
+      optionStatus[i] = false;
+    }
+    optionStatus[2] = true; 
   }
 
   void Update () {
@@ -37,13 +45,36 @@ public class Scoreboard : MonoBehaviour {
       int buttonWidth = Screen.height / 8;
       int buttonHeight = Screen.height / 16;
       if (scoreSubmitted) {
-        GUI.Button(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submitting");
+        GUI.Label(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submitting");
       } else {
         int textAreaWidth = Screen.height / 4;
         int textAreaHeight = Screen.height / 8;
         playerName = GUI.TextArea(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 - textAreaHeight, textAreaWidth, textAreaHeight), playerName);
         if (GUI.Button(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submit")) {
-          StartCoroutine(postScore(playerName));
+          StartCoroutine(postScore(playerName, hard));
+        }
+        if (GameState.userStudy) {
+          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 1 * textAreaHeight, textAreaWidth, textAreaHeight), 
+                optionStatus[0], "I think this map is easy.")) {
+            hard = 0;
+            optionStatus[0] = true;
+            optionStatus[1] = false;
+            optionStatus[2] = false;
+          }
+          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 2 * textAreaHeight, textAreaWidth, textAreaHeight), 
+                optionStatus[1], "I think this map is hard.")) {
+            hard = 1;
+            optionStatus[0] = false;
+            optionStatus[1] = true;
+            optionStatus[2] = false;
+          }
+          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 3 * textAreaHeight, textAreaWidth, textAreaHeight), 
+                optionStatus[2], "I don't know.")) {
+            hard = -1;
+            optionStatus[0] = false;
+            optionStatus[1] = false;
+            optionStatus[2] = true;
+          }
         }
       }
     }
@@ -97,7 +128,13 @@ public class Scoreboard : MonoBehaviour {
     return hashString.PadLeft(32, '0');
   }
 
-  public IEnumerator postScore (string name) {
+  public IEnumerator postScore (string name, int hard) {
+
+    name = name.Trim();
+    if (name.Length >= 20) {
+      name = name.Substring(0, 20);
+    }
+
     scoreSubmitted = true;
     
     string postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore.php?";
@@ -108,7 +145,7 @@ public class Scoreboard : MonoBehaviour {
  
     string hash = Md5Sum(name + score + secretKey); 
  
-    string realPostScoreUrl = postScoreUrl + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash;
+    string realPostScoreUrl = postScoreUrl + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hard=" + hard + "&hash=" + hash;
  
     WWW hs_post = new WWW(realPostScoreUrl);
     yield return hs_post;

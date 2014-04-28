@@ -82,10 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffd7b75a23ed234eb545c396acb47b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowingTrapMaskTexture: {fileID: 2800000, guid: f612110740e32224abf9a21520e863b4,
-    type: 3}
-  timesOfSpeed: .25
-  slowingTime: 5
+  slowingTime: 2.5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

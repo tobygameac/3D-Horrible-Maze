@@ -4,6 +4,7 @@ using System.Collections;
 public class Vitality : MonoBehaviour {
 
   public Texture vitalityBarTexture;
+  public Texture vitalityBarBackgroundTexture;
 
   public float maxVitalityPoint = 100;
 
@@ -46,6 +47,8 @@ public class Vitality : MonoBehaviour {
     int height = Screen.height / 16;
     int startX = width / 10;
     int startY = 60;
+
+    GUI.DrawTexture(new Rect(startX, startY, width, height), vitalityBarBackgroundTexture);
 
     GUILayout.BeginArea(new Rect(startX, startY, width * (vitalityPoint / maxVitalityPoint), height));
 

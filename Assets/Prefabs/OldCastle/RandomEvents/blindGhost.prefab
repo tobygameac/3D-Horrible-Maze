@@ -69,12 +69,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400008}
-  - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   - 111: {fileID: 11100000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: ghoust
+  m_Name: blindGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,13 +174,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffd7b75a23ed234eb545c396acb47b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a0865f0f83ef6045acb28fd221e9905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowingTrapMaskTexture: {fileID: 2800000, guid: f612110740e32224abf9a21520e863b4,
-    type: 3}
-  timesOfSpeed: .25
-  slowingTime: 5
+  blindTime: 2.5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

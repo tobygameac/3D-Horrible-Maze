@@ -26,7 +26,7 @@ public class VitalityBonus : MonoBehaviour {
         vitality = other.GetComponent<Vitality>();
       }
       vitality.gain(vitalityGain);
-      Vector3 randomEventPosition = maze.getNewEventPosition();
+      Vector3 randomEventPosition = maze.getNewEventPosition(transform.position);
       transform.position = randomEventPosition;
     }
   }

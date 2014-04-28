@@ -11,4 +11,6 @@ public static class GameState {
 
   public static int state;
   public static int difficulty;
+  public static bool userStudy;
+  public static float volume;
 }

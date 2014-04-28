@@ -3,7 +3,7 @@ guid: 0aaad001491a3a341afbc56671ca4c05
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
+  - cursorTexture: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

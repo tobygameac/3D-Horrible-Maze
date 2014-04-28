@@ -17,6 +17,13 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip QTEHitSound;
   public AudioClip QTEMissSound;
 
+  public void adjustSound () {
+    AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+    for (int i = 0; i < allAudioSources.Length; i++) {
+      allAudioSources[i].volume = GameState.volume;
+    }
+  }
+
   public void playButtonSound () {
     audio.PlayOneShot(buttonSound);
   }

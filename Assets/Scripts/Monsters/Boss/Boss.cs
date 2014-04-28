@@ -22,11 +22,12 @@ public class Boss : MonoBehaviour {
   // Maximun angle for changing to attacking state
   public float tracingTriggerAngle;
   public float tracingTriggerCheckDeltaAngle;
+  public float offScreenDot;
   // Maximun distance for changing to attacking state
   public float attackingRadius;
 
-  public float mentalityRestorePercentPerSecond;
-  public float mentalityAbsorbPercentPerSecond;
+  public float mentalityRestorePerSecond;
+  public float mentalityAbsorbPerSecond;
 
   public int QTELength = 4;
   private List<int> QTEvent = new List<int>();
@@ -44,7 +45,8 @@ public class Boss : MonoBehaviour {
   private GameObject player;
   private Mentality playerMentality;
   private CharacterMotor playerCharacterMotor;
-  private MouseLook playerMouseLook;
+  private MouseLook2 playerMouseLook;
+  private GameObject fakeBoss;
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
 
@@ -80,9 +82,12 @@ public class Boss : MonoBehaviour {
     player = GameObject.FindWithTag("Player");
     playerMentality = player.GetComponent<Mentality>();
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
-    playerMouseLook = player.GetComponent<MouseLook>();
+    playerMouseLook = player.GetComponent<MouseLook2>();
+    fakeBoss = GameObject.FindWithTag("FakeBoss");
+    fakeBoss.renderer.enabled = false;
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+    soundEffectManager.adjustSound();
 
     scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
 
@@ -94,6 +99,13 @@ public class Boss : MonoBehaviour {
   }
 
   void Update () {
+
+    if (GameState.state == GameState.LOSING) {
+      audio.Stop();
+      Destroy(gameObject);
+      return;
+    }
+
     if (GameState.state != GameState.PLAYING) {
       return;
     }
@@ -120,6 +132,15 @@ public class Boss : MonoBehaviour {
       player.transform.eulerAngles += cameraMovingVector * (Time.deltaTime / cameraMovingTime);
       if (cameraMovedTime >= cameraMovingTime) {
         isCameraMoving = false;
+        player.transform.LookAt(lookAtPoint.transform);
+        fakeBoss.renderer.enabled = true;
+        for (int i = 0; i < childrenRenderers.Length; i++) {
+          float r = childrenRenderers[i].material.color.r;
+          float g = childrenRenderers[i].material.color.g;
+          float b = childrenRenderers[i].material.color.b;
+          float a = 0;
+          childrenRenderers[i].material.color = new Color(r, g, b, a);
+        }
       }
     }
 
@@ -130,7 +151,7 @@ public class Boss : MonoBehaviour {
 
     if (isStaring) {
       if (lookAtAndCheckIfSeenPlayer()) {
-        if (playerIsStaringAtTheBoss()) {
+        if (isVisible()) {
           turnToTracingState();
         }
         return;
@@ -158,10 +179,9 @@ public class Boss : MonoBehaviour {
           turnToAttackingState();
           return;
         } else if (playerIsInTheRadius(staringTriggerRadius)) {
-          if (playerIsStaringAtTheBoss()) {
-            float maxMentalityPoint = playerMentality.maxMentalityPoint;
+          if (isVisible()) {
             // Restore the mentality of the player
-            playerMentality.gain(maxMentalityPoint * mentalityRestorePercentPerSecond * Time.deltaTime);
+            playerMentality.gain(mentalityRestorePerSecond * Time.deltaTime);
           }
         }
 
@@ -179,9 +199,8 @@ public class Boss : MonoBehaviour {
     if (isAttacking) {
       maskAlpha = ((int)(Time.time * 100) % 100) / 100.0f;
       playerCharacterMotor.canControl = false;
-      float maxMentalityPoint = playerMentality.maxMentalityPoint;
       // Absorb the mentality of the player
-      playerMentality.use(maxMentalityPoint * mentalityAbsorbPercentPerSecond * Time.deltaTime);
+      playerMentality.use(mentalityAbsorbPerSecond * Time.deltaTime);
 
       QTE.showQTE(QTEvent);
       
@@ -280,7 +299,18 @@ public class Boss : MonoBehaviour {
     transform.LookAt(targetPosition);
   }
 
+  private bool hasSeenPlayer () {
+    RaycastHit hit;
+    if (Physics.Linecast(transform.position, player.transform.position, out hit)) {
+      if (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.name == "playerBody") {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private bool lookAtAndCheckIfSeenPlayer () {
+        /*
     // At the same floor
     if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
       if (playerIsInTheRadius(staringTriggerRadius)) {
@@ -294,9 +324,26 @@ public class Boss : MonoBehaviour {
       }
     }
     return false;
+        */
+    lookAtPlayer();
+    if (playerIsInTheRadius(staringTriggerRadius)) {
+      return hasSeenPlayer();
+    }
+    return false;
   }
 
-  private bool playerIsStaringAtTheBoss () {
+  private bool isVisible () {
+    Vector3 fwd = player.transform.forward;
+    Vector3 other = (transform.position - player.transform.position).normalized;
+    
+    float dotProduct = Vector3.Dot(fwd, other);
+    
+    if (dotProduct > offScreenDot) {
+      return hasSeenPlayer();
+    }
+
+    return false;
+    /*
     // At the same floor
     if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
       
@@ -334,6 +381,7 @@ public class Boss : MonoBehaviour {
       }
     }
     return false;
+    */
   }
 
   private bool playerIsInTheRadius (float radius) {
@@ -413,7 +461,7 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToAttackingState () {
-    soundEffectManager.playCryingSound();
+    lookAtPlayer();
     isTracing = false;
     isAttacking = true;
     playerMouseLook.enabled = false;
@@ -422,12 +470,17 @@ public class Boss : MonoBehaviour {
     virtualPlayer.transform.position = player.transform.position;
     virtualPlayer.transform.LookAt(lookAtPoint.transform);
     cameraMovingVector = virtualPlayer.transform.eulerAngles - player.transform.eulerAngles;
+    Vector3 anotherMovingVector = player.transform.eulerAngles - virtualPlayer.transform.eulerAngles;
+    if (anotherMovingVector.magnitude < cameraMovingVector.magnitude) {
+      cameraMovingVector = anotherMovingVector;
+    }
     // Generate the first event
     perfectQTE = true;
     QTEvent = QTE.generateQTE(QTELength);
   }
 
   private void turnToStunningState () {
+    fakeBoss.renderer.enabled = false;
     audio.Stop();
     isStaring = false;
     isTracing = false;

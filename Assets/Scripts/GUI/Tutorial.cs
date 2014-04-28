@@ -22,6 +22,7 @@ public class Tutorial : MonoBehaviour {
     index = 0;
 
     soundEffectManager = GetComponent<SoundEffectManager>();
+    soundEffectManager.adjustSound();
   }
 
   void OnGUI () {
