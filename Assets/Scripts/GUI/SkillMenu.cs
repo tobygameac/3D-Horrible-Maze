@@ -19,38 +19,14 @@ public class SkillMenu : MonoBehaviour {
   public Texture unknownTexture;
   public Texture lockedTexture;
 
-  public int additionalQTELengthPerSkill = 1;
-
   private const int skillCount = 5;
   private bool[] unlocked = new bool[skillCount];
   private bool hasNewSkill;
   private string[] skillMessages = new string[skillCount];
 
-  private Boss boss;
-
   private SoundEffectManager soundEffectManager;
 
-  public void unlockSkill (int skillIndex) {
-    if (skillIndex >= 0 && skillIndex < unlocked.Length) {
-      unlocked[skillIndex] = true;
-      hasNewSkill = true;
-      if (Application.loadedLevelName == "OldCastle") {
-        boss.addQTELength(additionalQTELengthPerSkill);
-      }
-    }
-  }
-
-  public void setSkillMessage (int skillIndex, string message) {
-    if (skillIndex >= 0 && skillIndex < unlocked.Length) {
-      skillMessages[skillIndex] = message;
-    }
-  }
-
   void Start () {
-    if (Application.loadedLevelName == "OldCastle") {
-      boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
-    }
-
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
     for (int i = 0; i < skillMessages.Length; i++) {
@@ -161,5 +137,18 @@ public class SkillMenu : MonoBehaviour {
     }
 
     GUILayout.EndArea();
+  }
+
+  public void unlockSkill (int skillIndex) {
+    if (skillIndex >= 0 && skillIndex < unlocked.Length) {
+      unlocked[skillIndex] = true;
+      hasNewSkill = true;
+    }
+  }
+
+  public void setSkillMessage (int skillIndex, string message) {
+    if (skillIndex >= 0 && skillIndex < unlocked.Length) {
+      skillMessages[skillIndex] = message;
+    }
   }
 }

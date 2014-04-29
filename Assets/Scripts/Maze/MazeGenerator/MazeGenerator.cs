@@ -19,7 +19,7 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public GameObject bossPrefab;
 
-  System.Random random = new System.Random();
+  private static System.Random random = new System.Random(); // Only need one random seed
 
   // Genetic algorithm parameter
   public int NUM_OF_POPULATION = 30;

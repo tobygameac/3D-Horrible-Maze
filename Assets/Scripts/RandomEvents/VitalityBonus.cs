@@ -21,7 +21,7 @@ public class VitalityBonus : MonoBehaviour {
 
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
-      soundEffectManager.playBonusSound();
+      soundEffectManager.playVitalityPotionSound();
       if (!vitality) {
         vitality = other.GetComponent<Vitality>();
       }

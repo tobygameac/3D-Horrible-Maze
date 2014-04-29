@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public partial class MazeGenerator : MonoBehaviour {
 
@@ -55,6 +56,14 @@ public partial class MazeGenerator : MonoBehaviour {
       Point offset = getOffset(h);
 
       float baseY = getBaseY(h);
+
+      List<List<bool>> isDecorated = new List<List<bool>>();
+      for (int r = 0; r < MAZE_R + 2; r++) {
+        isDecorated.Add(new List<bool>());
+        for (int c = 0; c < MAZE_C + 2; c++) {
+          isDecorated[r].Add(false);
+        }
+      }
 
       for (int r = 0; r < MAZE_R + 2; r++) {
         for (int c = 0; c < MAZE_C + 2; c++) {
@@ -131,6 +140,9 @@ public partial class MazeGenerator : MonoBehaviour {
                 int[] yRotation = new int[4]{180, 270, 0, 90};
                 for (int d = 0; d < 4; d++) {
                   if (basicMazes[h].isAvailableBlock(r + dr[d], c + dc[d])) {
+                    if (isDecorated[r + dr[d]][c + dc[d]]) {
+                      continue;
+                    }
                     int bonusProbability = 0;
                     if (basicMazes[h].isDeadendBlock(r + dr[d], c + dc[d])) {
                       bonusProbability += 4;
@@ -144,6 +156,7 @@ public partial class MazeGenerator : MonoBehaviour {
                       drawing.transform.localScale = new Vector3(BLOCK_SIZE * scale, BLOCK_SIZE * scale, 0.01f);
                       drawing.transform.eulerAngles = new Vector3(0, yRotation[d], 180);
                       drawing.transform.parent = drawings.transform;
+                      isDecorated[r + dr[d]][c + dc[d]] = true;
                     } else if (wallCount == WALL_HEIGHT - 2) {
                       if (random.Next(100) < 5) { // 5% to generate torch
                         float torchC = realC + (BLOCK_SIZE / 2) * dc[d];
@@ -153,6 +166,7 @@ public partial class MazeGenerator : MonoBehaviour {
                         torch.transform.localScale = new Vector3(BLOCK_SIZE / 2, BLOCK_SIZE / 2, 0.01f);
                         torch.transform.eulerAngles = new Vector3(-30, yRotation[d], 0);
                         torch.transform.parent = torches.transform;
+                        isDecorated[r + dr[d]][c + dc[d]] = true;
                       }
                     }
                   }

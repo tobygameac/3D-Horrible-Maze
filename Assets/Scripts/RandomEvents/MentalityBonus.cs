@@ -21,7 +21,7 @@ public class MentalityBonus : MonoBehaviour {
 
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
-      soundEffectManager.playBonusSound();
+      soundEffectManager.playMentalityPotionSound();
       if (!mentality) {
         mentality = other.GetComponent<Mentality>();
       }

@@ -351,7 +351,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 346b249ac90f7804a87614267001bcf7, type: 3}
   unknownTexture: {fileID: 2800000, guid: e68035d418602f14780dcced23f58cda, type: 3}
   lockedTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  additionalQTELengthPerSkill: 1
 --- !u!114 &127766903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +369,10 @@ MonoBehaviour:
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
   pickingSound: {fileID: 8300000, guid: 5f36e08cf7078eb4fadc8d566b059884, type: 3}
-  bonusSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
+  scoreSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
+  mentalityPotionSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529,
+    type: 3}
+  vitalityPotionSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
   trapSound: {fileID: 8300000, guid: 4b94a99eba80d2a46a8e6911646bf496, type: 3}
   QTEHitSound: {fileID: 8300000, guid: 1588f24734467334382322db31df58d9, type: 3}
   QTEMissSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
@@ -386,6 +388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardTexture: {fileID: 2800000, guid: c0e50a2c4350d724ebfe62079f584517, type: 3}
+  QTEWrongMentalityUpgradeFrame: 1000
+  QTELengthUpgradeFrame: 5000
   showingNewAddedScoreTime: 1.5
 --- !u!1001 &758845698
 Prefab:
@@ -666,6 +670,18 @@ Prefab:
       propertyPath: returnButtonTexture
       value: 
       objectReference: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: scoreSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: mentalityPotionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: vitalityPotionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

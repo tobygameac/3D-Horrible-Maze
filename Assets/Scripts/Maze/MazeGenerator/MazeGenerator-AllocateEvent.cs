@@ -9,7 +9,22 @@ public partial class MazeGenerator : MonoBehaviour {
 
   private GameObject randomEvents;
 
+  private List<List<List<bool>>> eventOnBlock;
+
   private void initialRandomEvent () {
+
+    eventOnBlock = new List<List<List<bool>>>();
+
+    for (int h = 0; h < MAZE_H; h++) {
+      eventOnBlock.Add(new List<List<bool>>());
+      for (int r = 0; r < MAZE_R + 2; r++) {
+        eventOnBlock[h].Add(new List<bool>());
+        for (int c = 0; c < MAZE_C + 2; c++) {
+          eventOnBlock[h][r].Add(false);
+        }
+      }
+    }
+
     randomEvents = new GameObject();
     randomEvents.name = "randomEvents";
     for (int i = 0; i < randomEventCount.Length; i++) {
@@ -22,6 +37,18 @@ public partial class MazeGenerator : MonoBehaviour {
     Point point = getRandomAvailableBlock(randomH, true);
     int r = point.r;
     int c = point.c;
+    int tried = 0, maximumTried = 100;
+    while (itemOnBlock[randomH][r][c] || eventOnBlock[randomH][r][c]) {
+      if (tried > maximumTried) {
+        break;
+      }
+      randomH = random.Next(MAZE_H);
+      point = getRandomAvailableBlock(randomH, true);
+      r = point.r;
+      c = point.c;
+      tried++;
+    }
+    eventOnBlock[randomH][r][c] = true;
     Point offset = getOffset(randomH);
     int realR = (r + offset.r) * BLOCK_SIZE;
     int realC = (c + offset.c) * BLOCK_SIZE;
@@ -30,16 +57,12 @@ public partial class MazeGenerator : MonoBehaviour {
   }
 
   public Vector3 getNewEventPosition (Vector3 position) {
-    int tried = 0, maximumTried = 100;
-    Vector3 newPosition = getNewEventPosition();
-    while (Vector3.Distance(newPosition, position) <= 1) {
-      if (tried > maximumTried) {
-        break;
-      }
-      newPosition = getNewEventPosition();
-      tried++;
-    }
-    return newPosition;
+    Vector3 HRC = convertCoordinatesToHRC(position);
+    int h = (int)HRC.x;
+    int r = (int)HRC.y;
+    int c = (int)HRC.z;
+    eventOnBlock[h][r][c] = false;
+    return getNewEventPosition();
   }
 
   public void allocateRandomEvent (int number) {

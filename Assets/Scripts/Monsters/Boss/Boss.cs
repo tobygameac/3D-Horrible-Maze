@@ -29,7 +29,8 @@ public class Boss : MonoBehaviour {
   public float mentalityRestorePerSecond;
   public float mentalityAbsorbPerSecond;
 
-  public int QTELength = 4;
+  public int QTELength;
+  public float mentalityAbsorbPerQTEWrong;
   private List<int> QTEvent = new List<int>();
   private bool perfectQTE;
 
@@ -226,6 +227,7 @@ public class Boss : MonoBehaviour {
       }
       
       if (wrong) {
+        playerMentality.use(mentalityAbsorbPerQTEWrong);
         QTEvent = QTE.generateQTE(QTELength);
       }
 
@@ -291,6 +293,10 @@ public class Boss : MonoBehaviour {
 
   public void addQTELength (int addedLength) {
     QTELength += addedLength;
+  }
+
+  public void addQTEWrongMentality (float addedMentality) {
+    mentalityAbsorbPerQTEWrong += addedMentality;
   }
 
   private void lookAtPlayer () {

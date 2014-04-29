@@ -59,11 +59,19 @@ public partial class MazeGenerator : MonoBehaviour {
     return new Point(offsetR, offsetC);
   }
 
-  public Point convertCoordinates (Vector3 position) {
+  public Point convertCoordinatesToRC (Vector3 position) {
     Point offset = getOffset(getFloor(position.y));
     int r = (int)(Mathf.Round(position.z) / BLOCK_SIZE) - offset.r;
     int c = (int)(Mathf.Round(position.x) / BLOCK_SIZE) - offset.c;
     return new Point(r, c);
+  }
+
+  public Vector3 convertCoordinatesToHRC (Vector3 position) {
+    int h = getFloor(position.y);
+    Point offset = getOffset(h);
+    int r = (int)(Mathf.Round(position.z) / BLOCK_SIZE) - offset.r;
+    int c = (int)(Mathf.Round(position.x) / BLOCK_SIZE) - offset.c;
+    return new Vector3(h, r, c);
   }
 
   public Point getRandomAvailableBlock (int h, bool noneStartEnd = false) {
@@ -104,8 +112,8 @@ public partial class MazeGenerator : MonoBehaviour {
     List<Vector3> path = new List<Vector3>();
 
     if (floor1 == floor2) {
-      Point point1 = convertCoordinates(position1);
-      Point point2 = convertCoordinates(position2);
+      Point point1 = convertCoordinatesToRC(position1);
+      Point point2 = convertCoordinatesToRC(position2);
       
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);
 
@@ -114,7 +122,7 @@ public partial class MazeGenerator : MonoBehaviour {
       }
 
     } else if (floor1 < floor2) {
-      Point point1 = convertCoordinates(position1);
+      Point point1 = convertCoordinatesToRC(position1);
       Point point2 = basicMazes[floor1].getEndPoint();
 
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);
@@ -131,7 +139,7 @@ public partial class MazeGenerator : MonoBehaviour {
         floor1++;
         point1 = basicMazes[floor1].getStartPoint();
         if (floor1 == floor2) {
-          point2 = convertCoordinates(position2);
+          point2 = convertCoordinatesToRC(position2);
         } else {
           point2 = basicMazes[floor1].getEndPoint();
         }
@@ -144,7 +152,7 @@ public partial class MazeGenerator : MonoBehaviour {
       }
 
     } else if (floor1 > floor2) {
-      Point point1 = convertCoordinates(position1);
+      Point point1 = convertCoordinatesToRC(position1);
       Point point2 = basicMazes[floor1].getStartPoint();
 
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);
@@ -161,7 +169,7 @@ public partial class MazeGenerator : MonoBehaviour {
         floor1--;
         point1 = basicMazes[floor1].getEndPoint();
         if (floor1 == floor2) {
-          point2 = convertCoordinates(position2);
+          point2 = convertCoordinatesToRC(position2);
         } else {
           point2 = basicMazes[floor1].getStartPoint();
         }
@@ -185,8 +193,8 @@ public partial class MazeGenerator : MonoBehaviour {
     List<Vector3> path = new List<Vector3>();
 
     if (floor1 == floor2) {
-      Point point1 = convertCoordinates(position1);
-      Point point2 = convertCoordinates(position2);
+      Point point1 = convertCoordinatesToRC(position1);
+      Point point2 = convertCoordinatesToRC(position2);
       
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);
 
@@ -195,7 +203,7 @@ public partial class MazeGenerator : MonoBehaviour {
       }
 
     } else if (floor1 < floor2) {
-      Point point1 = convertCoordinates(position1);
+      Point point1 = convertCoordinatesToRC(position1);
       Point point2 = basicMazes[floor1].getEndPoint();
 
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);
@@ -208,7 +216,7 @@ public partial class MazeGenerator : MonoBehaviour {
       path.Add(new Vector3(0, WALL_HEIGHT * BLOCK_SIZE + CEILING_THICKNESS, 0));
 
     } else if (floor1 > floor2) {
-      Point point1 = convertCoordinates(position1);
+      Point point1 = convertCoordinatesToRC(position1);
       Point point2 = basicMazes[floor1].getStartPoint();
 
       List<MovingAction> movingActions = basicMazes[floor1].getShortestPath(point1, point2);

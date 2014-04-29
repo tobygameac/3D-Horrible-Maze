@@ -6,57 +6,20 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public GameObject[] itemPrefabs;
 
+  private List<List<List<bool>>> itemOnBlock;
+
   private void allocateItem () {
     
-    List<List<Point>> possiblePoints = new List<List<Point>>();
+    itemOnBlock = new List<List<List<bool>>>();
 
-    for (int h = 0; h < basicMazes.Count; h++) {
-      
-      List<List<bool>> visited = new List<List<bool>>();
-      
+    for (int h = 0; h < MAZE_H; h++) {
+      itemOnBlock.Add(new List<List<bool>>());
       for (int r = 0; r < MAZE_R + 2; r++) {
-        visited.Add(new List<bool>());
+        itemOnBlock[h].Add(new List<bool>());
         for (int c = 0; c < MAZE_C + 2; c++) {
-          visited[r].Add(false);
+          itemOnBlock[h][r].Add(false);
         }
       }
-
-      Point startPoint = basicMazes[h].getStartPoint();
-      Point endPoint = basicMazes[h].getEndPoint();
-
-      visited[startPoint.r][startPoint.c] = true;
-
-      // Find all possible point
-
-      List<Point> points = new List<Point>();
-      Queue<Point> q = new Queue<Point>();
-      q.Enqueue(new Point(startPoint.r, startPoint.c));
-
-      // Move dirction
-      int[] dr = new int[4]{1, 0, -1, 0};
-      int[] dc = new int[4]{0, 1, 0, -1};
-
-      // BFS
-      while (q.Count > 0) {
-        Point now = q.Dequeue();
-
-        // No item at start point and end point
-        if (!now.equal(startPoint) && !now.equal(endPoint)) {
-          points.Add(new Point(now));
-        }
-
-        int r = now.r;
-        int c = now.c;
-        for (int d = 0; d < 4; d++) {
-          int nr = r + dr[d], nc = c + dc[d];
-          if (basicMazes[h].isEmptyBlock(nr, nc) && !visited[nr][nc]) {
-            q.Enqueue(new Point(nr, nc));
-            visited[nr][nc] = true;
-          }
-        }
-      }
-
-      possiblePoints.Add(points);
     }
 
     // List for index of item
@@ -77,8 +40,7 @@ public partial class MazeGenerator : MonoBehaviour {
     }
 
 
-    for (int h = 0; h < basicMazes.Count && remainItemIndex.Count > 0; h++) {
-
+    for (int h = 0; h < MAZE_H && remainItemIndex.Count > 0; h++) {
 
       // Get a random item
       int randomItemIndex = random.Next(remainItemIndex.Count);
@@ -88,12 +50,9 @@ public partial class MazeGenerator : MonoBehaviour {
       remainItemIndex.RemoveAt(randomItemIndex);
 
       // Get a random point
-      int randomPointIndex = random.Next(possiblePoints[h].Count);
-      Point point = possiblePoints[h][randomPointIndex];
+      Point point = getRandomAvailableBlock(h, true);
       int r = point.r, c = point.c;
-
-      // Remove item from container
-      possiblePoints[h].RemoveAt(randomPointIndex);
+      itemOnBlock[h][r][c] = true;
 
       // The offset between different floors
       Point offset = getOffset(h);
@@ -106,7 +65,6 @@ public partial class MazeGenerator : MonoBehaviour {
       Vector3 itemPosition = new Vector3(realC, getBaseY(h) + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
       item.transform.parent = itemParents[h].transform;
-
     }
 
     // Allocate remain items
@@ -123,9 +81,22 @@ public partial class MazeGenerator : MonoBehaviour {
       int randomH = random.Next(MAZE_H);
 
       // Get a random point
-      int randomPointIndex = random.Next(possiblePoints[randomH].Count);
-      Point point = possiblePoints[randomH][randomPointIndex];
+      Point point = getRandomAvailableBlock(randomH, true);
       int r = point.r, c = point.c;
+
+      int tried = 0, maximumTried = 100;
+      while (itemOnBlock[randomH][r][c]) {
+        if (tried > maximumTried) {
+          break;
+        }
+        randomH = random.Next(MAZE_H);
+        point = getRandomAvailableBlock(randomH, true);
+        r = point.r;
+        c = point.c;
+        tried++;
+      }
+
+      itemOnBlock[randomH][r][c] = true;
 
       // The offset between different floors
       Point offset = getOffset(randomH);
@@ -138,7 +109,6 @@ public partial class MazeGenerator : MonoBehaviour {
       Vector3 itemPosition = new Vector3(realC, getBaseY(randomH) + itemPrefabs[itemIndex].transform.localScale.y, realR);
       GameObject item = Instantiate(itemPrefabs[itemIndex], itemPosition, Quaternion.identity) as GameObject;
       item.transform.parent =  itemParents[randomH].transform;;
-
     }
   }
 }

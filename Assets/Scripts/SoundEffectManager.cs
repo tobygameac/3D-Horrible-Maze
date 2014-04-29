@@ -12,7 +12,9 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip cryingSound;
   public AudioClip tracingSound;
   public AudioClip pickingSound;
-  public AudioClip bonusSound;
+  public AudioClip scoreSound;
+  public AudioClip mentalityPotionSound;
+  public AudioClip vitalityPotionSound;
   public AudioClip trapSound;
   public AudioClip QTEHitSound;
   public AudioClip QTEMissSound;
@@ -48,8 +50,16 @@ public class SoundEffectManager : MonoBehaviour {
     audio.PlayOneShot(pickingSound);
   }
 
-  public void playBonusSound () {
-    audio.PlayOneShot(bonusSound);
+  public void playScoreSound () {
+    audio.PlayOneShot(scoreSound);
+  }
+
+  public void playMentalityPotionSound () {
+    audio.PlayOneShot(mentalityPotionSound);
+  }
+
+  public void playVitalityPotionSound () {
+    audio.PlayOneShot(vitalityPotionSound);
   }
 
   public void playTrapSound () {

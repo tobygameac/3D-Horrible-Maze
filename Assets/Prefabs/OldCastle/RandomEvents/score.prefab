@@ -83,7 +83,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0defc0c783e64299867e819a0375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreGain: 100
+  baseScoreGain: 100
+  additionEventsFrame: 5000
+  upgradeFrames: d0070000881300001027000050c30000
+  upgradeProbabilityPerFrame:
+  - .300000012
+  - .200000003
+  - .100000001
+  - .0500000007
+  upgradeScales:
+  - 2
+  - 5
+  - 10
+  - 25
+  baseMaterial: {fileID: 2100000, guid: d935f9180a8d0a1439043697472f2407, type: 2}
+  upgradeMaterials:
+  - {fileID: 2100000, guid: 95b7f65f4132c7640b8803c5c35ee2f6, type: 2}
+  - {fileID: 2100000, guid: a3086bd1c75ea1b49baf48ad40bd2edd, type: 2}
+  - {fileID: 2100000, guid: b1ffcd09e833df944b2bcdfa55278ee2, type: 2}
+  - {fileID: 2100000, guid: 2ad1606db33c2ac4985dffd7254af346, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
