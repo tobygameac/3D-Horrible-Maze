@@ -339,7 +339,23 @@ MonoBehaviour:
   attackingRadius: 3
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
-  QTELength: 2
+  QTEArrowTextures:
+  - {fileID: 2800000, guid: d566da0bd2cdf294a92305f83c51380a, type: 3}
+  - {fileID: 2800000, guid: 67b552fa057fa0644ba756c10d3fbfa8, type: 3}
+  - {fileID: 2800000, guid: 009528244ab99fb48a2d989a00a3ed11, type: 3}
+  - {fileID: 2800000, guid: c50abffb6be61b14ca635a55e49533a8, type: 3}
+  QTEProgressBarTexture: {fileID: 2800000, guid: a4e66b3e5729357439095cb8e6b71a8c,
+    type: 3}
+  QTEProgressBarBackgroundTexture: {fileID: 2800000, guid: 17c98fae67c0d4349bef812ef0a9bac7,
+    type: 3}
+  QTETimeLimitBarTexture: {fileID: 2800000, guid: e72cb09d7ec3c5447a052913eabadfb0,
+    type: 3}
+  QTETimeLimitBarBackgroundTexture: {fileID: 2800000, guid: 92b6d4f83fcebfb478b879fef9f6bdbd,
+    type: 3}
+  QTELength: 3
+  QTETimeLimitPerKey: 2
+  mentalityAbsorbPerQTEWrong: 0
+  QTESwitchTime: .100000001
   stunningTime: 15
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}

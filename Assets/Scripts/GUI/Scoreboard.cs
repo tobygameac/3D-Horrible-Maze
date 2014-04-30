@@ -11,8 +11,12 @@ public class Scoreboard : MonoBehaviour {
   private int hard;
   private bool[] optionStatus;
 
-  public int QTEWrongMentalityUpgradeFrame = 1000;
-  public int QTELengthUpgradeFrame = 5000;
+  public int QTELengthUpgradeFrame;
+  private int nextQTELengthUpgradeScore;
+  public int QTEWrongMentalityUpgradeFrame;
+  private int nextQTEWrongMentalityUpgradeScore;
+  public int QTETimeLimitUpgradeFrame;
+  private int nextQTETimeLimitUpgradeScore;
   private Boss boss;
 
   private string secretKey = "tobygameac";
@@ -31,6 +35,8 @@ public class Scoreboard : MonoBehaviour {
       optionStatus[i] = false;
     }
     optionStatus[2] = true;
+    nextQTEWrongMentalityUpgradeScore = QTEWrongMentalityUpgradeFrame;
+    nextQTELengthUpgradeScore = QTELengthUpgradeFrame;
   }
 
   void Update () {
@@ -108,11 +114,17 @@ public class Scoreboard : MonoBehaviour {
     newAddedScore = addedScore;
     isShowingNewAddedScore = true;
     showedNewAddedScoreTime = 0;
-    if ((score % QTEWrongMentalityUpgradeFrame) == 0) {
-      boss.addQTEWrongMentality(1);
-    }
-    if ((score % QTELengthUpgradeFrame) == 0) {
+    if (score >= nextQTELengthUpgradeScore) {
       boss.addQTELength(1);
+      nextQTELengthUpgradeScore += QTELengthUpgradeFrame;
+    }
+    if (score >= nextQTEWrongMentalityUpgradeScore) {
+      boss.addQTEWrongMentality(1);
+      nextQTEWrongMentalityUpgradeScore += QTEWrongMentalityUpgradeFrame;
+    }
+    if (score >= nextQTETimeLimitUpgradeScore) {
+      boss.addQTETimeLimit(-0.1f);
+      nextQTETimeLimitUpgradeScore += QTETimeLimitUpgradeFrame;
     }
   }
 

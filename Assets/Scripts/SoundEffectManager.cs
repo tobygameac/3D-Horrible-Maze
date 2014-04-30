@@ -18,6 +18,7 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip trapSound;
   public AudioClip QTEHitSound;
   public AudioClip QTEMissSound;
+  public AudioClip roarSound;
 
   public void adjustSound () {
     AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
@@ -72,6 +73,10 @@ public class SoundEffectManager : MonoBehaviour {
 
   public void playQTEMissSound () {
     audio.PlayOneShot(QTEMissSound);
+  }
+
+  public void playRoarSound () {
+    audio.PlayOneShot(roarSound);
   }
 
 }

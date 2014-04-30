@@ -29,10 +29,21 @@ public class Boss : MonoBehaviour {
   public float mentalityRestorePerSecond;
   public float mentalityAbsorbPerSecond;
 
+  public Texture[] QTEArrowTextures;
+  public Texture QTEProgressBarTexture;
+  public Texture QTEProgressBarBackgroundTexture;
+  public Texture QTETimeLimitBarTexture;
+  public Texture QTETimeLimitBarBackgroundTexture;
   public int QTELength;
+  public float QTETimeLimitPerKey;
+  private float QTETimeLimit;
+  private float QTETimeUsed;
   public float mentalityAbsorbPerQTEWrong;
   private List<int> QTEvent = new List<int>();
   private bool perfectQTE;
+  private float QTEShowedTime;
+  public float QTESwitchTime;
+  private bool QTEsmall;
 
   public float stunningTime;
   private float stunnedTime;
@@ -198,22 +209,32 @@ public class Boss : MonoBehaviour {
     }
 
     if (isAttacking) {
+
+      QTEShowedTime += Time.deltaTime;
+      if (QTEShowedTime >= QTESwitchTime) {
+        QTEShowedTime = 0;
+        QTEsmall = !QTEsmall;
+      }
+
       maskAlpha = ((int)(Time.time * 100) % 100) / 100.0f;
-      playerCharacterMotor.canControl = false;
       // Absorb the mentality of the player
       playerMentality.use(mentalityAbsorbPerSecond * Time.deltaTime);
 
-      QTE.showQTE(QTEvent);
-      
       bool wrong = false;
       bool success = false;
+
+      QTETimeUsed += Time.deltaTime;
+      if (QTETimeUsed >= QTETimeLimit) {
+        wrong = true;
+      }
 
       KeyCode[] secondHotkeys = new KeyCode[4];
       secondHotkeys[0] = KeyCode.W;
       secondHotkeys[1] = KeyCode.S;
       secondHotkeys[2] = KeyCode.D;
       secondHotkeys[3] = KeyCode.A;
-      for (int direction = 0; direction < 4; direction++) {
+
+      for (int direction = 0; direction < 4 && !wrong; direction++) {
         if (Input.GetKeyDown(KeyCode.UpArrow + direction) || Input.GetKeyDown(secondHotkeys[direction])) {
           if (QTEvent[0] == direction) {
             soundEffectManager.playQTEHitSound();
@@ -221,24 +242,23 @@ public class Boss : MonoBehaviour {
           } else {
             soundEffectManager.playQTEMissSound();
             wrong = true;
-            perfectQTE = false;
           }
         }
       }
       
       if (wrong) {
+        perfectQTE = false;
         playerMentality.use(mentalityAbsorbPerQTEWrong);
-        QTEvent = QTE.generateQTE(QTELength);
+        QTEvent = generateQTE(QTELength);
+        QTETimeUsed = 0;
       }
 
       if (success) {
         QTEvent.RemoveAt(0);
-        QTE.showQTE(QTEvent);
         if (QTEvent.Count == 0) {
-          playerCharacterMotor.canControl = true;
-          isAttacking = false;
           turnToStunningState();
-          scoreboard.addScore(100 * (QTELength * (1 + (perfectQTE ? 1 : 0))));
+          float bonusScale = 1 - (QTETimeUsed / QTETimeLimit) + (perfectQTE ? 1 : 0);
+          scoreboard.addScore((int)(100 * (QTELength * (1 + bonusScale))));
         }
       }
 
@@ -279,16 +299,57 @@ public class Boss : MonoBehaviour {
   }
 
   void OnGUI () {
+    
     if (GameState.state != GameState.PLAYING) {
       return;
     }
+
     if (isAttacking) {
       Color originalColor = GUI.color;
       GUI.color = new Color(1, 1, 1, maskAlpha);
       GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), attackingMaskTexture);
       GUI.color = originalColor;
+
+      GUI.depth = 1;
+
+      if (QTEvent.Count > 0) {
+        int QTEArrowSize = Screen.height / 8;
+        if (QTEsmall) {
+          QTEArrowSize = Screen.height / 10;
+        }
+        Texture QTEArrowTexture = QTEArrowTextures[QTEvent[0]];
+        GUI.DrawTexture(new Rect((Screen.width - QTEArrowSize) / 2, Screen.height / 5, QTEArrowSize, QTEArrowSize), QTEArrowTexture);
+
+        int QTETimeLimitBarWidth = Screen.width / 5;
+        int QTETimeLimitBarHeight = Screen.height / 32;
+
+        GUI.DrawTexture(new Rect((Screen.width - QTETimeLimitBarWidth) / 2, Screen.height / 24, QTETimeLimitBarWidth, QTETimeLimitBarHeight), QTETimeLimitBarBackgroundTexture);
+        
+        GUILayout.BeginArea(new Rect((Screen.width - QTETimeLimitBarWidth) / 2, Screen.height / 24, (int)(QTETimeLimitBarWidth * (1 - (QTETimeUsed / (float)QTETimeLimit))), QTETimeLimitBarHeight));
+        GUI.DrawTexture(new Rect(0, 0, QTETimeLimitBarWidth, QTETimeLimitBarHeight), QTETimeLimitBarTexture);
+        GUILayout.EndArea();
+
+        int QTEProgressBarWidth = Screen.width / 5;
+        int QTEProgressBarHeight = Screen.height / 16;
+
+        GUI.DrawTexture(new Rect((Screen.width - QTEProgressBarWidth) / 2, Screen.height / 8, QTEProgressBarWidth, QTEProgressBarHeight), QTEProgressBarBackgroundTexture);
+        
+        GUILayout.BeginArea(new Rect((Screen.width - QTEProgressBarWidth) / 2, Screen.height / 8, (int)(QTEProgressBarWidth * QTEvent.Count / (float)QTELength), QTEProgressBarHeight));
+        GUI.DrawTexture(new Rect(0, 0, QTEProgressBarWidth, QTEProgressBarHeight), QTEProgressBarTexture);
+        GUILayout.EndArea();
+      }
+
       return;
     }
+
+  }
+
+  public List<int> generateQTE (int QTEventLength) {
+    List<int> QTEvent = new List<int>();
+    for (int i = 0; i < QTEventLength; i++) {
+      QTEvent.Add(random.Next(4));
+    }
+    return QTEvent;
   }
 
   public void addQTELength (int addedLength) {
@@ -297,6 +358,13 @@ public class Boss : MonoBehaviour {
 
   public void addQTEWrongMentality (float addedMentality) {
     mentalityAbsorbPerQTEWrong += addedMentality;
+  }
+
+  public void addQTETimeLimit (float addedTimeLimit) {
+    QTETimeLimitPerKey += addedTimeLimit;
+    if (QTETimeLimitPerKey < 0.3f) {
+      QTETimeLimitPerKey = 0.3f;
+    }
   }
 
   private void lookAtPlayer () {
@@ -470,6 +538,7 @@ public class Boss : MonoBehaviour {
     lookAtPlayer();
     isTracing = false;
     isAttacking = true;
+    playerCharacterMotor.canControl = false;
     playerMouseLook.enabled = false;
     isCameraMoving = true;
     cameraMovedTime = 0;
@@ -482,7 +551,9 @@ public class Boss : MonoBehaviour {
     }
     // Generate the first event
     perfectQTE = true;
-    QTEvent = QTE.generateQTE(QTELength);
+    QTEvent = generateQTE(QTELength);
+    QTETimeLimit = QTETimeLimitPerKey * QTELength;
+    QTETimeUsed = 0;
   }
 
   private void turnToStunningState () {
@@ -493,6 +564,7 @@ public class Boss : MonoBehaviour {
     isAttacking = false;
     isStunning = true;
     stunnedTime = 0;
+    playerCharacterMotor.canControl = true;
     playerMouseLook.enabled = true;
     for (int i = 0; i < childrenRenderers.Length; i++) {
       float r = childrenRenderers[i].material.color.r;

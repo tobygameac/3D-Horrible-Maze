@@ -6647,10 +6647,13 @@ MonoBehaviour:
   cryingSound: {fileID: 0}
   tracingSound: {fileID: 0}
   pickingSound: {fileID: 0}
-  bonusSound: {fileID: 0}
+  scoreSound: {fileID: 0}
+  mentalityPotionSound: {fileID: 0}
+  vitalityPotionSound: {fileID: 0}
   trapSound: {fileID: 0}
   QTEHitSound: {fileID: 0}
   QTEMissSound: {fileID: 0}
+  roarSound: {fileID: 0}
 --- !u!114 &919995541
 MonoBehaviour:
   m_ObjectHideFlags: 0

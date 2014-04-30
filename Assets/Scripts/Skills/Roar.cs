@@ -7,7 +7,7 @@ using System.Collections;
 public class Roar : MonoBehaviour {
 
   public float vitalityCost = 50;
-  public float mentalityGain = 10;
+  public float mentalityGain = 25;
 
   private SkillMenu skillMenu;
 
@@ -22,7 +22,7 @@ public class Roar : MonoBehaviour {
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(1);
-    skillMenu.setSkillMessage(1, "RRRRR~~~~~~");
+    skillMenu.setSkillMessage(1, "RRRRR~~~~~");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }
@@ -34,6 +34,7 @@ public class Roar : MonoBehaviour {
 
     if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1)) {
       if (vitality.enough(vitalityCost)) {
+        soundEffectManager.playRoarSound();
         vitality.use(vitalityCost);
         mentality.gain(mentalityGain);
       } else {
