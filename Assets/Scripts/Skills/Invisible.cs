@@ -44,7 +44,7 @@ public class Invisible : MonoBehaviour {
     if (isInvisible) {
       float need = vitalityCostPerSecond * Time.deltaTime;
       if (vitality.enough(need)) {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("Invisible");
         vitality.use(need);
       } else {
         gameObject.layer = LayerMask.NameToLayer("Default");
@@ -56,7 +56,7 @@ public class Invisible : MonoBehaviour {
   }
 
   void OnGUI () {
-    if (gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {
+    if (gameObject.layer == LayerMask.NameToLayer("Invisible")) {
       GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), invisibleMaskTexture);
     }
   }

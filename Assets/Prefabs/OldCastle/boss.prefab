@@ -330,13 +330,14 @@ MonoBehaviour:
     type: 3}
   movingSpeed: 3
   acceleration: .00999999978
-  probabilityOfWandering: .699999988
-  probabilityOfChasingPlayer: .300000012
+  probabilityOfWandering: .800000012
+  probabilityOfChasingPlayer: .200000003
   staringTriggerRadius: 15
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
-  offScreenDot: .649999976
-  attackingRadius: 3
+  offScreenDot: .300000012
+  attackingRadius: 2.5
+  mustAttackingRadius: .5
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
   QTEArrowTextures:
@@ -354,9 +355,13 @@ MonoBehaviour:
     type: 3}
   QTELength: 3
   QTETimeLimitPerKey: 2
+  minQTETimeLimitPerKey: .449999988
   mentalityAbsorbPerQTEWrong: 0
   QTESwitchTime: .100000001
   stunningTime: 15
+  fakeBossTextures:
+  - {fileID: 2800000, guid: b22f7139a0e930b45911162b4fb8ff25, type: 3}
+  - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
 --- !u!135 &13500000

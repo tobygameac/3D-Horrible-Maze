@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour {
   public float offScreenDot;
   // Maximun distance for changing to attacking state
   public float attackingRadius;
+  public float mustAttackingRadius;
 
   public float mentalityRestorePerSecond;
   public float mentalityAbsorbPerSecond;
@@ -36,6 +37,7 @@ public class Boss : MonoBehaviour {
   public Texture QTETimeLimitBarBackgroundTexture;
   public int QTELength;
   public float QTETimeLimitPerKey;
+  public float minQTETimeLimitPerKey;
   private float QTETimeLimit;
   private float QTETimeUsed;
   public float mentalityAbsorbPerQTEWrong;
@@ -58,7 +60,9 @@ public class Boss : MonoBehaviour {
   private Mentality playerMentality;
   private CharacterMotor playerCharacterMotor;
   private MouseLook2 playerMouseLook;
-  private GameObject fakeBoss;
+  public Texture[] fakeBossTextures;
+  private int fakeBossTextureIndex;
+
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
 
@@ -78,7 +82,7 @@ public class Boss : MonoBehaviour {
   private bool isCameraMoving = false;
   public float cameraMovingTime = 0.5f;
   private float cameraMovedTime;
-  private Vector3 cameraMovingVector;
+  private Quaternion cameraQuaternion;
 
   public AudioClip tracingSound;
   private SoundEffectManager soundEffectManager;
@@ -95,8 +99,6 @@ public class Boss : MonoBehaviour {
     playerMentality = player.GetComponent<Mentality>();
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
     playerMouseLook = player.GetComponent<MouseLook2>();
-    fakeBoss = GameObject.FindWithTag("FakeBoss");
-    fakeBoss.renderer.enabled = false;
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
@@ -141,11 +143,11 @@ public class Boss : MonoBehaviour {
 
     if (isCameraMoving) {
       cameraMovedTime += Time.deltaTime;
-      player.transform.eulerAngles += cameraMovingVector * (Time.deltaTime / cameraMovingTime);
+      player.transform.rotation = Quaternion.Slerp(player.transform.rotation, cameraQuaternion, Time.deltaTime / cameraMovingTime);
       if (cameraMovedTime >= cameraMovingTime) {
         isCameraMoving = false;
         player.transform.LookAt(lookAtPoint.transform);
-        fakeBoss.renderer.enabled = true;
+        fakeBossTextureIndex = random.Next(fakeBossTextures.Length);
         for (int i = 0; i < childrenRenderers.Length; i++) {
           float r = childrenRenderers[i].material.color.r;
           float g = childrenRenderers[i].material.color.g;
@@ -164,6 +166,9 @@ public class Boss : MonoBehaviour {
     if (isStaring) {
       if (lookAtAndCheckIfSeenPlayer()) {
         if (isVisible()) {
+          turnToTracingState();
+        }
+        if (playerIsInTheRadius(mustAttackingRadius)) {
           turnToTracingState();
         }
         return;
@@ -305,6 +310,13 @@ public class Boss : MonoBehaviour {
     }
 
     if (isAttacking) {
+      
+      if (!isCameraMoving) {
+        int fakeBossWidth = Screen.height;
+        int fakeBossHeight = Screen.height;
+        GUI.DrawTexture(new Rect((Screen.width - fakeBossWidth) / 2, (Screen.height - fakeBossHeight) / 2, fakeBossWidth, fakeBossHeight), fakeBossTextures[fakeBossTextureIndex]);
+      }
+
       Color originalColor = GUI.color;
       GUI.color = new Color(1, 1, 1, maskAlpha);
       GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), attackingMaskTexture);
@@ -319,6 +331,23 @@ public class Boss : MonoBehaviour {
         }
         Texture QTEArrowTexture = QTEArrowTextures[QTEvent[0]];
         GUI.DrawTexture(new Rect((Screen.width - QTEArrowSize) / 2, Screen.height / 5, QTEArrowSize, QTEArrowSize), QTEArrowTexture);
+
+        QTEArrowSize = Screen.height / 10;
+        
+        float timePerArrow = QTETimeLimitPerKey - 0.2f;
+        if (timePerArrow < 0.3f) {
+          timePerArrow = 0.3f;
+        }
+        
+        int arrowsToShow = (int)(QTETimeUsed / timePerArrow) + 1;
+        if (arrowsToShow > QTELength) {
+          arrowsToShow = QTELength;
+        }
+
+        for (int i = 1; (i + QTELength - arrowsToShow) < QTEvent.Count; i++) {
+          QTEArrowTexture = QTEArrowTextures[QTEvent[i]];
+          GUI.DrawTexture(new Rect((Screen.width - QTEArrowSize) / 2 + i * QTEArrowSize, Screen.height / 5, QTEArrowSize, QTEArrowSize), QTEArrowTexture);
+        }
 
         int QTETimeLimitBarWidth = Screen.width / 5;
         int QTETimeLimitBarHeight = Screen.height / 32;
@@ -362,8 +391,8 @@ public class Boss : MonoBehaviour {
 
   public void addQTETimeLimit (float addedTimeLimit) {
     QTETimeLimitPerKey += addedTimeLimit;
-    if (QTETimeLimitPerKey < 0.3f) {
-      QTETimeLimitPerKey = 0.3f;
+    if (QTETimeLimitPerKey < minQTETimeLimitPerKey) {
+      QTETimeLimitPerKey = minQTETimeLimitPerKey;
     }
   }
 
@@ -374,6 +403,9 @@ public class Boss : MonoBehaviour {
   }
 
   private bool hasSeenPlayer () {
+    if (player.layer == LayerMask.NameToLayer("Invisible")) {
+      return false;
+    }
     RaycastHit hit;
     if (Physics.Linecast(transform.position, player.transform.position, out hit)) {
       if (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.name == "playerBody") {
@@ -399,9 +431,11 @@ public class Boss : MonoBehaviour {
     }
     return false;
         */
-    lookAtPlayer();
-    if (playerIsInTheRadius(staringTriggerRadius)) {
-      return hasSeenPlayer();
+    if (maze.getFloor(transform.position.y) == maze.getFloor(player.transform.position.y)) {
+      if (playerIsInTheRadius(staringTriggerRadius)) {
+        lookAtPlayer();
+        return hasSeenPlayer();
+      }
     }
     return false;
   }
@@ -542,13 +576,7 @@ public class Boss : MonoBehaviour {
     playerMouseLook.enabled = false;
     isCameraMoving = true;
     cameraMovedTime = 0;
-    virtualPlayer.transform.position = player.transform.position;
-    virtualPlayer.transform.LookAt(lookAtPoint.transform);
-    cameraMovingVector = virtualPlayer.transform.eulerAngles - player.transform.eulerAngles;
-    Vector3 anotherMovingVector = player.transform.eulerAngles - virtualPlayer.transform.eulerAngles;
-    if (anotherMovingVector.magnitude < cameraMovingVector.magnitude) {
-      cameraMovingVector = anotherMovingVector;
-    }
+    cameraQuaternion = Quaternion.LookRotation(lookAtPoint.transform.position - player.transform.position);
     // Generate the first event
     perfectQTE = true;
     QTEvent = generateQTE(QTELength);
@@ -557,7 +585,6 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToStunningState () {
-    fakeBoss.renderer.enabled = false;
     audio.Stop();
     isStaring = false;
     isTracing = false;

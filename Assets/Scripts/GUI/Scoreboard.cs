@@ -11,6 +11,8 @@ public class Scoreboard : MonoBehaviour {
   private int hard;
   private bool[] optionStatus;
 
+  public int additionEventFrame;
+  private int nextAdditionEventScore;
   public int QTELengthUpgradeFrame;
   private int nextQTELengthUpgradeScore;
   public int QTEWrongMentalityUpgradeFrame;
@@ -26,8 +28,13 @@ public class Scoreboard : MonoBehaviour {
   public float showingNewAddedScoreTime = 1.5f;
   private float showedNewAddedScoreTime;
 
+  private MazeGenerator maze;
+
   void Start () {
+    maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
+
     boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+
     scoreSubmitted = false;
     hard = -1;
     optionStatus = new bool[3];
@@ -35,8 +42,10 @@ public class Scoreboard : MonoBehaviour {
       optionStatus[i] = false;
     }
     optionStatus[2] = true;
+    nextAdditionEventScore = additionEventFrame;
     nextQTEWrongMentalityUpgradeScore = QTEWrongMentalityUpgradeFrame;
     nextQTELengthUpgradeScore = QTELengthUpgradeFrame;
+    nextQTETimeLimitUpgradeScore = QTETimeLimitUpgradeFrame;
   }
 
   void Update () {
@@ -114,6 +123,10 @@ public class Scoreboard : MonoBehaviour {
     newAddedScore = addedScore;
     isShowingNewAddedScore = true;
     showedNewAddedScoreTime = 0;
+    if (score >= nextAdditionEventScore) {
+      maze.allocateRandomEvent(1);
+      nextAdditionEventScore += additionEventFrame;
+    }
     if (score >= nextQTELengthUpgradeScore) {
       boss.addQTELength(1);
       nextQTELengthUpgradeScore += QTELengthUpgradeFrame;

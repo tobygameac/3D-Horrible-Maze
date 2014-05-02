@@ -7,7 +7,6 @@ public class Score : MonoBehaviour {
 
   public int baseScoreGain;
   private int scoreGain;
-  public int additionEventsFrame;
   public int[] upgradeFrames;
   public float[] upgradeProbabilityPerFrame;
   public float[] upgradeScales;
@@ -38,9 +37,6 @@ public class Score : MonoBehaviour {
       upgrade();
       Vector3 randomEventPosition = maze.getNewEventPosition(transform.position);
       transform.position = randomEventPosition;
-      if (scoreboard.getScore() >= additionEventsFrame) {
-        maze.allocateRandomEvent(1);
-      }
     }
   }
 

@@ -113,9 +113,9 @@ public partial class MazeGenerator : MonoBehaviour {
 
             // Blood
             if (random.Next(100) < 5) { // 5% to generate blood
-              Vector3 bloodPosition = new Vector3(realC, baseY + 0.01f, realR);
+              Vector3 bloodPosition = new Vector3(realC, baseY + 0.001f, realR);
               GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
-              blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.01f, BLOCK_SIZE);
+              blood.transform.localScale = new Vector3(BLOCK_SIZE, 0.001f, BLOCK_SIZE);
               blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
               blood.transform.parent = bloods.transform;
             }
@@ -127,17 +127,31 @@ public partial class MazeGenerator : MonoBehaviour {
             ceiling.transform.localScale = new Vector3(BLOCK_SIZE, CEILING_THICKNESS, BLOCK_SIZE);
             ceiling.transform.parent = ceilings.transform;
 
+            int[] dr = new int[4]{1, 0, -1, 0};
+            int[] dc = new int[4]{0, 1, 0, -1};
+            int[] yRotation = new int[4]{180, 270, 0, 90};
+
             // Wall
             for (int wallCount = 0; wallCount < WALL_HEIGHT; wallCount++) {
               Vector3 wallPosition = new Vector3(realC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, realR);
               GameObject wall = Instantiate(wallPrefabs[type], wallPosition, Quaternion.identity) as GameObject;
               wall.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
               wall.transform.parent = walls.transform;
+              for (int d = 0; d < 4; d++) {
+                if (basicMazes[h].isAvailableBlock(r + dr[d], c + dc[d])) {
+                  if (random.Next(100) < 10) { // 10% to generate blood
+                    float bloodC = realC + (BLOCK_SIZE / 2 + 0.01f) * dc[d];
+                    float bloodR = realR + (BLOCK_SIZE / 2 + 0.01f) * dr[d];
+                    Vector3 bloodPosition = new Vector3(bloodC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, bloodR);
+                    GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
+                    float scale = (random.Next(30) + 70) / 100.0f;
+                    blood.transform.localScale = new Vector3(BLOCK_SIZE * scale, 0.001f, BLOCK_SIZE * scale);
+                    blood.transform.eulerAngles = new Vector3(90, yRotation[d], 0);
+                    blood.transform.parent = bloods.transform;
+                  }
+                }
+              }
               if (wallCount >= WALL_HEIGHT - 2) {
-                // Drawing
-                int[] dr = new int[4]{1, 0, -1, 0};
-                int[] dc = new int[4]{0, 1, 0, -1};
-                int[] yRotation = new int[4]{180, 270, 0, 90};
                 for (int d = 0; d < 4; d++) {
                   if (basicMazes[h].isAvailableBlock(r + dr[d], c + dc[d])) {
                     if (isDecorated[r + dr[d]][c + dc[d]]) {
