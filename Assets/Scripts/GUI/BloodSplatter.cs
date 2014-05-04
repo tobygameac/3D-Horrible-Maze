@@ -7,10 +7,10 @@ public class BloodSplatter : MonoBehaviour {
   private static System.Random random = new System.Random(); // Only need one random seed
 
   public Texture[] bloodTextures;
-  public int minWidth;
-  public int maxWidth;
-  public int minHeight;
-  public int maxHeight;
+  private int minWidth;
+  private int maxWidth;
+  private int minHeight;
+  private int maxHeight;
 
   private List<int> bloodIndex;
   private List<Vector2> bloodSize;
@@ -25,6 +25,11 @@ public class BloodSplatter : MonoBehaviour {
   void Start () {
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
+    minWidth = (int)(Screen.width * 0.25f);
+    maxWidth = (int)(Screen.width * 0.75f);
+    minHeight = (int)(Screen.height * 0.25f);
+    maxHeight = (int)(Screen.height * 0.75f);
+
     bloodIndex = new List<int>();
     bloodSize = new List<Vector2>();
     bloodPosition = new List<Vector2>();
@@ -36,13 +41,14 @@ public class BloodSplatter : MonoBehaviour {
 
   void Update () {
     for (int i = 0; i < bloodIndex.Count; i++) {
-      bloodShowTimeDelay[i] -= Time.deltaTime;
-      if (bloodShowTimeDelay[i] <= 0) {
-        if (bloodShowedTime[i] < 1e-6) {
-          soundEffectManager.playBloodHitSound();
-        }
-        bloodShowedTime[i] += Time.deltaTime;
+      if (bloodShowTimeDelay[i] > 0) {
+        bloodShowTimeDelay[i] -= Time.deltaTime;
+        continue;
       }
+      if (bloodShowedTime[i] < 1e-6) {
+        soundEffectManager.playBloodHitSound();
+      }
+      bloodShowedTime[i] += Time.deltaTime;
       if (bloodShowedTime[i] > bloodShowTime[i]) {
         bloodIndex.RemoveAt(i);
         bloodSize.RemoveAt(i);
@@ -58,7 +64,10 @@ public class BloodSplatter : MonoBehaviour {
 
   void OnGUI () {
     for (int i = 0; i < bloodIndex.Count; i++) {
-      if (bloodShowTimeDelay[i] <= 0 && bloodShowedTime[i] <= bloodShowTime[i]) {
+      if (bloodShowTimeDelay[i] > 0) {
+        continue;
+      }
+      if (bloodShowedTime[i] <= bloodShowTime[i]) {
         Color originalColor = GUI.color;
         float bloodAlpha = 1 - (bloodShowedTime[i] / bloodShowTime[i]);
         GUI.color = new Color(1, 1, 1, bloodAlpha);
@@ -70,14 +79,16 @@ public class BloodSplatter : MonoBehaviour {
     }
   }
 
-  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.3f) {
+  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.1f) {
     if (bloodCount < 0) {
-      bloodCount = random.Next(4) + 1;
+      bloodCount = random.Next(3) + 1;
     }
     for (int i = 0; i < bloodCount; i++) {
       bloodIndex.Add(random.Next(bloodTextures.Length));
-      bloodSize.Add(new Vector2(minWidth + random.Next(maxWidth - minWidth), minHeight + random.Next(maxHeight - minHeight)));
-      bloodPosition.Add(new Vector2(random.Next(Screen.width - (int)bloodSize[i].x), random.Next(Screen.height - (int)bloodSize[i].y)));
+      int sizeX = minWidth + random.Next(maxWidth - minWidth);
+      int sizeY = minHeight + random.Next(maxHeight - minHeight);
+      bloodSize.Add(new Vector2(sizeX, sizeY));
+      bloodPosition.Add(new Vector2(random.Next(Screen.width - sizeX), random.Next(Screen.height - sizeY)));
       bloodRotation.Add(random.Next(360));
       bloodShowTime.Add(showTime);
       bloodShowedTime.Add(0);

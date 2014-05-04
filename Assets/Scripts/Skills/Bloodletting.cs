@@ -5,12 +5,11 @@ using System.Collections;
 
 public class Bloodletting : MonoBehaviour {
 
-  private float cooldown = 5.0f;
-  private float cooldownNow;
-
   private static System.Random random = new System.Random(); // Only need one random seed
 
-  //private Mentality mentality;
+  public float mentalityCost = 10.0f;
+
+  private Mentality mentality;
 
   private SkillMenu skillMenu;
 
@@ -21,8 +20,8 @@ public class Bloodletting : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
-    //mentality = GetComponent<Mentality>();
-
+    mentality = GetComponent<Mentality>();
+    
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(4);
 
@@ -38,25 +37,20 @@ public class Bloodletting : MonoBehaviour {
       return;
     }
     if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4)) {
-      if (cooldownNow <= 0) {
+      if (mentality.enough(mentalityCost)) {
+        soundEffectManager.playBloodHitSound();
+        mentality.use(mentalityCost);
         float baseY = maze.getBaseY(maze.getFloor(transform.position.y));
-        Vector3 bloodPosition = new Vector3(transform.position.x, baseY + 0.001f, transform.position.z);
+        Vector3 bloodPosition = new Vector3(2 * transform.forward.x + transform.position.x, baseY + 0.001f, 2 * transform.forward.z + transform.position.z);
         GameObject blood = Instantiate(bloodPrefab, bloodPosition, Quaternion.identity) as GameObject;
         blood.transform.localScale = new Vector3(maze.BLOCK_SIZE, 0.01f, maze.BLOCK_SIZE);
         blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
-        cooldownNow = cooldown;
       } else {
         soundEffectManager.playErrorSound();
-        MessageViewer.showErrorMessage("Not ready yet");
+        MessageViewer.showErrorMessage("Not enough mentality");
       }
     }
-    if (cooldownNow > 0) {
-      cooldownNow -= Time.deltaTime;
-    }
     string skillMessage = "Blooddd~~";
-    if (cooldownNow > 0) {
-      skillMessage += "(CD " + (int)cooldownNow + "s)";
-    }
     skillMenu.setSkillMessage(4, skillMessage);
   }
 

@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour {
         case GameState.PAUSING:
           GameState.state = GameState.PLAYING;
           Time.timeScale = 1;
+          isAdjustingOption = false;
           break;
         case GameState.PLAYING:
           GameState.state = GameState.PAUSING;
@@ -84,6 +85,7 @@ public class PauseMenu : MonoBehaviour {
         soundEffectManager.playButtonSound();
         GameState.state = GameState.PLAYING;
         Time.timeScale = 1;
+        isAdjustingOption = false;
       }
 
       if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {

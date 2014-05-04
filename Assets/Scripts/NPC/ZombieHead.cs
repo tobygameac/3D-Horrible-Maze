@@ -5,11 +5,15 @@ using System.Collections;
 
 public class ZombieHead : MonoBehaviour {
 
+  private static System.Random random = new System.Random(); // Only need one random seed
+
   public float offScreenDot;
 
   private bool foundPlayer;
   public float tracingTime;
   private float tracedTime;
+  public float maximumAttackingRadius;
+  private float attackingRadius;
   public float diedRadius;
 
   private Vector3 startMovingPosition;
@@ -31,15 +35,19 @@ public class ZombieHead : MonoBehaviour {
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     
     bloodSplatter = GameObject.FindWithTag("Main").GetComponent<BloodSplatter>();
+    
+    attackingRadius = (float)random.NextDouble() * maximumAttackingRadius;
   }
 
   void Update () {
     if (!foundPlayer) {
+      checkVisible();
       return;
     }
 
     tracedTime += Time.deltaTime;
     transform.LookAt(Camera.main.transform);
+    targetPosition = Camera.main.transform.position;
     transform.position = Vector3.Lerp(startMovingPosition, targetPosition, tracedTime / tracingTime);
 
     if (tracedTime >= tracingTime || Vector3.Distance(transform.position, player.transform.position) <= diedRadius) {
@@ -48,42 +56,25 @@ public class ZombieHead : MonoBehaviour {
     }
   }
 
-  void OnTriggerStay (Collider other) {
-    if (foundPlayer) {
+  private void checkVisible () {
+    if (maze.getFloor(transform.position.y) != maze.getFloor(player.transform.position.y)) {
       return;
     }
-
-    if (other.tag == "Player") {
-      if (maze.getFloor(transform.position) == maze.getFloor(other.transform.position)) {
-        if (isVisible()) {
-          soundEffectManager.playZombieGaspSound();
-          foundPlayer = true;
-          tracedTime = 0;
-          startMovingPosition = transform.position;
-          targetPosition = other.transform.position;
-        }
+    if (player.layer == LayerMask.NameToLayer("Invisible")) {
+      return;
+    }
+    if (Vector3.Distance(transform.position, player.transform.position) > attackingRadius) {
+      return;
+    }
+    RaycastHit hit;
+    if (Physics.Raycast(player.transform.position, player.transform.forward, out hit)) {
+      if (hit.transform == transform) {
+        soundEffectManager.playZombieGaspSound();
+        foundPlayer = true;
+        tracedTime = 0;
+        startMovingPosition = transform.position;
       }
     }
-  }
-
-  private bool isVisible () {
-    Vector3 fwd = player.transform.forward;
-    Vector3 other = (transform.position - player.transform.position).normalized;
-    
-    float dotProduct = Vector3.Dot(fwd, other);
-    
-    if (dotProduct > offScreenDot) {
-      if (player.layer == LayerMask.NameToLayer("Invisible")) {
-        return false;
-      }
-      RaycastHit hit;
-      if (Physics.Linecast(transform.position, player.transform.position, out hit)) {
-        if (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.name == "playerBody") {
-          return true;
-        }
-      }
-    }
-
-    return false;
+    return;
   }
 }

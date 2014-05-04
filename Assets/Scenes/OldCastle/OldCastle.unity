@@ -239,10 +239,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 64e9640a05a37634ab26d4fdd4420002, type: 3}
   - {fileID: 2800000, guid: cd9defe87d5738549ac10bd8e921b2cf, type: 3}
   - {fileID: 2800000, guid: 11e38a736279eb946945f65cdc208d73, type: 3}
-  minWidth: 100
-  maxWidth: 300
-  minHeight: 100
-  maxHeight: 300
 --- !u!82 &127766900
 AudioSource:
   m_ObjectHideFlags: 0

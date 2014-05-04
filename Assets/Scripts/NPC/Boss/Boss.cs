@@ -260,12 +260,14 @@ public class Boss : MonoBehaviour {
       }
 
       if (success) {
-        bloodSplatter.addBlood();
         QTEvent.RemoveAt(0);
         if (QTEvent.Count == 0) {
+          bloodSplatter.addBlood(5, 5.0f);
           turnToStunningState();
           float bonusScale = 1 - (QTETimeUsed / QTETimeLimit) + (perfectQTE ? 1 : 0);
           scoreboard.addScore((int)(250 * (QTELength * (1 + bonusScale))));
+        } else {
+          bloodSplatter.addBlood(random.Next(1));
         }
       }
 
