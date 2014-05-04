@@ -53,10 +53,10 @@ public class SkillMenu : MonoBehaviour {
           break;
         case GameState.PLAYING:
           soundEffectManager.playButtonSound();
-          GameState.state = GameState.SKILLVIEWING;
+          GameState.state = GameState.SKILL_VIEWING;
           Time.timeScale = 0.0001f;
           break;
-        case GameState.SKILLVIEWING:
+        case GameState.SKILL_VIEWING:
           soundEffectManager.playButtonSound();
           GameState.state = GameState.PLAYING;
           Time.timeScale = 1;
@@ -73,7 +73,7 @@ public class SkillMenu : MonoBehaviour {
     GUI.depth = 0;
     
     // Only show menu button
-    if (GameState.state != GameState.SKILLVIEWING) {
+    if (GameState.state != GameState.SKILL_VIEWING) {
       if (GameState.state != GameState.PLAYING) {
         return;
       }

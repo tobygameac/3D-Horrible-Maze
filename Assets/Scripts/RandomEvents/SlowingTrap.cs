@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Collider))]
+
 public class SlowingTrap : MonoBehaviour {
 
   public float slowingTime = 2.5f;

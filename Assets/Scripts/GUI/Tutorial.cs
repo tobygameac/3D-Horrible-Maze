@@ -18,7 +18,7 @@ public class Tutorial : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
-    GameState.state = GameState.MENUVIEWING;
+    GameState.state = GameState.MENU_VIEWING;
     index = 0;
 
     soundEffectManager = GetComponent<SoundEffectManager>();

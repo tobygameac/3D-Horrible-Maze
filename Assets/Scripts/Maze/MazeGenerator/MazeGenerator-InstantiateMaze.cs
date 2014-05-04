@@ -14,6 +14,7 @@ public partial class MazeGenerator : MonoBehaviour {
   public GameObject elevatorPrefab;
   public GameObject drawingPrefab;
   public GameObject torchPrefab;
+  public GameObject zombieHeadPrefab;
 
   private void instantiateMaze () {
     for (int h = 0; h < MAZE_H; h++) {
@@ -32,6 +33,7 @@ public partial class MazeGenerator : MonoBehaviour {
       GameObject elevators = new GameObject();
       GameObject drawings = new GameObject();
       GameObject torches = new GameObject();
+      GameObject zombieHeads = new GameObject();
 
       ceilings.transform.parent = floor.transform;
       ceilings.name = "ceilings";
@@ -47,6 +49,8 @@ public partial class MazeGenerator : MonoBehaviour {
       drawings.name = "drawings";
       torches.transform.parent = floor.transform;
       torches.name = "torches";
+      zombieHeads.transform.parent = floor.transform;
+      zombieHeads.name = "zombie heads";
 
       Point startPoint = basicMazes[h].getStartPoint();
       Point endPoint = basicMazes[h].getEndPoint();
@@ -171,8 +175,8 @@ public partial class MazeGenerator : MonoBehaviour {
                       drawing.transform.eulerAngles = new Vector3(0, yRotation[d], 180);
                       drawing.transform.parent = drawings.transform;
                       isDecorated[r + dr[d]][c + dc[d]] = true;
-                    } else if (wallCount == WALL_HEIGHT - 2) {
-                      if (random.Next(100) < 5) { // 5% to generate torch
+                    } else if (wallCount == 1) {
+                      if (random.Next(100) < 10) { // 10% to generate torch
                         float torchC = realC + (BLOCK_SIZE / 2) * dc[d];
                         float torchR = realR + (BLOCK_SIZE / 2) * dr[d];
                         Vector3 torchPosition = new Vector3(torchC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, torchR);
@@ -180,6 +184,15 @@ public partial class MazeGenerator : MonoBehaviour {
                         torch.transform.localScale = new Vector3(BLOCK_SIZE / 2, BLOCK_SIZE / 2, 0.01f);
                         torch.transform.eulerAngles = new Vector3(-30, yRotation[d], 0);
                         torch.transform.parent = torches.transform;
+                        isDecorated[r + dr[d]][c + dc[d]] = true;
+                      } else if (random.Next(100) < 5) { // 5% to generate zombie head
+                        float zombieHeadC = realC + (BLOCK_SIZE / 2) * dc[d];
+                        float zombieHeadR = realR + (BLOCK_SIZE / 2) * dr[d];
+                        Vector3 zombieHeadPosition = new Vector3(zombieHeadC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, zombieHeadR);
+                        GameObject zombieHead = Instantiate(zombieHeadPrefab, zombieHeadPosition, Quaternion.identity) as GameObject;
+                        zombieHead.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                        zombieHead.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
+                        zombieHead.transform.parent = zombieHeads.transform;
                         isDecorated[r + dr[d]][c + dc[d]] = true;
                       }
                     }

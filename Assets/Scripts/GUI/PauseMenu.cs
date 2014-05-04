@@ -32,7 +32,7 @@ public class PauseMenu : MonoBehaviour {
           GameState.state = GameState.PAUSING;
           Time.timeScale = 0.0001f;
           break;
-        case GameState.SKILLVIEWING:
+        case GameState.SKILL_VIEWING:
           GameState.state = GameState.PLAYING;
           Time.timeScale = 1;
           break;

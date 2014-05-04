@@ -52,6 +52,9 @@ public class DebuffManager : MonoBehaviour {
   void Update () {
     if (slowingTime > 0) {
       slowingTime -= Time.deltaTime;
+      if (!sprint) {
+        sprint = GetComponent<Sprint>();
+      }
       if (sprint) {
         sprint.enabled = false;
       }

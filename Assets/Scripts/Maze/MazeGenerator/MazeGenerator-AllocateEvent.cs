@@ -61,8 +61,9 @@ public partial class MazeGenerator : MonoBehaviour {
     int h = (int)HRC.x;
     int r = (int)HRC.y;
     int c = (int)HRC.z;
+    Vector3 newPosition = getNewEventPosition();
     eventOnBlock[h][r][c] = false;
-    return getNewEventPosition();
+    return newPosition;
   }
 
   public void allocateRandomEvent (int number) {

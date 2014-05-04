@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Collider))]
+
 public class Score : MonoBehaviour {
 
   private static System.Random random = new System.Random(); // Only need one random seed

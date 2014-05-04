@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Collider))]
+
 public class BlindTrap : MonoBehaviour {
 
   public float blindTime = 2.5f;

@@ -18,6 +18,9 @@ public class Footstep : MonoBehaviour {
 
   void Update () {
     if (GameState.state != GameState.PLAYING) {
+      if (audio.isPlaying) {
+        audio.Stop();
+      }
       return;
     }
 

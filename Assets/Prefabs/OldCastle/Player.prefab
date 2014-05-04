@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRunning: 0
-  walkingSound: {fileID: 8300000, guid: 28928f35422308e44ad16380a2d4a146, type: 3}
+  walkingSound: {fileID: 8300000, guid: 40da76a38cb44424fb2ddc66657674af, type: 3}
   runningSound: {fileID: 8300000, guid: 345168359a1e51b488d1f39def0f3e17, type: 3}
 --- !u!114 &11400016
 MonoBehaviour:

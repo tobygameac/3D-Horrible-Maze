@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Collider))]
+
 public class MentalityBonus : MonoBehaviour {
 
   public float mentalityGain = 10;

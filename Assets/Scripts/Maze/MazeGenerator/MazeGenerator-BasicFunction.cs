@@ -33,6 +33,10 @@ public partial class MazeGenerator : MonoBehaviour {
     return floor;
   }
 
+  public int getFloor (Vector3 position) {
+    return getFloor(position.y);
+  }
+
   public Point getOffset (int h) {
     
     // Error

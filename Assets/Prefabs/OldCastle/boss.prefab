@@ -12,6 +12,7 @@ GameObject:
   - 135: {fileID: 13500000}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: boss
   m_TagString: Boss
@@ -336,8 +337,8 @@ MonoBehaviour:
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
   offScreenDot: .300000012
-  attackingRadius: 2.5
-  mustAttackingRadius: .5
+  attackingRadius: 2
+  mustAttackingRadius: 1
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
   QTEArrowTextures:
@@ -364,6 +365,18 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b73dad71f04a234ab9041835dc6aafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

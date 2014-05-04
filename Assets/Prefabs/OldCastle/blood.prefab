@@ -40,8 +40,7 @@ Renderer:
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 2100000, guid: 0cb3e3ed32b70614db640e71f44e2d83, type: 2}
+  m_Materials: []
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -63,29 +62,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc6f431cc15b9564799879678dd517dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   materials:
-  - {fileID: 2100000, guid: 6fa1265145900e24f8f86c254f618dcc, type: 2}
-  - {fileID: 2100000, guid: eed21ee2049ba0f4aba4b4d5f4e950ff, type: 2}
-  - {fileID: 2100000, guid: 888236e4a2eaafa4888a22745d231ae7, type: 2}
-  - {fileID: 2100000, guid: 2e511602f036f7e4faf75b63ed81303a, type: 2}
-  - {fileID: 2100000, guid: a7fd88c60286a4b43a76c8a1ecfc314a, type: 2}
-  - {fileID: 2100000, guid: 23b1fb6629d85c4438fec1cfb2e74a24, type: 2}
-  - {fileID: 2100000, guid: 495c13bea139a064f9f7c7f6d1becc1b, type: 2}
-  - {fileID: 2100000, guid: faa09d9024fb7a8439917624df7c9063, type: 2}
-  - {fileID: 2100000, guid: 74f21cd59c4d0ef44bf748e891a48c8e, type: 2}
-  - {fileID: 2100000, guid: 13adc6adbe4ce244db9270435b6695bb, type: 2}
-  - {fileID: 2100000, guid: 686b60cc750e8ce4aa4821ea5db27919, type: 2}
-  - {fileID: 2100000, guid: f790c6e6709269c439a2fe18fb4f4c1c, type: 2}
-  - {fileID: 2100000, guid: 01ea2fc9389bbb6429a097aba3a5774a, type: 2}
-  - {fileID: 2100000, guid: ba528dd0495b10244a7067454172010f, type: 2}
-  - {fileID: 2100000, guid: 9fdcb45573fdf4740b6de2c0e4b13f0e, type: 2}
-  - {fileID: 2100000, guid: 376377b29ede6a54a8ee088ca3737a51, type: 2}
-  - {fileID: 2100000, guid: 3b57e92571ff8cb4380e82d1a5efd5a7, type: 2}
+  - {fileID: 2100000, guid: 075a29cfd733f874387af1dac98f0d9a, type: 2}
+  - {fileID: 2100000, guid: 719043d932004c141a925c3314ef5fcf, type: 2}
+  - {fileID: 2100000, guid: 3be65da64fef7714da08956bc951760e, type: 2}
+  - {fileID: 2100000, guid: 393794c8a07e36f4cb0128866ec43823, type: 2}
+  - {fileID: 2100000, guid: fe94659750f519544b667b281bae0b6d, type: 2}
+  - {fileID: 2100000, guid: 81cc9ce9bfb0d3949bdb385b34176c34, type: 2}
+  - {fileID: 2100000, guid: 56a4acab918017649843b2df7e976a94, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

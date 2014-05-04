@@ -20,7 +20,7 @@ public class Rank : MonoBehaviour {
   private SoundEffectManager soundEffectManager;
 
   void Start () {
-    GameState.state = GameState.MENUVIEWING;
+    GameState.state = GameState.MENU_VIEWING;
     soundEffectManager = GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
     
