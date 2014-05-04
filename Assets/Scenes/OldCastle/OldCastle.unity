@@ -117,6 +117,7 @@ GameObject:
   - 114: {fileID: 127766903}
   - 82: {fileID: 127766900}
   - 114: {fileID: 127766904}
+  - 114: {fileID: 127766899}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -219,6 +220,29 @@ MonoBehaviour:
   NUM_OF_POPULATION: 30
   MAXIMUM_TIMES_OF_ITERATION: 500
   TARGET_FITNESS: .29999999999999999
+--- !u!114 &127766899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56825b88cd80a3049b8680d85f645959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodTextures:
+  - {fileID: 2800000, guid: 4fad0a17fce800843ab418b763973470, type: 3}
+  - {fileID: 2800000, guid: d70a4603dbde8e947af321848e945dbf, type: 3}
+  - {fileID: 2800000, guid: b2c0142ac70fa4f4ab5d587504fba9ed, type: 3}
+  - {fileID: 2800000, guid: 2bfe379ad58f7a049a27a30d70aaeb20, type: 3}
+  - {fileID: 2800000, guid: 64e9640a05a37634ab26d4fdd4420002, type: 3}
+  - {fileID: 2800000, guid: cd9defe87d5738549ac10bd8e921b2cf, type: 3}
+  - {fileID: 2800000, guid: 11e38a736279eb946945f65cdc208d73, type: 3}
+  minWidth: 100
+  maxWidth: 300
+  minHeight: 100
+  maxHeight: 300
 --- !u!82 &127766900
 AudioSource:
   m_ObjectHideFlags: 0

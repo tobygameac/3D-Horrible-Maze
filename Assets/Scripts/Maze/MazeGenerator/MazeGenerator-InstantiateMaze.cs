@@ -186,14 +186,16 @@ public partial class MazeGenerator : MonoBehaviour {
                         torch.transform.parent = torches.transform;
                         isDecorated[r + dr[d]][c + dc[d]] = true;
                       } else if (random.Next(100) < 5) { // 5% to generate zombie head
-                        float zombieHeadC = realC + (BLOCK_SIZE / 2) * dc[d];
-                        float zombieHeadR = realR + (BLOCK_SIZE / 2) * dr[d];
-                        Vector3 zombieHeadPosition = new Vector3(zombieHeadC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, zombieHeadR);
-                        GameObject zombieHead = Instantiate(zombieHeadPrefab, zombieHeadPosition, Quaternion.identity) as GameObject;
-                        zombieHead.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                        zombieHead.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
-                        zombieHead.transform.parent = zombieHeads.transform;
-                        isDecorated[r + dr[d]][c + dc[d]] = true;
+                        if (h != 0) {
+                          float zombieHeadC = realC + (BLOCK_SIZE / 2) * dc[d];
+                          float zombieHeadR = realR + (BLOCK_SIZE / 2) * dr[d];
+                          Vector3 zombieHeadPosition = new Vector3(zombieHeadC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, zombieHeadR);
+                          GameObject zombieHead = Instantiate(zombieHeadPrefab, zombieHeadPosition, Quaternion.identity) as GameObject;
+                          zombieHead.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                          zombieHead.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
+                          zombieHead.transform.parent = zombieHeads.transform;
+                          isDecorated[r + dr[d]][c + dc[d]] = true;
+                        }
                       }
                     }
                   }

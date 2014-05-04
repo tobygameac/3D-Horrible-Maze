@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4905417bf2ce944b3f7df0f78bb7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offScreenDot: .100000001
   tracingTime: 1
   diedRadius: 1
 --- !u!1001 &100100000

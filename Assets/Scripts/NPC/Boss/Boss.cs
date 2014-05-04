@@ -83,6 +83,8 @@ public class Boss : MonoBehaviour {
   public AudioClip tracingSound;
   private SoundEffectManager soundEffectManager;
 
+  private BloodSplatter bloodSplatter;
+
   private Scoreboard scoreboard;
 
   private List<Vector3> path;
@@ -98,6 +100,8 @@ public class Boss : MonoBehaviour {
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
+
+    bloodSplatter = GameObject.FindWithTag("Main").GetComponent<BloodSplatter>();
 
     scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
 
@@ -248,6 +252,7 @@ public class Boss : MonoBehaviour {
       }
       
       if (wrong) {
+        bloodSplatter.addBlood();
         perfectQTE = false;
         playerMentality.use(mentalityAbsorbPerQTEWrong);
         QTEvent = generateQTE(QTELength);
@@ -255,6 +260,7 @@ public class Boss : MonoBehaviour {
       }
 
       if (success) {
+        bloodSplatter.addBlood();
         QTEvent.RemoveAt(0);
         if (QTEvent.Count == 0) {
           turnToStunningState();
