@@ -46,6 +46,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
+  - 114: {fileID: 11400004}
+  - 65: {fileID: 6500004}
   m_Layer: 0
   m_Name: drawing
   m_TagString: Untagged
@@ -168,6 +170,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6500004
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 100}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,6 +221,23 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 345a486c8b4d3544eb5ec9e2de70d458, type: 2}
   - {fileID: 2100000, guid: b39f7da21c4781f4683983defe42f07b, type: 2}
   - {fileID: 2100000, guid: f81904b1e8af99542ab5a2eda613c623, type: 2}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa0ffa6a0a8e4d4ba9ae9f0d9759238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokenGlassMaterials:
+  - {fileID: 2100000, guid: b4f55c88e88cbdf4e92db4694c738411, type: 2}
+  - {fileID: 2100000, guid: 23093bf46b2ce664387d0b0f0c5dff37, type: 2}
+  - {fileID: 2100000, guid: db1568780bd28d94aa0c5100abdbcb93, type: 2}
+  maximumCheckRadius: 5
+  maximumBrokenCountDown: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

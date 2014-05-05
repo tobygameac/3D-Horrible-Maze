@@ -19,8 +19,10 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip QTEHitSound;
   public AudioClip QTEMissSound;
   public AudioClip roarSound;
-  public AudioClip zombieGaspSound;
+  public AudioClip zombieGaspSound0;
+  public AudioClip zombieGaspSound1;
   public AudioClip bloodHitSound;
+  public AudioClip glassShatteredSound;
 
   public void adjustSound () {
     AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
@@ -81,12 +83,20 @@ public class SoundEffectManager : MonoBehaviour {
     audio.PlayOneShot(roarSound);
   }
 
-  public void playZombieGaspSound () {
-    audio.PlayOneShot(zombieGaspSound);
+  public void playZombieGaspSound0 () {
+    audio.PlayOneShot(zombieGaspSound0);
+  }
+
+  public void playZombieGaspSound1 () {
+    audio.PlayOneShot(zombieGaspSound1);
   }
 
   public void playBloodHitSound () {
     audio.PlayOneShot(bloodHitSound);
+  }
+  
+  public void playGlassShatteredSoundSound () {
+    audio.PlayOneShot(glassShatteredSound);
   }
 
 }

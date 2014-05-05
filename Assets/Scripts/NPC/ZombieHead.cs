@@ -7,11 +7,11 @@ public class ZombieHead : MonoBehaviour {
 
   private static System.Random random = new System.Random(); // Only need one random seed
 
-  public float offScreenDot;
-
   private bool foundPlayer;
   public float tracingTime;
   private float tracedTime;
+  public float maximumAttackingCountDown;
+  private float attackingCountDown;
   public float maximumAttackingRadius;
   private float attackingRadius;
   public float diedRadius;
@@ -36,12 +36,15 @@ public class ZombieHead : MonoBehaviour {
     
     bloodSplatter = GameObject.FindWithTag("Main").GetComponent<BloodSplatter>();
     
+    attackingCountDown = (float)random.NextDouble() * maximumAttackingCountDown;
     attackingRadius = (float)random.NextDouble() * maximumAttackingRadius;
   }
 
   void Update () {
     if (!foundPlayer) {
-      checkVisible();
+      if (checkVisible()) {
+        attackingCountDown -= Time.deltaTime;
+      }
       return;
     }
 
@@ -56,25 +59,28 @@ public class ZombieHead : MonoBehaviour {
     }
   }
 
-  private void checkVisible () {
+  private bool checkVisible () {
     if (maze.getFloor(transform.position.y) != maze.getFloor(player.transform.position.y)) {
-      return;
+      return false;
     }
     if (player.layer == LayerMask.NameToLayer("Invisible")) {
-      return;
+      return false;
     }
     if (Vector3.Distance(transform.position, player.transform.position) > attackingRadius) {
-      return;
+      return false;
     }
     RaycastHit hit;
     if (Physics.Raycast(player.transform.position, player.transform.forward, out hit)) {
       if (hit.transform == transform) {
-        soundEffectManager.playZombieGaspSound();
-        foundPlayer = true;
-        tracedTime = 0;
-        startMovingPosition = transform.position;
+        if (attackingCountDown <= 0) {
+          soundEffectManager.playZombieGaspSound1();
+          foundPlayer = true;
+          tracedTime = 0;
+          startMovingPosition = transform.position;
+        }
+        return true;
       }
     }
-    return;
+    return false;
   }
 }

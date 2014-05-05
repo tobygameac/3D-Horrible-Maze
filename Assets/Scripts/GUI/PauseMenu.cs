@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
 
-  public GUISkin skin;
+  public GUISkin bloodOnHoverSkin;
+  public GUISkin nullOnHoverSkin;
 
   public Texture backgroundTexture;
   public Texture pauseMenuBackgroundTexture;
@@ -11,6 +12,7 @@ public class PauseMenu : MonoBehaviour {
   public Texture optionButtonTexture;
   public Texture returnButtonTexture;
   public Texture exitButtonTexture;
+  public Texture soundIconTexture;
 
   private bool isAdjustingOption;
 
@@ -47,7 +49,7 @@ public class PauseMenu : MonoBehaviour {
       return;
     }
 
-    GUI.skin = skin;
+    GUI.skin = bloodOnHoverSkin;
     GUI.depth = 0;
 
     // Background
@@ -68,10 +70,26 @@ public class PauseMenu : MonoBehaviour {
     int startY = height / 4;
 
     if (isAdjustingOption) {
-      GameState.volume = GUI.HorizontalScrollbar(new Rect((width - buttonWidth) / 2, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), GameState.volume, 0.01f, 0, 1);
+
+      int soundIconWidth = buttonHeight;
+      int soundIconHeight = buttonHeight;
+
+      Color originalColor = GUI.color;
+      if (GameState.volume == 0) {
+        GUI.color = Color.grey;
+      }
+
+      GUI.skin = nullOnHoverSkin;
+      if (GUI.Button(new Rect((width - buttonWidth) / 2 - soundIconWidth / 2 , 1 * (buttonHeight + 10) + startY - soundIconHeight / 2.5f, soundIconWidth, soundIconHeight), soundIconTexture)) {
+        GameState.volume = 0;
+      }
+      GUI.skin = bloodOnHoverSkin;
+
+      GUI.color = originalColor;
+      GameState.volume = GUI.HorizontalScrollbar(new Rect((width - buttonWidth) / 2 + soundIconWidth / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), GameState.volume, 0.01f, 0, 1);
       soundEffectManager.adjustSound();
 
-      if (GUI.Button(new Rect((width - buttonWidth) / 2, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {
         soundEffectManager.playButtonSound();
         isAdjustingOption = false;
       }
@@ -88,7 +106,7 @@ public class PauseMenu : MonoBehaviour {
         isAdjustingOption = false;
       }
 
-      if (GUI.Button(new Rect((width - buttonWidth) / 2, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
+      if (GUI.Button(new Rect((width - buttonWidth) / 2, 2.5f * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), exitButtonTexture)) {
         soundEffectManager.playButtonSound();
         Application.LoadLevel("MainMenu");
       }

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-  public GUISkin skin;
+  public GUISkin bloodOnHoverSkin;
+  public GUISkin nullOnHoverSkin;
 
   public Texture backgroundTexture;
   public Texture startButtonTexture;
@@ -13,6 +14,7 @@ public class MainMenu : MonoBehaviour {
   public Texture hardButtonTexture;
   public Texture returnButtonTexture;
   public Texture exitButtonTexture;
+  public Texture soundIconTexture;
 
   private static System.Random random = new System.Random(); // Only need one random seed
 
@@ -36,7 +38,8 @@ public class MainMenu : MonoBehaviour {
   }
 
   void OnGUI () {
-    GUI.skin = skin;
+
+    GUI.skin = bloodOnHoverSkin;
 
     //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
@@ -55,7 +58,24 @@ public class MainMenu : MonoBehaviour {
     int startY = height / 5;
 
     if (isAdjustingOption) {
-      GameState.volume = GUI.HorizontalScrollbar(new Rect(startX, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), GameState.volume, 0.01f, 0, 1);
+
+      int soundIconWidth = buttonHeight;
+      int soundIconHeight = buttonHeight;
+
+      Color originalColor = GUI.color;
+      if (GameState.volume == 0) {
+        GUI.color = Color.grey;
+      }
+
+      GUI.skin = nullOnHoverSkin;
+      if (GUI.Button(new Rect(startX - soundIconWidth / 2 , 2 * (buttonHeight + 10) + startY - soundIconHeight / 2.5f, soundIconWidth, soundIconHeight), soundIconTexture)) {
+        GameState.volume = 0;
+      }
+      GUI.skin = bloodOnHoverSkin;
+
+      GUI.color = originalColor;
+
+      GameState.volume = GUI.HorizontalScrollbar(new Rect(startX + soundIconWidth / 2, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), GameState.volume, 0.01f, 0, 1);
       soundEffectManager.adjustSound();
 
       if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {

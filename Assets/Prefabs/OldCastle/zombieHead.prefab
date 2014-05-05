@@ -192,9 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4905417bf2ce944b3f7df0f78bb7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offScreenDot: .400000006
   tracingTime: 1
-  maximumAttackingRadius: 8
+  maximumAttackingCountDown: 3
+  maximumAttackingRadius: 10
   diedRadius: 1
 --- !u!1001 &100100000
 Prefab:

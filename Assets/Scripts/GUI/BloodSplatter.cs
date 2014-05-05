@@ -13,8 +13,7 @@ public class BloodSplatter : MonoBehaviour {
   private int maxHeight;
 
   private List<int> bloodIndex;
-  private List<Vector2> bloodSize;
-  private List<Vector2> bloodPosition;
+  private List<Rect> bloodRect;
   private List<int> bloodRotation;
   private List<float> bloodShowTime;
   private List<float> bloodShowedTime;
@@ -31,8 +30,7 @@ public class BloodSplatter : MonoBehaviour {
     maxHeight = (int)(Screen.height * 0.75f);
 
     bloodIndex = new List<int>();
-    bloodSize = new List<Vector2>();
-    bloodPosition = new List<Vector2>();
+    bloodRect = new List<Rect>();
     bloodRotation = new List<int>();
     bloodShowTime = new List<float>();
     bloodShowedTime = new List<float>();
@@ -51,8 +49,7 @@ public class BloodSplatter : MonoBehaviour {
       bloodShowedTime[i] += Time.deltaTime;
       if (bloodShowedTime[i] > bloodShowTime[i]) {
         bloodIndex.RemoveAt(i);
-        bloodSize.RemoveAt(i);
-        bloodPosition.RemoveAt(i);
+        bloodRect.RemoveAt(i);
         bloodRotation.RemoveAt(i);
         bloodShowTime.RemoveAt(i);
         bloodShowedTime.RemoveAt(i);
@@ -71,15 +68,32 @@ public class BloodSplatter : MonoBehaviour {
         Color originalColor = GUI.color;
         float bloodAlpha = 1 - (bloodShowedTime[i] / bloodShowTime[i]);
         GUI.color = new Color(1, 1, 1, bloodAlpha);
-        Vector2 pivotPoint = new Vector2(bloodPosition[i].x + bloodSize[i].x / 2, bloodPosition[i].y + bloodSize[i].y / 2);
+        Vector2 pivotPoint = new Vector2(bloodRect[i].xMin + bloodRect[i].width / 2, bloodRect[i].yMin + bloodRect[i].height / 2);
         GUIUtility.RotateAroundPivot(bloodRotation[i], pivotPoint); 
-        GUI.DrawTexture(new Rect(bloodPosition[i].x, bloodPosition[i].y, bloodSize[i].x, bloodSize[i].y), bloodTextures[bloodIndex[i]]);
+        GUI.DrawTexture(bloodRect[i], bloodTextures[bloodIndex[i]]);
         GUI.color = originalColor;
       }
     }
   }
 
-  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.1f) {
+  private bool intersect (Rect rectA, Rect rectB) {
+    bool c1 = rectA.xMin < rectB.xMax;
+    bool c2 = rectA.xMax > rectB.xMin;
+    bool c3 = rectA.yMin < rectB.yMax;
+    bool c4 = rectA.yMax > rectB.yMin;
+    return c1 && c2 && c3 && c4;
+  }
+
+  private bool noIntersectWithAllRects (Rect rect) {
+    for (int i = 0; i < bloodRect.Count; i++) {
+      if (intersect(rect, bloodRect[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.3f) {
     if (bloodCount < 0) {
       bloodCount = random.Next(3) + 1;
     }
@@ -87,12 +101,24 @@ public class BloodSplatter : MonoBehaviour {
       bloodIndex.Add(random.Next(bloodTextures.Length));
       int sizeX = minWidth + random.Next(maxWidth - minWidth);
       int sizeY = minHeight + random.Next(maxHeight - minHeight);
-      bloodSize.Add(new Vector2(sizeX, sizeY));
-      bloodPosition.Add(new Vector2(random.Next(Screen.width - sizeX), random.Next(Screen.height - sizeY)));
+      Rect rect = new Rect(random.Next(Screen.width - sizeX), random.Next(Screen.height - sizeY), sizeX, sizeY);
+      /*
+      int tried = 0, maximumTried = 100;
+      while (!noIntersectWithAllRects(rect)) {
+        if (tried > maximumTried) {
+          break;
+        }
+        sizeX = minWidth + random.Next(maxWidth - minWidth) / (tried + 1);
+        sizeY = minHeight + random.Next(maxHeight - minHeight) / (tried + 1);
+        rect = new Rect(random.Next(Screen.width - sizeX), random.Next(Screen.height - sizeY), sizeX, sizeY);
+        tried++;
+      }
+      */
+      bloodRect.Add(rect);
       bloodRotation.Add(random.Next(360));
-      bloodShowTime.Add(showTime);
+      bloodShowTime.Add(showTime + (float)random.NextDouble());
       bloodShowedTime.Add(0);
-      bloodShowTimeDelay.Add(i * ((float)random.NextDouble() * showTimeDelay));
+      bloodShowTimeDelay.Add(showTimeDelay * (float)random.NextDouble());
     }
   }
 

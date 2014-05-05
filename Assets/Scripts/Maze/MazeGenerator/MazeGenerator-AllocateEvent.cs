@@ -61,8 +61,16 @@ public partial class MazeGenerator : MonoBehaviour {
     int h = (int)HRC.x;
     int r = (int)HRC.y;
     int c = (int)HRC.z;
-    Vector3 newPosition = getNewEventPosition();
     eventOnBlock[h][r][c] = false;
+    Vector3 newPosition = getNewEventPosition();
+    int tried = 0, maximumTried = 100;
+    while (h == getFloor(newPosition)) {
+      if (tried > maximumTried) {
+        break;
+      }
+      newPosition = getNewEventPosition();
+      tried++;
+    }
     return newPosition;
   }
 

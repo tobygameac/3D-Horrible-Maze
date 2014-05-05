@@ -6556,7 +6556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be431a24d49b884b91dce6f493a8125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  nullOnHoverSkin: {fileID: 11400000, guid: ede96efc143d0c74b884e5321efd6706, type: 2}
   backgroundTexture: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
   startButtonTexture: {fileID: 2800000, guid: 48a32d947c68b004a92e13b917257e79, type: 3}
   rankButtonTexture: {fileID: 2800000, guid: 01dde9a0577746543b4d1fd3a2553365, type: 3}
@@ -6565,6 +6566,7 @@ MonoBehaviour:
   hardButtonTexture: {fileID: 2800000, guid: e092b665b395f7b4e9f6cd0cf079005b, type: 3}
   returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
   exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
+  soundIconTexture: {fileID: 2800000, guid: e054428927635154aa6ce8788125c89d, type: 3}
 --- !u!82 &919995538
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6654,7 +6656,9 @@ MonoBehaviour:
   QTEHitSound: {fileID: 0}
   QTEMissSound: {fileID: 0}
   roarSound: {fileID: 0}
-  zombieGaspSound: {fileID: 0}
+  zombieGaspSound0: {fileID: 0}
+  zombieGaspSound1: {fileID: 0}
+  bloodHitSound: {fileID: 0}
 --- !u!114 &919995541
 MonoBehaviour:
   m_ObjectHideFlags: 0
