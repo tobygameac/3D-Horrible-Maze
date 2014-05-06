@@ -6659,6 +6659,7 @@ MonoBehaviour:
   zombieGaspSound0: {fileID: 0}
   zombieGaspSound1: {fileID: 0}
   bloodHitSound: {fileID: 0}
+  glassShatteredSound: {fileID: 0}
 --- !u!114 &919995541
 MonoBehaviour:
   m_ObjectHideFlags: 0

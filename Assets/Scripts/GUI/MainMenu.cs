@@ -43,7 +43,7 @@ public class MainMenu : MonoBehaviour {
 
     //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
-    GUI.Label(new Rect(0, 0, 100, 100), "2014/5/4 9.00");
+    GUI.Label(new Rect(0, 0, 100, 100), "2014/5/5 9.00");
 
     int width = Screen.height - 100;
     int height = width;
@@ -83,28 +83,19 @@ public class MainMenu : MonoBehaviour {
         isAdjustingOption = false;
       }
     } else if (isChoosingDifficulty) {
-      if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), easyButtonTexture)) {
-        /*
-        soundEffectManager.playButtonSound();
-        GameState.difficulty = 0;
-        GameState.userStudy = false;
-        Application.LoadLevel("Tutorial");
-        */
-      }
-
-      if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), hardButtonTexture)) {
-        /*
-        soundEffectManager.playButtonSound();
-        GameState.difficulty = 1;
-        GameState.userStudy = false;
-        Application.LoadLevel("OldCastle");
-        */
-      }
-
-      if (GUI.Button(new Rect(startX, 2 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "User study")) {
+      if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Escaping Mode")) {
         soundEffectManager.playButtonSound();
         GameState.difficulty = random.Next(2);
         GameState.userStudy = true;
+        GameMode.mode = GameMode.ESCAPING;
+        Application.LoadLevel("Tutorial");
+      }
+
+      if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Infinite Mode")) {
+        soundEffectManager.playButtonSound();
+        GameState.difficulty = random.Next(2);
+        GameState.userStudy = true;
+        GameMode.mode = GameMode.INFINITE;
         Application.LoadLevel("Tutorial");
       }
 

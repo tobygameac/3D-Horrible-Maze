@@ -23,6 +23,8 @@ public class ZombieHead : MonoBehaviour {
 
   private GameObject player;
 
+  private CameraShaker cameraShaker;
+
   private SoundEffectManager soundEffectManager;
 
   private BloodSplatter bloodSplatter;
@@ -32,6 +34,8 @@ public class ZombieHead : MonoBehaviour {
 
     player = GameObject.FindWithTag("Player");
       
+    cameraShaker = GameObject.FindWithTag("Main").GetComponent<CameraShaker>();
+
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     
     bloodSplatter = GameObject.FindWithTag("Main").GetComponent<BloodSplatter>();
@@ -54,6 +58,7 @@ public class ZombieHead : MonoBehaviour {
     transform.position = Vector3.Lerp(startMovingPosition, targetPosition, tracedTime / tracingTime);
 
     if (tracedTime >= tracingTime || Vector3.Distance(transform.position, player.transform.position) <= diedRadius) {
+      StartCoroutine(cameraShaker.shakeCamera());
       bloodSplatter.addBlood();
       Destroy(gameObject);
     }

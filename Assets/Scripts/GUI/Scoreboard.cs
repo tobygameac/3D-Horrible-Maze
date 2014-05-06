@@ -98,6 +98,9 @@ public class Scoreboard : MonoBehaviour {
     if (GameState.state != GameState.PLAYING) {
       return;
     }
+    if (GameMode.mode != GameMode.INFINITE) {
+      return;
+    }
     int width = Screen.height / 4;
     int height = Screen.height / 8;
     int startX = Screen.width - width - width / 5;
@@ -119,6 +122,9 @@ public class Scoreboard : MonoBehaviour {
   }
 
   public void addScore (int addedScore) {
+    if (GameMode.mode != GameMode.INFINITE) {
+      return;
+    }
     score += addedScore;
     newAddedScore = addedScore;
     isShowingNewAddedScore = true;
@@ -172,6 +178,10 @@ public class Scoreboard : MonoBehaviour {
     if (GameState.difficulty > 0) {
       postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore%20-%20hard.php?";
     }
+
+    if (GameMode.mode != GameMode.INFINITE) {
+      score = 0;
+    }
  
     string hash = Md5Sum(name + score + secretKey); 
  
@@ -183,7 +193,11 @@ public class Scoreboard : MonoBehaviour {
       print("There was an error posting the high score: " + hs_post.error);
     }
 
-    Application.LoadLevel("Rank");
+    if (GameMode.mode != GameMode.INFINITE) {
+      Application.LoadLevel("MainMenu");
+    } else {
+      Application.LoadLevel("Rank");
+    }
   }
 
 }

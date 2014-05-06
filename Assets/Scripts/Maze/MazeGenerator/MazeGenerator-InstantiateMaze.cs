@@ -16,7 +16,12 @@ public partial class MazeGenerator : MonoBehaviour {
   public GameObject torchPrefab;
   public GameObject zombieHeadPrefab;
 
+  // Escaping mode only
+  public GameObject keyPrefab;
+  public GameObject exitPrefab;
+
   private void instantiateMaze () {
+
     for (int h = 0; h < MAZE_H; h++) {
       int type = 0;
       if ((ceilingPrefabs.Length == blockPrefabs.Length) && (blockPrefabs.Length == wallPrefabs.Length)) {
@@ -66,6 +71,28 @@ public partial class MazeGenerator : MonoBehaviour {
         isDecorated.Add(new List<bool>());
         for (int c = 0; c < MAZE_C + 2; c++) {
           isDecorated[r].Add(false);
+        }
+      }
+
+      if (GameMode.mode == GameMode.ESCAPING) {
+        if (h == 0) {
+          int r = startPoint.r;
+          int c = startPoint.c;
+          int realR = (r + offset.r) * BLOCK_SIZE;
+          int realC = (c + offset.c) * BLOCK_SIZE;
+          Vector3 exitPosition = new Vector3(realC, baseY + 1.25f + (random.Next(10) - 10) / 100.0f, realR);
+          GameObject exit = Instantiate(exitPrefab, exitPosition, Quaternion.identity) as GameObject;
+          exit.transform.parent = floor.transform;
+        }
+
+        if (h == MAZE_H - 1) {
+          int r = endPoint.r;
+          int c = endPoint.c;
+          int realR = (r + offset.r) * BLOCK_SIZE;
+          int realC = (c + offset.c) * BLOCK_SIZE;
+          Vector3 keyPosition = new Vector3(realC, baseY + 1.25f + (random.Next(10) - 10) / 100.0f, realR);
+          GameObject key = Instantiate(keyPrefab, keyPosition, Quaternion.identity) as GameObject;
+          key.transform.parent = floor.transform;
         }
       }
 
@@ -186,7 +213,7 @@ public partial class MazeGenerator : MonoBehaviour {
                         torch.transform.parent = torches.transform;
                         isDecorated[r + dr[d]][c + dc[d]] = true;
                       } else if (random.Next(100) < 5 + bonusProbability) { // 5% to generate zombie head
-                        if (h != 0) {
+                        if (h != 10) {
                           float zombieHeadC = realC + (BLOCK_SIZE / 2) * dc[d];
                           float zombieHeadR = realR + (BLOCK_SIZE / 2) * dr[d];
                           Vector3 zombieHeadPosition = new Vector3(zombieHeadC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, zombieHeadR);

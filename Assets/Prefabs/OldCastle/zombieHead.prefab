@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tracingTime: 1
   maximumAttackingCountDown: 3
-  maximumAttackingRadius: 10
+  maximumAttackingRadius: 8
   diedRadius: 1
 --- !u!1001 &100100000
 Prefab:

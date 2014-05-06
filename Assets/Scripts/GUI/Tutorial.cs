@@ -61,7 +61,7 @@ public class Tutorial : MonoBehaviour {
     } else {
       if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), finishButtonTexture)) {
         soundEffectManager.playButtonSound();
-        Application.LoadLevel("OldCastle");
+        loadLevel();
       }
     }
 
@@ -71,11 +71,22 @@ public class Tutorial : MonoBehaviour {
     }
     if (GUI.Button(new Rect(width - buttonWidth - buttonWidth / 5, startY, buttonWidth, buttonHeight), skipButtonTexture)) {
       soundEffectManager.playButtonSound();
-      Application.LoadLevel("OldCastle");
+      loadLevel();
     }
 
     GUI.color = originalColor;
     
     GUILayout.EndArea();
+  }
+
+  void loadLevel () {
+    switch (GameMode.mode) {
+     case GameMode.ESCAPING:
+      Application.LoadLevel("EscapingOldCastle");
+      break;
+     case GameMode.INFINITE:
+      Application.LoadLevel("InfiniteOldCastle");
+      break;
+    }
   }
 }

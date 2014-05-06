@@ -329,7 +329,8 @@ MonoBehaviour:
   isDebugging: 0
   attackingMaskTexture: {fileID: 2800000, guid: 94a4f923620ca4f45abea065b129edee,
     type: 3}
-  movingSpeed: 3
+  movingSpeed: 2
+  insaneMovingSpeedScale: 3
   acceleration: .00999999978
   probabilityOfWandering: .800000012
   probabilityOfChasingPlayer: .200000003
@@ -355,16 +356,21 @@ MonoBehaviour:
   QTETimeLimitBarBackgroundTexture: {fileID: 2800000, guid: 92b6d4f83fcebfb478b879fef9f6bdbd,
     type: 3}
   QTELength: 3
+  insaneAdditionalQTELength: 3
   QTETimeLimitPerKey: 2
+  insaneAdditionalQTETimeLimitPerKey: -.5
   minQTETimeLimitPerKey: .449999988
   mentalityAbsorbPerQTEWrong: 0
+  insaneAdditionalMentalityAbsorbPerQTEWrong: 5
   QTESwitchTime: .100000001
   stunningTime: 15
+  insaneStunningTimeScale: .5
   fakeBossTextures:
   - {fileID: 2800000, guid: b22f7139a0e930b45911162b4fb8ff25, type: 3}
   - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
+  insaneTheme: {fileID: 8300000, guid: d74b77c4a178d6049ba50395b6f9ff6c, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

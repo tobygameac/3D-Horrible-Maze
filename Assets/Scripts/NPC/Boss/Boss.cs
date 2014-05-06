@@ -11,6 +11,7 @@ public class Boss : MonoBehaviour {
 
   // Speed parameter
   public float movingSpeed;
+  public float insaneMovingSpeedScale;
   public float acceleration;
 
   // Probabilities for states
@@ -36,11 +37,14 @@ public class Boss : MonoBehaviour {
   public Texture QTETimeLimitBarTexture;
   public Texture QTETimeLimitBarBackgroundTexture;
   public int QTELength;
+  public int insaneAdditionalQTELength;
   public float QTETimeLimitPerKey;
+  public float insaneAdditionalQTETimeLimitPerKey;
   public float minQTETimeLimitPerKey;
   private float QTETimeLimit;
   private float QTETimeUsed;
   public float mentalityAbsorbPerQTEWrong;
+  public float insaneAdditionalMentalityAbsorbPerQTEWrong;
   private List<int> QTEvent = new List<int>();
   private bool perfectQTE;
   private float QTEShowedTime;
@@ -48,6 +52,7 @@ public class Boss : MonoBehaviour {
   private bool QTEsmall;
 
   public float stunningTime;
+  public float insaneStunningTimeScale;
   private float stunnedTime;
 
   private static System.Random random = new System.Random(); // Only need one random seed
@@ -73,15 +78,21 @@ public class Boss : MonoBehaviour {
 
   private NPCState npcState;
 
-  private bool isMoving = false;
+  private bool isInsane;
+  private bool isMoving;
 
-  private bool isCameraMoving = false;
-  public float cameraMovingTime = 0.5f;
+  private bool isCameraMoving;
+  public float cameraMovingTime;
   private float cameraMovedTime;
   private Quaternion cameraQuaternion;
 
+  private CameraShaker cameraShaker;
+
   public AudioClip tracingSound;
   private SoundEffectManager soundEffectManager;
+
+  public AudioClip insaneTheme;
+  private AudioSource mainAudioSource;
 
   private BloodSplatter bloodSplatter;
 
@@ -98,8 +109,12 @@ public class Boss : MonoBehaviour {
     playerCharacterMotor = player.GetComponent<CharacterMotor>();
     playerMouseLook = player.GetComponent<MouseLook2>();
 
+    cameraShaker = GameObject.FindWithTag("Main").GetComponent<CameraShaker>();
+
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
+    
+    mainAudioSource = GameObject.FindWithTag("Main").GetComponent<AudioSource>();
 
     bloodSplatter = GameObject.FindWithTag("Main").GetComponent<BloodSplatter>();
 
@@ -113,6 +128,10 @@ public class Boss : MonoBehaviour {
     
     npcState = GetComponent<NPCState>();
     npcState.state = NPCState.MAKING_DECISION;
+
+    isInsane = false;
+    isMoving = false;
+    isCameraMoving = false;
   }
 
   void Update () {
@@ -125,6 +144,10 @@ public class Boss : MonoBehaviour {
 
     if (GameState.state != GameState.PLAYING) {
       return;
+    }
+
+    if (isInsane) {
+      MessageViewer.showMessage("Go back to the door!!!!", 0.5f);
     }
 
     if (npcState.state == NPCState.STUNNING) {
@@ -143,17 +166,17 @@ public class Boss : MonoBehaviour {
       return;
     }
 
-    if (npcState.state != NPCState.ATTACKING && playerIsInTheRadius(mustAttackingRadius, true)) {
+    if (npcState.state != NPCState.ATTACKING && playerIsInTheRadius(mustAttackingRadius)) {
       stopMoving();
       turnToAttackingState();
       return;
     }
-      
 
     if (isCameraMoving) {
       cameraMovedTime += Time.deltaTime;
       player.transform.rotation = Quaternion.Slerp(player.transform.rotation, cameraQuaternion, Time.deltaTime / cameraMovingTime);
       if (cameraMovedTime >= cameraMovingTime) {
+        StartCoroutine(cameraShaker.shakeCamera());
         // soundEffectManager.playZombieGaspSound();
         isCameraMoving = false;
         player.transform.LookAt(lookAtPoint.transform);
@@ -252,6 +275,7 @@ public class Boss : MonoBehaviour {
       }
       
       if (wrong) {
+        StartCoroutine(cameraShaker.shakeCamera());
         bloodSplatter.addBlood();
         perfectQTE = false;
         playerMentality.use(mentalityAbsorbPerQTEWrong);
@@ -260,12 +284,19 @@ public class Boss : MonoBehaviour {
       }
 
       if (success) {
+        StartCoroutine(cameraShaker.shakeCamera());
         QTEvent.RemoveAt(0);
         if (QTEvent.Count == 0) {
           bloodSplatter.addBlood(5, 5.0f);
           turnToStunningState();
           float bonusScale = 1 - (QTETimeUsed / QTETimeLimit) + (perfectQTE ? 1 : 0);
           scoreboard.addScore((int)(250 * (QTELength * (1 + bonusScale))));
+
+          if (isInsane) {
+            addQTELength(insaneAdditionalQTELength);
+            addQTEWrongMentality(insaneAdditionalMentalityAbsorbPerQTEWrong);
+            addQTETimeLimit(insaneAdditionalQTETimeLimitPerKey);
+          }
         } else {
           if (random.Next(5) == 0) {
             bloodSplatter.addBlood(1, 0.2f, 0.05f);
@@ -402,6 +433,30 @@ public class Boss : MonoBehaviour {
     }
   }
 
+  public bool isInsaneMode () {
+    return isInsane;
+  }
+
+  public void becomeInsaneMode () {
+    isInsane = true;
+
+    mainAudioSource.audio.Stop();
+    mainAudioSource.audio.clip = insaneTheme;
+    mainAudioSource.audio.Play();
+    
+    player.GetComponent<Compass>().enabled = false;
+
+    GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
+    for (int i = 0; i < elevators.Length; i++) {
+      Destroy(elevators[i]);
+    }
+
+    movingSpeed *= insaneMovingSpeedScale;
+    stunningTime *= insaneStunningTimeScale;
+    probabilityOfWandering = 0;
+    probabilityOfChasingPlayer = 1;
+  }
+
   private void lookAtPlayer () {
     Vector3 targetPosition = player.transform.position;
     targetPosition.y = transform.position.y;
@@ -442,7 +497,7 @@ public class Boss : MonoBehaviour {
     return false;
   }
 
-  private bool playerIsInTheRadius (float radius, bool checkY = false) {
+  private bool playerIsInTheRadius (float radius, bool checkY = true) {
     if (checkY) {
       return Vector3.Distance(transform.position, player.transform.position) <= radius;
     }

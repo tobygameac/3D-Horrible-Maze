@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Rotater2D : MonoBehaviour {
 
-  public float speed = 10;
+  public float speed;
 
   void Update () {
     transform.Rotate(Vector3.up * speed * Time.deltaTime, Space.World);
