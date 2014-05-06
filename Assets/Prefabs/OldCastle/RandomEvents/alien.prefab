@@ -1727,8 +1727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slowingTime: 2.5
   tracingTime: 1
-  minimumAttackingRadius: 2
-  maximumAttackingRadius: 4
+  minimumAttackingRadius: 3
+  maximumAttackingRadius: 8
   diedRadius: 1
 --- !u!137 &13700000
 SkinnedMeshRenderer:

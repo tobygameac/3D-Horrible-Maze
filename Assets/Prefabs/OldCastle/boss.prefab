@@ -338,7 +338,7 @@ MonoBehaviour:
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
   offScreenDot: .300000012
-  attackingRadius: 3
+  attackingRadius: 2.5
   mustAttackingRadius: 1.5
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8

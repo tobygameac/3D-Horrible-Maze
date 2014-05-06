@@ -16,6 +16,7 @@ public class Torch : MonoBehaviour {
 
   void Start () {
     if (randomIntensity) {
+      TorchLight.light.range = (float)random.NextDouble() * 5 + 5;
       intensityLight = (float)(random.NextDouble() * MaxLightIntensity);
     }
     TorchLight.light.intensity = intensityLight;

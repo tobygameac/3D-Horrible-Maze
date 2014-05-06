@@ -180,7 +180,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 23093bf46b2ce664387d0b0f0c5dff37, type: 2}
   - {fileID: 2100000, guid: db1568780bd28d94aa0c5100abdbcb93, type: 2}
   - {fileID: 2100000, guid: d480fa01ebc3775459ca749bac18d3a1, type: 2}
-  maximumCheckRadius: 5
+  maximumCheckRadius: 10
   maximumBrokenCountDown: 10
 --- !u!1001 &100100000
 Prefab:

@@ -7,9 +7,9 @@ using System.Collections;
 
 public class Sprint : MonoBehaviour {
 
-  private float originalForwardSpeed;
-  private float originalSidewaysSpeed;
-  private float originalBackwardsSpeed;
+  public float originalForwardSpeed = 3;
+  public float originalSidewaysSpeed = 2;
+  public float originalBackwardsSpeed = 1;
   private float sprintForwardSpeed;
   private float sprintSidewaysSpeed;
   private float sprintBackwardsSpeed;
@@ -41,9 +41,7 @@ public class Sprint : MonoBehaviour {
     skillMenu.setSkillMessage(0, "Gogogogo~~~~~~");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
-    originalForwardSpeed = characterMotor.movement.maxForwardSpeed;
-    originalSidewaysSpeed = characterMotor.movement.maxSidewaysSpeed;
-    originalBackwardsSpeed = characterMotor.movement.maxBackwardsSpeed;
+
     sprintForwardSpeed = originalForwardSpeed * timesOfSpeed;
     sprintSidewaysSpeed = originalSidewaysSpeed * timesOfSpeed;
     sprintBackwardsSpeed = originalBackwardsSpeed * timesOfSpeed;

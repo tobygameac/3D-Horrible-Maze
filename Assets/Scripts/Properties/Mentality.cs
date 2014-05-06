@@ -6,21 +6,16 @@ public class Mentality : MonoBehaviour {
   public Texture mentalityBarTexture;
   public Texture mentalityBarBackgroundTexture;
 
-  public float maxMentalityPoint = 100;
-  public float faintPerSecond = 1 / 15.0f;
+  public float maxMentalityPoint;
+  public float faintPerSecond;
 
   private float mentalityPoint;
-
-  public float baseSightRange = 5;
-
-  private GameObject sight;
 
   private CharacterMotor playerCharacterMotor;
   private MouseLook2 playerMouseLook;
 
   void Start () {
     mentalityPoint = maxMentalityPoint;
-    sight = transform.FindChild("sight").gameObject;
 
     playerCharacterMotor = GetComponent<CharacterMotor>();
     playerMouseLook = GetComponent<MouseLook2>();
@@ -39,13 +34,6 @@ public class Mentality : MonoBehaviour {
         playerMouseLook.enabled = false;
       }
     }
-    // Fading
-    float ambientR = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
-    float ambientG = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
-    float ambientB = (mentalityPoint / maxMentalityPoint) * 0.27f + 0.03f;
-    RenderSettings.ambientLight = new Color(ambientR, ambientG, ambientB);
-    sight.light.range = baseSightRange + baseSightRange * (mentalityPoint / maxMentalityPoint);
-    sight.light.spotAngle = 30 + 60 * (mentalityPoint / maxMentalityPoint);
   }
 
   void OnGUI () {
@@ -85,12 +73,16 @@ public class Mentality : MonoBehaviour {
     }
   }
 
+  public void setMaxMentalityPoint (float point) {
+    maxMentalityPoint = point;
+  }
+
   public float getMaxMentalityPoint () {
     return maxMentalityPoint;
   }
 
-  public void setMaxMentalityPoint (float point) {
-    maxMentalityPoint = point;
+  public float getMentalityPointPercent () {
+    return mentalityPoint / maxMentalityPoint;
   }
 
 }

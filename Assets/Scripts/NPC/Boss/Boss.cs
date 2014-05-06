@@ -177,6 +177,7 @@ public class Boss : MonoBehaviour {
       player.transform.rotation = Quaternion.Slerp(player.transform.rotation, cameraQuaternion, Time.deltaTime / cameraMovingTime);
       if (cameraMovedTime >= cameraMovingTime) {
         StartCoroutine(cameraShaker.shakeCamera());
+        soundEffectManager.playQTEHitSound();
         // soundEffectManager.playZombieGaspSound();
         isCameraMoving = false;
         player.transform.LookAt(lookAtPoint.transform);

@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 108: {fileID: 10800000}
+  - 114: {fileID: 11400020}
   m_Layer: 0
   m_Name: sight
   m_TagString: Untagged
@@ -519,7 +520,7 @@ Light:
     m_Bias: .0500000007
     m_Softness: 4
     m_SoftnessFade: 1
-  m_Cookie: {fileID: 0}
+  m_Cookie: {fileID: 2800000, guid: 2c29c08dd1c0b6749b7cd0fcff7a29fd, type: 3}
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
@@ -657,7 +658,6 @@ MonoBehaviour:
     type: 3}
   maxMentalityPoint: 100
   faintPerSecond: .159999996
-  baseSightRange: 5
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -715,6 +715,25 @@ MonoBehaviour:
   timesOfMaxMentality: 5
   slowingTrapMaskTexture: {fileID: 2800000, guid: f612110740e32224abf9a21520e863b4,
     type: 3}
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4aadbea814665043b04e380bc0299f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambient: .0399999991
+  baseAmbient: .00999999978
+  lightIntensity: 1
+  baseLightIntensity: 1.5
+  lightRange: 5
+  baseLightRange: 10
+  lightAngle: 15
+  baseLightAngle: 30
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

@@ -19,9 +19,13 @@ public class BloodSplatter : MonoBehaviour {
   private List<float> bloodShowedTime;
   private List<float> bloodShowTimeDelay;
 
+  private CameraShaker cameraShaker;
+
   private SoundEffectManager soundEffectManager;
 
   void Start () {
+    cameraShaker = GameObject.FindWithTag("Main").GetComponent<CameraShaker>();
+
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
     minWidth = (int)(Screen.width * 0.25f);
@@ -93,7 +97,7 @@ public class BloodSplatter : MonoBehaviour {
     return true;
   }
 
-  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.3f) {
+  public void addBlood (int bloodCount = -1, float showTime = 1.5f, float showTimeDelay = 0.3f, bool shakeCamera = false) {
     if (bloodCount < 0) {
       bloodCount = random.Next(3) + 1;
     }
@@ -119,6 +123,9 @@ public class BloodSplatter : MonoBehaviour {
       bloodShowTime.Add(showTime + (float)random.NextDouble());
       bloodShowedTime.Add(0);
       bloodShowTimeDelay.Add(showTimeDelay * (float)random.NextDouble());
+    }
+    if (shakeCamera) {
+      StartCoroutine(cameraShaker.shakeCamera());
     }
   }
 
