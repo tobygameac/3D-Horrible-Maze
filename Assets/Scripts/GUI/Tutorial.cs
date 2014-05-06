@@ -15,18 +15,39 @@ public class Tutorial : MonoBehaviour {
 
   private int index;
 
+  private bool almostFinished;
+
   private SoundEffectManager soundEffectManager;
+
+  private LoadingWithAnimation loadingWithAnimation;
 
   void Start () {
     GameState.state = GameState.MENU_VIEWING;
     index = 0;
 
+    almostFinished = false;
+
     soundEffectManager = GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
+
+    loadingWithAnimation = GameObject.FindWithTag("Main").GetComponent<LoadingWithAnimation>();
   }
 
   void OnGUI () {
+
+    if (almostFinished) {
+      GUI.color = new Color(0, 0, 0);
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+      return;
+    }
+
+    if (GameState.state == GameState.LOADING) {
+      almostFinished = loadingWithAnimation.almostFinished();
+    }
+
     GUI.skin = skin;
+
+    GUI.depth = 1;
 
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
@@ -82,10 +103,10 @@ public class Tutorial : MonoBehaviour {
   void loadLevel () {
     switch (GameMode.mode) {
      case GameMode.ESCAPING:
-      Application.LoadLevel("EscapingOldCastle");
+      loadingWithAnimation.loadLevelWithAnimation("EscapingOldCastle");
       break;
      case GameMode.INFINITE:
-      Application.LoadLevel("InfiniteOldCastle");
+      loadingWithAnimation.loadLevelWithAnimation("InfiniteOldCastle");
       break;
     }
   }

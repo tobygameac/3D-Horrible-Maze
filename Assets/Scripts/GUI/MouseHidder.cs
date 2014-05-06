@@ -6,7 +6,7 @@ public class MouseHidder : MonoBehaviour {
   public Texture2D cursorTexture;
 
   void Update () {
-    if (GameState.state == GameState.PLAYING) {
+    if (GameState.state == GameState.PLAYING || GameState.state == GameState.LOADING) {
       Screen.showCursor = false;
       Screen.lockCursor = true;
     } else {
@@ -17,8 +17,10 @@ public class MouseHidder : MonoBehaviour {
   }
 
   void OnDestroy() {
+    /*
     Screen.showCursor = true;
     Screen.lockCursor = false;
+    */
   }
 
 }

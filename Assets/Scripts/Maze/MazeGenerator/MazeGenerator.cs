@@ -7,6 +7,8 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public bool isDebugging;
 
+  public Texture blackMask;
+
   public int MAZE_R;
   public int MAZE_C;
   public int MAZE_H;
@@ -78,6 +80,13 @@ public partial class MazeGenerator : MonoBehaviour {
 
     GameState.state = GameState.PLAYING;
     Time.timeScale = 1;
+  }
+
+  void OnGUI () {
+    if (GameState.state != GameState.LOADING) {
+      return;
+    }
+    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackMask);
   }
 
   private void generateBasicMaze () {

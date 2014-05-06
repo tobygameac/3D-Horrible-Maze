@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviour {
   private static bool first = true;
 
   void Start () {
+    Time.timeScale = 1;
     if (first) {
       GameState.volume = 0.5f;
       first = false;

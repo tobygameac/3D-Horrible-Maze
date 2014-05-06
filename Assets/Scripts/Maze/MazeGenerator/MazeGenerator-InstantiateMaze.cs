@@ -213,7 +213,7 @@ public partial class MazeGenerator : MonoBehaviour {
                         torch.transform.parent = torches.transform;
                         isDecorated[r + dr[d]][c + dc[d]] = true;
                       } else if (random.Next(100) < 5 + bonusProbability) { // 5% to generate zombie head
-                        if (h != 10) {
+                        if (h != 0) {
                           float zombieHeadC = realC + (BLOCK_SIZE / 2) * dc[d];
                           float zombieHeadR = realR + (BLOCK_SIZE / 2) * dr[d];
                           Vector3 zombieHeadPosition = new Vector3(zombieHeadC, baseY + wallCount * BLOCK_SIZE + BLOCK_SIZE * 0.5f, zombieHeadR);

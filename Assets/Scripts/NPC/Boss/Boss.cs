@@ -575,12 +575,14 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToTracingState () {
+    mainAudioSource.audio.Pause();
     playAudio(tracingSound);
     npcState.state = NPCState.TRACING;
   }
 
   private void turnToAttackingState () {
     if (!audio.isPlaying) {
+      mainAudioSource.audio.Pause();
       playAudio(tracingSound);
     }
     npcState.state = NPCState.ATTACKING;
@@ -598,6 +600,7 @@ public class Boss : MonoBehaviour {
 
   private void turnToStunningState () {
     audio.Stop();
+    mainAudioSource.audio.Play();
     npcState.state = NPCState.STUNNING;
     stunnedTime = 0;
     playerCharacterMotor.canControl = true;

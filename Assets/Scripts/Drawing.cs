@@ -61,7 +61,7 @@ public class Drawing : MonoBehaviour {
       return false;
     }
     RaycastHit hit;
-    if (Physics.Linecast(player.transform.position, transform.position, out hit)) {
+    if (Physics.Raycast(player.transform.position, player.transform.forward, out hit)) {
       if (hit.transform == transform) {
         return true;
       }
