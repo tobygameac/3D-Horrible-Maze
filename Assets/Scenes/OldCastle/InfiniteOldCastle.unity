@@ -119,6 +119,8 @@ GameObject:
   - 114: {fileID: 127766904}
   - 114: {fileID: 127766899}
   - 114: {fileID: 127766905}
+  - 114: {fileID: 127766906}
+  - 114: {fileID: 127766907}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -414,6 +416,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbc0a72e1bcee44199d57cc056dec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &127766906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb106cb1c10490a4a83c2624af1dfe9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 7e6b9b15ed4a12b4b92d7f68503e5674, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: 5eed3647ef31dc64296f47728a6472dc, type: 3}
+--- !u!114 &127766907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f23326d73ced1147b0bc02fd83d045c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countTextures:
+  - {fileID: 2800000, guid: a303cbc4518539b439c7910123b7d5c9, type: 3}
+  - {fileID: 2800000, guid: 41bc3ec61b470dc40971376cd3555f0b, type: 3}
+  - {fileID: 2800000, guid: 7cb837b36b3aa054696189321f5aa41c, type: 3}
+  - {fileID: 2800000, guid: b8acb79824a79c94196f71e397cb6ced, type: 3}
+  - {fileID: 2800000, guid: 59d2024591c2298478ba5bc7aedfd316, type: 3}
+  countAudio: {fileID: 8300000, guid: e7834166ab3036c4e96cfd488c4bb9f8, type: 3}
 --- !u!1001 &758845698
 Prefab:
   m_ObjectHideFlags: 0

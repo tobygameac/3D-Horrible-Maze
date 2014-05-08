@@ -98,5 +98,9 @@ public class SoundEffectManager : MonoBehaviour {
   public void playGlassShatteredSoundSound () {
     audio.PlayOneShot(glassShatteredSound);
   }
+  
+  public void play (AudioClip audioClip) {
+    audio.PlayOneShot(audioClip);
+  }
 
 }

@@ -20,9 +20,13 @@ public class Elevator : MonoBehaviour {
   // Position
   private Vector3 startPosition, endPosition;
 
+  private static bool firstFound;
+
   void Start () {
     startPosition = transform.position;
     endPosition = startPosition + Vector3.up * movingDistance;
+    
+    firstFound = false;
   }
 
   void Update () {
@@ -57,6 +61,18 @@ public class Elevator : MonoBehaviour {
         isMoving = true;
 
         movedTime = 0;
+      }
+    }
+  }
+
+  void OnTriggerEnter (Collider other) {
+    if (GameMode.mode != GameMode.ESCAPING) {
+      return;
+    }
+    if (other.tag == "Player") {
+      if (!firstFound) {
+        firstFound = true;
+        TargetMenu.addTarget("Find the key in the maze.");
       }
     }
   }

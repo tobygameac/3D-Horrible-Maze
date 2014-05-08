@@ -23,10 +23,15 @@ public class LoadingWithAnimation : MonoBehaviour {
     isPlaying = false;
   }
 
+  void Update () {
+    if (isPlaying) {
+      playedTime += Time.deltaTime;
+    }
+  }
+
   void OnGUI () {
     if (isPlaying) {
       GUI.depth = 0;
-      playedTime += Time.deltaTime;
       if (playedTime >= playingTime) {
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackMask);
         isPlaying = false;

@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 108: {fileID: 10800000}
   - 114: {fileID: 11400020}
+  - 114: {fileID: 11400022}
   m_Layer: 0
   m_Name: sight
   m_TagString: Untagged
@@ -731,9 +732,22 @@ MonoBehaviour:
   lightIntensity: 1
   baseLightIntensity: 1.5
   lightRange: 5
-  baseLightRange: 10
+  baseLightRange: 15
   lightAngle: 15
   baseLightAngle: 30
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af46cb9593de8b4cb89e35510f0ca97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 30
+  delayTimeOffset: 10
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

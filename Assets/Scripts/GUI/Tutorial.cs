@@ -31,6 +31,7 @@ public class Tutorial : MonoBehaviour {
     soundEffectManager.adjustSound();
 
     loadingWithAnimation = GameObject.FindWithTag("Main").GetComponent<LoadingWithAnimation>();
+
   }
 
   void OnGUI () {
@@ -103,9 +104,11 @@ public class Tutorial : MonoBehaviour {
   void loadLevel () {
     switch (GameMode.mode) {
      case GameMode.ESCAPING:
+      TargetMenu.clearTarget(false);
       loadingWithAnimation.loadLevelWithAnimation("EscapingOldCastle");
       break;
      case GameMode.INFINITE:
+      TargetMenu.clearTarget(false);
       loadingWithAnimation.loadLevelWithAnimation("InfiniteOldCastle");
       break;
     }

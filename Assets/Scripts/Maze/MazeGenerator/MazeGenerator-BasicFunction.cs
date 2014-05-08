@@ -78,7 +78,7 @@ public partial class MazeGenerator : MonoBehaviour {
     return new Vector3(h, r, c);
   }
 
-  public Point getRandomAvailableBlock (int h, bool noneStartEnd = false) {
+  public Point getRandomAvailableBlock (int h, bool noneStartEnd = false, int maximumTried = 100) {
 
     // Error
     if (h < 0 || h >= MAZE_H) {
@@ -91,7 +91,7 @@ public partial class MazeGenerator : MonoBehaviour {
     }
 
     if (noneStartEnd) {
-      int tried = 0, maximumTried = 100;
+      int tried = 0;
       Point point = basicMazes[h].getRandomAvailableBlock();
       while (basicMazes[h].isStartPoint(point) || basicMazes[h].isEndPoint(point)) {
         if (tried > maximumTried) {

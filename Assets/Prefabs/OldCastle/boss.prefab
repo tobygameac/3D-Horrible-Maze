@@ -370,7 +370,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}
   cameraMovingTime: .5
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
-  insaneTheme: {fileID: 8300000, guid: d74b77c4a178d6049ba50395b6f9ff6c, type: 3}
+  insaneTheme: {fileID: 8300000, guid: a4af1f2b5e4a19d49b4358844d5bcdf5, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

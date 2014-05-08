@@ -97,8 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a38b798337ca94d9e2ef87f7f8d1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Roar
-  detail: 
+  pickUpButtonTexture: {fileID: 2800000, guid: a2c35b67bc0006147a39d9c3363f67de, type: 3}
   skillName: Roar
 --- !u!114 &11400002
 MonoBehaviour:

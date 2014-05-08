@@ -61,6 +61,14 @@ public partial class MazeGenerator : MonoBehaviour {
     // Instantiate player
     int playerFloor = 0;
     Point startPoint = basicMazes[playerFloor].getStartPoint();
+    if (GameMode.mode == GameMode.ESCAPING) {
+      playerFloor = 0;
+      startPoint = getRandomAvailableBlock(playerFloor, true);
+      if (basicMazes[playerFloor].isStartPoint(startPoint) || basicMazes[playerFloor].isEndPoint(startPoint)) {
+        // Reload if cannot find a good start point
+        Application.LoadLevel(Application.loadedLevel);
+      }
+    }
     Point offset = getOffset(playerFloor);
     startPoint.r += offset.r;
     startPoint.c += offset.c;
@@ -80,6 +88,15 @@ public partial class MazeGenerator : MonoBehaviour {
 
     GameState.state = GameState.PLAYING;
     Time.timeScale = 1;
+
+    switch (GameMode.mode) {
+     case GameMode.ESCAPING:
+      TargetMenu.addTarget("Find the exit.");
+      break;
+     case GameMode.INFINITE:
+      TargetMenu.addTarget("Get as much souls as you can.");
+      break;
+    }
   }
 
   void OnGUI () {

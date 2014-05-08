@@ -19,7 +19,7 @@ public class Key : MonoBehaviour {
 	
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
-      soundEffectManager.playMentalityPotionSound();
+      TargetMenu.addTarget("Go back to the exit. RUN!!");
       boss.becomeInsaneMode();
       Destroy(gameObject);
     }

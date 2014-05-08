@@ -80,8 +80,9 @@ public partial class MazeGenerator : MonoBehaviour {
           int c = startPoint.c;
           int realR = (r + offset.r) * BLOCK_SIZE;
           int realC = (c + offset.c) * BLOCK_SIZE;
-          Vector3 exitPosition = new Vector3(realC, baseY + 1.25f + (random.Next(10) - 10) / 100.0f, realR);
+          Vector3 exitPosition = new Vector3(realC, baseY, realR);
           GameObject exit = Instantiate(exitPrefab, exitPosition, Quaternion.identity) as GameObject;
+          exit.transform.localScale = new Vector3(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
           exit.transform.parent = floor.transform;
         }
 

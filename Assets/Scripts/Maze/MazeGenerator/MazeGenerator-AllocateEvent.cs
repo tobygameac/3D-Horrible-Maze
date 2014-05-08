@@ -34,6 +34,9 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public Vector3 getNewEventPosition () {
     int randomH = random.Next(MAZE_H);
+    if (MAZE_H > 1 && GameMode.mode == GameMode.ESCAPING) {
+      randomH = random.Next(MAZE_H - 1) + 1;
+    }
     Point point = getRandomAvailableBlock(randomH, true);
     int r = point.r;
     int c = point.c;

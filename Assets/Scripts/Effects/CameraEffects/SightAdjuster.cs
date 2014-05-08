@@ -4,7 +4,7 @@ using System.Collections;
 public class SightAdjuster : MonoBehaviour {
 
   private Mentality mentality;
-  private Camera camera;
+  private Camera mainCamera;
 
   public float ambient;
   public float baseAmbient;
@@ -17,7 +17,7 @@ public class SightAdjuster : MonoBehaviour {
 
   void Start () {
     mentality = GameObject.FindWithTag("Player").GetComponent<Mentality>();
-    camera = Camera.mainCamera;
+    mainCamera = Camera.main;
   }
 
   void Update () {
@@ -26,10 +26,10 @@ public class SightAdjuster : MonoBehaviour {
     Color ambientColor = new Color(ambientValue, ambientValue, ambientValue);
     RenderSettings.ambientLight = ambientColor;
     RenderSettings.fogColor = ambientColor;
-    camera.backgroundColor = ambientColor;
-    gameObject.light.intensity = lightIntensity * percent + baseLightIntensity;
-    gameObject.light.range = lightRange * percent + baseLightRange;
-    gameObject.light.spotAngle = lightAngle * percent + baseLightAngle;
+    mainCamera.backgroundColor = ambientColor;
+    light.intensity = lightIntensity * percent + baseLightIntensity;
+    light.range = lightRange * percent + baseLightRange;
+    light.spotAngle = lightAngle * percent + baseLightAngle;
   }
 
 }

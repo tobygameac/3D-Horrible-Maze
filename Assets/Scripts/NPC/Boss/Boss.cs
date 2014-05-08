@@ -76,6 +76,9 @@ public class Boss : MonoBehaviour {
 
   private Vector3 startMovingPosition;
 
+  private List<Vector3> path;
+  private int pathIndex;
+
   private NPCState npcState;
 
   private bool isInsane;
@@ -98,8 +101,7 @@ public class Boss : MonoBehaviour {
 
   private Scoreboard scoreboard;
 
-  private List<Vector3> path;
-  private int pathIndex;
+  private CountDown countDown;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -120,6 +122,8 @@ public class Boss : MonoBehaviour {
 
     scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
 
+    countDown = GameObject.FindWithTag("Main").GetComponent<CountDown>();
+
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
 
@@ -132,6 +136,10 @@ public class Boss : MonoBehaviour {
     isInsane = false;
     isMoving = false;
     isCameraMoving = false;
+
+    if (GameMode.mode == GameMode.ESCAPING) {
+      player.GetComponent<Compass>().enabled = false;
+    }
   }
 
   void Update () {
@@ -146,8 +154,10 @@ public class Boss : MonoBehaviour {
       return;
     }
 
-    if (isInsane) {
-      MessageViewer.showMessage("Go back to the door!!!!", 0.5f);
+    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
+      if (npcState.state != NPCState.STUNNING) {
+        turnToStunningState();
+      }
     }
 
     if (npcState.state == NPCState.STUNNING) {
@@ -445,8 +455,6 @@ public class Boss : MonoBehaviour {
     mainAudioSource.audio.clip = insaneTheme;
     mainAudioSource.audio.Play();
     
-    player.GetComponent<Compass>().enabled = false;
-
     GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
     for (int i = 0; i < elevators.Length; i++) {
       Destroy(elevators[i]);
@@ -601,7 +609,12 @@ public class Boss : MonoBehaviour {
 
   private void turnToStunningState () {
     audio.Stop();
-    mainAudioSource.audio.Play();
+    if (!mainAudioSource.audio.isPlaying) {
+      mainAudioSource.audio.Play();
+    }
+    if (isInsane) {
+      countDown.startCountDown(stunningTime, 3.0f);
+    }
     npcState.state = NPCState.STUNNING;
     stunnedTime = 0;
     playerCharacterMotor.canControl = true;
@@ -611,6 +624,9 @@ public class Boss : MonoBehaviour {
       float g = childrenRenderers[i].material.color.g;
       float b = childrenRenderers[i].material.color.b;
       float a = 0.4f;
+      if (GameMode.mode == GameMode.ESCAPING) {
+        a = 0.05f;
+      }
       childrenRenderers[i].material.color = new Color(r, g, b, a);
     }
     sphereCollider.enabled = false;
