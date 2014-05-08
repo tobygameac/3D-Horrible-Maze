@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MessageViewer : MonoBehaviour {
 
+  public GUISkin skin;
+
   public Texture messageBackgroundTexture;
 
   private static string message;
@@ -21,6 +23,7 @@ public class MessageViewer : MonoBehaviour {
 
   void OnGUI () {
     if (isShowing) {
+      GUI.skin = skin;
       int width = Screen.height / 2;
       int height = Screen.height / 4;
       GUI.DrawTexture(new Rect((Screen.width - width) / 2, Screen.height - height * 2, width, height), messageBackgroundTexture);

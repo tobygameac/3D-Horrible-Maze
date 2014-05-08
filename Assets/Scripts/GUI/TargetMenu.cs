@@ -18,17 +18,13 @@ public class TargetMenu : MonoBehaviour {
   private static float fadeOutTime = 0.75f;
   private static float fadedOutTime;
 
-  void OnGUI () {
-    
+  void Update () {
     if (isFadeIn) {
       fadedInTime += Time.deltaTime;
       if (fadedInTime > fadeInTime) {
         isFadeIn = false;
       }
-      float alpha = fadedInTime / fadeInTime;
-      GUI.color = new Color(1, 1, 1, alpha);
     }
-
     if (isFadeOut) {
       fadedOutTime += Time.deltaTime;
       if (fadedOutTime > fadeOutTime) {
@@ -41,11 +37,23 @@ public class TargetMenu : MonoBehaviour {
           fadedInTime = 0;
         }
       }
-      float alpha = 1 - (fadedOutTime / fadeOutTime);
-      GUI.color = new Color(1, 1, 1, alpha);
+    }
+  }
+
+  void OnGUI () {
+    
+    float percent = 1.0f;
+
+    if (isFadeIn) {
+      percent = fadedInTime / fadeInTime;
+    }
+
+    if (isFadeOut) {
+      percent = 1 - (fadedOutTime / fadeOutTime);
     }
 
     if (target != null) {
+      GUI.skin = skin;
       float backgroundWidth = Screen.height / 5.0f;
       float backgroundHeight = Screen.height / 6.0f;
       float targetGap = backgroundHeight * 0.3f;
@@ -53,10 +61,16 @@ public class TargetMenu : MonoBehaviour {
       float targetHeight = backgroundHeight * 0.6f;
       float startX = Screen.width - backgroundWidth * 1.5f;
       float startY = Screen.height * 0.3f + targetGap;
-      float targetStartX = startX + targetWidth * 0.2f;
-      float targetStartY = startY + targetHeight / 2.0f;
-      GUI.DrawTexture(new Rect(startX, startY, backgroundWidth, backgroundHeight), backgroundTexture);
+      float targetStartX = targetWidth * 0.2f;
+      float targetStartY = targetHeight / 2.0f;
+
+      GUILayout.BeginArea(new Rect(startX, startY, backgroundWidth, backgroundHeight * percent));
+      GUI.color = new Color(1, 1, 1, percent);
+      GUI.DrawTexture(new Rect(0, 0, backgroundWidth, backgroundHeight), backgroundTexture);
+
+      GUI.color = new Color(0.5f, 0, 0, percent);
       GUI.Label(new Rect(targetStartX, targetStartY, targetWidth, targetHeight), target);
+      GUILayout.EndArea();
     }
 
   }

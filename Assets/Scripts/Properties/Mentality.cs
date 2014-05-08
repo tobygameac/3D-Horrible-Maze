@@ -36,10 +36,13 @@ public class Mentality : MonoBehaviour {
     }
   }
 
+  /*
   void OnGUI () {
+
     if (GameState.state != GameState.PLAYING) {
       return;
     }
+
     GUI.depth = 0;
 
     int width = Screen.height / 8;
@@ -55,6 +58,7 @@ public class Mentality : MonoBehaviour {
 
     GUILayout.EndArea();
   }
+  */
 
   public bool enough (float need) {
     return (mentalityPoint >= need);

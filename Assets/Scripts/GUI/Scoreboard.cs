@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Scoreboard : MonoBehaviour {
 
+  public GUISkin skin;
+
   public Texture scoreboardTexture;
 
-  private int score = 0;
+  private int score;
   private bool scoreSubmitted;
   private string playerName = "anonymous";
   private int hard;
@@ -46,6 +48,8 @@ public class Scoreboard : MonoBehaviour {
     nextQTEWrongMentalityUpgradeScore = QTEWrongMentalityUpgradeFrame;
     nextQTELengthUpgradeScore = QTELengthUpgradeFrame;
     nextQTETimeLimitUpgradeScore = QTETimeLimitUpgradeFrame;
+
+    score = 0;
   }
 
   void Update () {
@@ -58,6 +62,8 @@ public class Scoreboard : MonoBehaviour {
   }
 
   void OnGUI () {
+    GUI.skin = skin;
+
     if (GameState.state == GameState.LOSING) {
       int buttonWidth = Screen.height / 8;
       int buttonHeight = Screen.height / 16;

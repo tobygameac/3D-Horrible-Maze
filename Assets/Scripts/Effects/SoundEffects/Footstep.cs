@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(CharacterMotor))]
+[RequireComponent (typeof(AudioSource))]
 
 public class Footstep : MonoBehaviour {
 
@@ -13,7 +13,7 @@ public class Footstep : MonoBehaviour {
   private CharacterMotor characterMotor;
 
   void Start () {
-    characterMotor = GetComponent<CharacterMotor>();
+    characterMotor = GameObject.FindWithTag("Player").GetComponent<CharacterMotor>();
   }
 
   void Update () {

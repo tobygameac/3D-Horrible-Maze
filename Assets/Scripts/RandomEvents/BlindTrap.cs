@@ -23,7 +23,7 @@ public class BlindTrap : MonoBehaviour {
 
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
-      soundEffectManager.playTrapSound();
+      soundEffectManager.playHorrorEffectSound0();
       debuffManager.addBlindTime(blindTime);
       Vector3 randomEventPosition = maze.getNewEventPosition(transform.position);
       transform.position = randomEventPosition;

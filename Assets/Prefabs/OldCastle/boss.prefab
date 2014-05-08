@@ -334,12 +334,11 @@ MonoBehaviour:
   acceleration: .00999999978
   probabilityOfWandering: .800000012
   probabilityOfChasingPlayer: .200000003
-  staringTriggerRadius: 15
+  staringTriggerRadius: 10
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
   offScreenDot: .300000012
-  attackingRadius: 2.5
-  mustAttackingRadius: 1.5
+  attackingRadius: 2
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
   QTEArrowTextures:
@@ -390,7 +389,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5

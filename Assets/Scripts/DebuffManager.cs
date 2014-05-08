@@ -31,12 +31,17 @@ public class DebuffManager : MonoBehaviour {
 
   private Mentality mentality;
 
+  private Light light;
+  private SightAdjuster sightAdjuster;
+
   void Start () {
     slowingTime = 0;
     blindTime = 0;
 
     characterMotor = GetComponent<CharacterMotor>();
     mentality = GetComponent<Mentality>();
+    sightAdjuster = GetComponentInChildren<SightAdjuster>();
+    light = GetComponentInChildren<Light>();
 
     originalForwardSpeed = characterMotor.movement.maxForwardSpeed;
     originalSidewaysSpeed = characterMotor.movement.maxSidewaysSpeed;
@@ -79,9 +84,10 @@ public class DebuffManager : MonoBehaviour {
 
     if (blindTime > 0) {
       blindTime -= Time.deltaTime;
-      mentality.setMaxMentalityPoint(blindMaxMentalityPoint);
+      sightAdjuster.enabled = false;
+      light.intensity = 0;
       if (blindTime <= 0) {
-        mentality.setMaxMentalityPoint(originalMaxMentalityPoint);
+        sightAdjuster.enabled = true;
       }
     }
   }

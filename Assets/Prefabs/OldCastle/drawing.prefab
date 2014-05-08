@@ -237,8 +237,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 23093bf46b2ce664387d0b0f0c5dff37, type: 2}
   - {fileID: 2100000, guid: db1568780bd28d94aa0c5100abdbcb93, type: 2}
   - {fileID: 2100000, guid: d480fa01ebc3775459ca749bac18d3a1, type: 2}
+  minimumCheckRadius: 2
   maximumCheckRadius: 10
-  maximumBrokenCountDown: 10
+  maximumBrokenCountDown: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

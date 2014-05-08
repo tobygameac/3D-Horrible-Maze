@@ -77,17 +77,17 @@ public class SkillMenu : MonoBehaviour {
       if (GameState.state != GameState.PLAYING) {
         return;
       }
-      int buttonWidth = Screen.height / 9;
+      int buttonWidth = Screen.height / 12;
       int buttonHeight = buttonWidth;
       if (hasNewSkill) {
         int messageWidth = buttonWidth * 2;
         int messageHeight = messageWidth / 2;
         Color originalColor = GUI.color;
         GUI.color = new Color(1, 1, 1, hasNewSkillTextureAlpha);
-        GUI.DrawTexture(new Rect(messageWidth / 10, (int)(Screen.height - messageHeight - buttonHeight * 1.5), messageWidth, messageHeight), hasNewSkillTexture);
+        GUI.DrawTexture(new Rect(messageWidth / 10, (int)(Screen.height - messageHeight - buttonHeight - buttonWidth / 10), messageWidth, messageHeight), hasNewSkillTexture);
         GUI.color = originalColor;
       }
-      GUI.DrawTexture(new Rect(buttonWidth / 10, (int)(Screen.height - buttonHeight * 1.5), buttonWidth, buttonHeight), skillMenuButtonTexture);
+      GUI.DrawTexture(new Rect(buttonWidth / 10, (int)(Screen.height - buttonHeight - buttonWidth / 10), buttonWidth, buttonHeight), skillMenuButtonTexture);
       return;
     }
 

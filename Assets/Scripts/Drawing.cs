@@ -16,6 +16,7 @@ public class Drawing : MonoBehaviour {
 
   private SoundEffectManager soundEffectManager;
 
+  public float minimumCheckRadius;
   public float maximumCheckRadius;
   private float checkRadius;
   public float maximumBrokenCountDown;
@@ -31,7 +32,7 @@ public class Drawing : MonoBehaviour {
 
     body = transform.GetChild(0);
     
-    checkRadius = (float)random.NextDouble() * maximumCheckRadius;
+    checkRadius = (float)random.NextDouble() * (maximumCheckRadius - minimumCheckRadius) + minimumCheckRadius;
     brokenCountDown = (float)random.NextDouble() * maximumBrokenCountDown;
     broken = false;
   }

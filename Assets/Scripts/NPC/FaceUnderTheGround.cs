@@ -75,7 +75,7 @@ public class FaceUnderTheGround : MonoBehaviour {
     for (int i = 0; i < childrenRenderers.Length; i++) {
       childrenRenderers[i].enabled = true;
     }
-    soundEffectManager.playCryingSound();
+    soundEffectManager.playHorrorEffectSound2();
     attacking = true;
   }
 

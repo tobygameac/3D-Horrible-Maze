@@ -111,16 +111,15 @@ GameObject:
   - 4: {fileID: 127766895}
   - 114: {fileID: 127766896}
   - 114: {fileID: 127766898}
-  - 114: {fileID: 127766897}
   - 114: {fileID: 127766901}
   - 114: {fileID: 127766902}
   - 114: {fileID: 127766903}
   - 82: {fileID: 127766900}
-  - 114: {fileID: 127766904}
-  - 114: {fileID: 127766899}
-  - 114: {fileID: 127766905}
-  - 114: {fileID: 127766906}
-  - 114: {fileID: 127766907}
+  - 114: {fileID: 127766912}
+  - 114: {fileID: 127766911}
+  - 114: {fileID: 127766910}
+  - 114: {fileID: 127766909}
+  - 114: {fileID: 127766908}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -152,20 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
---- !u!114 &127766897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400006, guid: 12def2a870bd4a04f95d8845b80ba3c5,
-    type: 2}
-  m_PrefabInternal: {fileID: 758845698}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee257c93c6ab9b14f9b98808afacdb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messageBackgroundTexture: {fileID: 2800000, guid: 5eed3647ef31dc64296f47728a6472dc,
-    type: 3}
 --- !u!114 &127766898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,8 +198,8 @@ MonoBehaviour:
   drawingPrefab: {fileID: 100004, guid: 5fb9b05457100b742872f74e2d6134ef, type: 2}
   torchPrefab: {fileID: 100012, guid: d537b6a03426d18498705d035ac3e198, type: 2}
   zombieHeadPrefab: {fileID: 100000, guid: a676bf52a36b98c4c852cc125a3e8ba2, type: 2}
-  keyPrefab: {fileID: 0}
-  exitPrefab: {fileID: 0}
+  keyPrefab: {fileID: 100002, guid: 92ffd4c63ee96cd47b2482b29d0f0130, type: 2}
+  exitPrefab: {fileID: 100002, guid: faf53eaf85d0bae49ae37add4d117eba, type: 2}
   isDebugging: 0
   blackMask: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
   MAZE_R: 10
@@ -226,25 +211,6 @@ MonoBehaviour:
   NUM_OF_POPULATION: 30
   MAXIMUM_TIMES_OF_ITERATION: 500
   TARGET_FITNESS: .29999999999999999
---- !u!114 &127766899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56825b88cd80a3049b8680d85f645959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodTextures:
-  - {fileID: 2800000, guid: 4fad0a17fce800843ab418b763973470, type: 3}
-  - {fileID: 2800000, guid: d70a4603dbde8e947af321848e945dbf, type: 3}
-  - {fileID: 2800000, guid: b2c0142ac70fa4f4ab5d587504fba9ed, type: 3}
-  - {fileID: 2800000, guid: 2bfe379ad58f7a049a27a30d70aaeb20, type: 3}
-  - {fileID: 2800000, guid: 64e9640a05a37634ab26d4fdd4420002, type: 3}
-  - {fileID: 2800000, guid: cd9defe87d5738549ac10bd8e921b2cf, type: 3}
-  - {fileID: 2800000, guid: 11e38a736279eb946945f65cdc208d73, type: 3}
 --- !u!82 &127766900
 AudioSource:
   m_ObjectHideFlags: 0
@@ -388,52 +354,16 @@ MonoBehaviour:
   zombieGaspSound1: {fileID: 8300000, guid: c609b43dd3043a64591a2e9729e9b897, type: 3}
   bloodHitSound: {fileID: 8300000, guid: 95327139c87310b4791eaa2b2f5458a3, type: 3}
   glassShatteredSound: {fileID: 8300000, guid: 353c1e8c382a28c4f965561629381f38, type: 3}
---- !u!114 &127766904
+  horrorEffectSound0: {fileID: 8300000, guid: ebe4a09ae658512418ea9cb1253d9cc5, type: 3}
+  horrorEffectSound1: {fileID: 8300000, guid: 8d24b1de88d6b8045a45cd2b752ab823, type: 3}
+  horrorEffectSound2: {fileID: 8300000, guid: a9a147b03cd3bd64cb8a28e1a0ffcbb3, type: 3}
+  horrorEffectSound3: {fileID: 8300000, guid: 691217f015dde5942b1ca43ec5a34712, type: 3}
+--- !u!114 &127766908
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37e9a8f1b0dd5341b10d3616fa48f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreboardTexture: {fileID: 2800000, guid: c0e50a2c4350d724ebfe62079f584517, type: 3}
-  additionEventFrame: 1000
-  QTELengthUpgradeFrame: 5000
-  QTEWrongMentalityUpgradeFrame: 1000
-  QTETimeLimitUpgradeFrame: 3000
-  showingNewAddedScoreTime: 1.5
---- !u!114 &127766905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cbc0a72e1bcee44199d57cc056dec42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &127766906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb106cb1c10490a4a83c2624af1dfe9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: 7e6b9b15ed4a12b4b92d7f68503e5674, type: 2}
-  backgroundTexture: {fileID: 2800000, guid: 5eed3647ef31dc64296f47728a6472dc, type: 3}
---- !u!114 &127766907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400020, guid: 12def2a870bd4a04f95d8845b80ba3c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 758845698}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -447,6 +377,71 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b8acb79824a79c94196f71e397cb6ced, type: 3}
   - {fileID: 2800000, guid: 59d2024591c2298478ba5bc7aedfd316, type: 3}
   countAudio: {fileID: 8300000, guid: e7834166ab3036c4e96cfd488c4bb9f8, type: 3}
+--- !u!114 &127766909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400018, guid: 12def2a870bd4a04f95d8845b80ba3c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 758845698}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb106cb1c10490a4a83c2624af1dfe9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 7e6b9b15ed4a12b4b92d7f68503e5674, type: 2}
+  backgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
+--- !u!114 &127766910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400016, guid: 12def2a870bd4a04f95d8845b80ba3c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 758845698}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbc0a72e1bcee44199d57cc056dec42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &127766911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400008, guid: 12def2a870bd4a04f95d8845b80ba3c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 758845698}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56825b88cd80a3049b8680d85f645959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodTextures:
+  - {fileID: 2800000, guid: 4fad0a17fce800843ab418b763973470, type: 3}
+  - {fileID: 2800000, guid: d70a4603dbde8e947af321848e945dbf, type: 3}
+  - {fileID: 2800000, guid: b2c0142ac70fa4f4ab5d587504fba9ed, type: 3}
+  - {fileID: 2800000, guid: 2bfe379ad58f7a049a27a30d70aaeb20, type: 3}
+  - {fileID: 2800000, guid: 64e9640a05a37634ab26d4fdd4420002, type: 3}
+  - {fileID: 2800000, guid: cd9defe87d5738549ac10bd8e921b2cf, type: 3}
+  - {fileID: 2800000, guid: 11e38a736279eb946945f65cdc208d73, type: 3}
+--- !u!114 &127766912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: 12def2a870bd4a04f95d8845b80ba3c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 758845698}
+  m_GameObject: {fileID: 127766894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37e9a8f1b0dd5341b10d3616fa48f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: a9025d4fb01be9e4399268e5856b060b, type: 2}
+  scoreboardTexture: {fileID: 2800000, guid: c0e50a2c4350d724ebfe62079f584517, type: 3}
+  additionEventFrame: 1000
+  QTELengthUpgradeFrame: 5000
+  QTEWrongMentalityUpgradeFrame: 1000
+  QTETimeLimitUpgradeFrame: 3000
+  showingNewAddedScoreTime: 1.5
 --- !u!1001 &758845698
 Prefab:
   m_ObjectHideFlags: 0
@@ -820,8 +815,34 @@ Prefab:
       propertyPath: blackMask
       value: 
       objectReference: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: horrorEffectSound0
+      value: 
+      objectReference: {fileID: 8300000, guid: ebe4a09ae658512418ea9cb1253d9cc5, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: horrorEffectSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d24b1de88d6b8045a45cd2b752ab823, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: horrorEffectSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: a9a147b03cd3bd64cb8a28e1a0ffcbb3, type: 3}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: horrorEffectSound3
+      value: 
+      objectReference: {fileID: 8300000, guid: 691217f015dde5942b1ca43ec5a34712, type: 3}
+    - target: {fileID: 11400018, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: backgroundTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
+    - target: {fileID: 11400014, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: skin
+      value: 
+      objectReference: {fileID: 11400000, guid: a9025d4fb01be9e4399268e5856b060b,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 11400006, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}
   m_IsPrefabParent: 0

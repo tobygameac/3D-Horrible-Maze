@@ -23,6 +23,10 @@ public class SoundEffectManager : MonoBehaviour {
   public AudioClip zombieGaspSound1;
   public AudioClip bloodHitSound;
   public AudioClip glassShatteredSound;
+  public AudioClip horrorEffectSound0;
+  public AudioClip horrorEffectSound1;
+  public AudioClip horrorEffectSound2;
+  public AudioClip horrorEffectSound3;
 
   public void adjustSound () {
     AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
@@ -97,6 +101,22 @@ public class SoundEffectManager : MonoBehaviour {
   
   public void playGlassShatteredSoundSound () {
     audio.PlayOneShot(glassShatteredSound);
+  }
+
+  public void playHorrorEffectSound0 () {
+    audio.PlayOneShot(horrorEffectSound0);
+  }
+
+  public void playHorrorEffectSound1 () {
+    audio.PlayOneShot(horrorEffectSound1);
+  }
+
+  public void playHorrorEffectSound2 () {
+    audio.PlayOneShot(horrorEffectSound2);
+  }
+
+  public void playHorrorEffectSound3 () {
+    audio.PlayOneShot(horrorEffectSound3);
   }
   
   public void play (AudioClip audioClip) {

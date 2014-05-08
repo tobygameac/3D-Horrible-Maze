@@ -26,7 +26,6 @@ public class Boss : MonoBehaviour {
   public float offScreenDot;
   // Maximun distance for changing to attacking state
   public float attackingRadius;
-  public float mustAttackingRadius;
 
   public float mentalityRestorePerSecond;
   public float mentalityAbsorbPerSecond;
@@ -176,18 +175,11 @@ public class Boss : MonoBehaviour {
       return;
     }
 
-    if (npcState.state != NPCState.ATTACKING && playerIsInTheRadius(mustAttackingRadius)) {
-      stopMoving();
-      turnToAttackingState();
-      return;
-    }
-
     if (isCameraMoving) {
       cameraMovedTime += Time.deltaTime;
       player.transform.rotation = Quaternion.Slerp(player.transform.rotation, cameraQuaternion, Time.deltaTime / cameraMovingTime);
       if (cameraMovedTime >= cameraMovingTime) {
         StartCoroutine(cameraShaker.shakeCamera());
-        soundEffectManager.playQTEHitSound();
         // soundEffectManager.playZombieGaspSound();
         isCameraMoving = false;
         player.transform.LookAt(lookAtPoint.transform);
@@ -421,6 +413,22 @@ public class Boss : MonoBehaviour {
 
   }
 
+  void OnTriggerEnter (Collider other) {
+    if (other.tag == "Player") {
+      if (npcState.state == NPCState.STARING) {
+        turnToTracingState();
+      }
+    }
+  }
+
+  void OnTriggerStay (Collider other) {
+    if (other.tag == "Player") {
+      if (npcState.state == NPCState.STARING) {
+        turnToTracingState();
+      }
+    }
+  }
+
   public List<int> generateQTE (int QTEventLength) {
     List<int> QTEvent = new List<int>();
     for (int i = 0; i < QTEventLength; i++) {
@@ -585,6 +593,7 @@ public class Boss : MonoBehaviour {
 
   private void turnToTracingState () {
     mainAudioSource.audio.Pause();
+    soundEffectManager.playHorrorEffectSound1();
     playAudio(tracingSound);
     npcState.state = NPCState.TRACING;
   }
@@ -592,6 +601,7 @@ public class Boss : MonoBehaviour {
   private void turnToAttackingState () {
     if (!audio.isPlaying) {
       mainAudioSource.audio.Pause();
+      soundEffectManager.playHorrorEffectSound1();
       playAudio(tracingSound);
     }
     npcState.state = NPCState.ATTACKING;
