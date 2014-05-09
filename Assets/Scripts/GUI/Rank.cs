@@ -15,6 +15,9 @@ public class Rank : MonoBehaviour {
   private string text;
   private string textHard;
 
+  private bool loading;
+  private float loadedTime;
+
   private SoundEffectManager soundEffectManager;
 
   void Start () {
@@ -25,15 +28,18 @@ public class Rank : MonoBehaviour {
     StartCoroutine(GetScores());
   }
 
+  void Update () {
+    if (loading) {
+      loadedTime += Time.deltaTime;
+    }
+  }
+
   void OnGUI () {
 
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
     int width = Screen.height - 100;
     int height = width;
-
-    int buttonWidth = width / 3;
-    int buttonHeight = height / 6;
 
     GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height));
 
@@ -54,6 +60,8 @@ public class Rank : MonoBehaviour {
     GUI.skin.label.fontSize = (Screen.width + Screen.height) / 75;
     GUI.skin.button.fontSize = (Screen.width + Screen.height) / 75;
 
+    int buttonWidth = width / 3;
+    int buttonHeight = height / 6;
     int startX = (width - buttonWidth) / 2;
     int startY = height / 5;
 
@@ -63,23 +71,38 @@ public class Rank : MonoBehaviour {
       Application.LoadLevel("MainMenu");
     }
 
-    float textWidth = width / 3.5f;
-    float textHeight = height / 1.8f;
-    GUI.color = Color.black;
-    GUI.Label(new Rect(width / 6, height / 3, textWidth, textHeight), text);
-    GUI.Label(new Rect(width / 6 + textWidth + width / 6, height / 3, textWidth, textHeight), textHard);
-    GUI.color = originalColor;
-    int difficultyTextureWidth = width / 4;
-    int difficultyTextureHeight = width / 8;
-    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 30;
-    GUI.Label(new Rect(width / 6.0f, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Easy");
-    GUI.Label(new Rect(width / 6.0f + textWidth + width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Hard");
+    if (loading) {
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 25;
+      float labelWidth = height / 2.0f;
+      float labelHeight = height / 4.0f;
+      GUI.color = Color.black;
+      string loadingText = "loading";
+      int additionalDot = ((int)(Time.time * 100) % 100) / 20;
+      for (int i = 0; i < additionalDot; i++) {
+        loadingText += ".";
+      }
+      GUI.Label(new Rect((width - labelWidth) / 2.0f, (height - labelHeight) / 2.0f, labelWidth, labelHeight), loadingText);
+    } else {
+      float textWidth = width / 3.5f;
+      float textHeight = height / 1.8f;
+      GUI.color = Color.black;
+      GUI.Label(new Rect(width / 6, height / 3, textWidth, textHeight), text);
+      GUI.Label(new Rect(width / 6 + textWidth + width / 6, height / 3, textWidth, textHeight), textHard);
+      GUI.color = originalColor;
+      int difficultyTextureWidth = width / 4;
+      int difficultyTextureHeight = width / 8;
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 30;
+      GUI.Label(new Rect(width / 6.0f, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Easy");
+      GUI.Label(new Rect(width / 6.0f + textWidth + width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Hard");
+    }
 
     GUILayout.EndArea();
   }
 
   private IEnumerator GetScores() {
-    text = "Loading...";
+    loading = true;
+    loadedTime = 0;
+
     WWW rankHS = new WWW(rankUrl);
     yield return rankHS;
     WWW rankHardHS = new WWW(rankHardUrl);
@@ -91,5 +114,7 @@ public class Rank : MonoBehaviour {
       text = rankHS.text;
       textHard = rankHardHS.text;
     }
+
+    loading = false;
   }
 }

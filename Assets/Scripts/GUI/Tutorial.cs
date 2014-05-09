@@ -26,7 +26,6 @@ public class Tutorial : MonoBehaviour {
     soundEffectManager.adjustSound();
 
     loadingWithAnimation = GameObject.FindWithTag("Main").GetComponent<LoadingWithAnimation>();
-
   }
 
   void OnGUI () {

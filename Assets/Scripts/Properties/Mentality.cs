@@ -11,14 +11,8 @@ public class Mentality : MonoBehaviour {
 
   private float mentalityPoint;
 
-  private CharacterMotor playerCharacterMotor;
-  private MouseLook2 playerMouseLook;
-
   void Start () {
     mentalityPoint = maxMentalityPoint;
-
-    playerCharacterMotor = GetComponent<CharacterMotor>();
-    playerMouseLook = GetComponent<MouseLook2>();
   }
 
   void Update () {
@@ -28,10 +22,9 @@ public class Mentality : MonoBehaviour {
 
     mentalityPoint -= Time.deltaTime * faintPerSecond;
     if (mentalityPoint <= 0) {
-      if (GameState.state != GameState.LOSING) {
-        GameState.state = GameState.LOSING;
-        playerCharacterMotor.enabled = false;
-        playerMouseLook.enabled = false;
+      if (GameState.state != GameState.FINISHED) {
+        GameState.state = GameState.FINISHED;
+        GameState.win = false;
       }
     }
   }

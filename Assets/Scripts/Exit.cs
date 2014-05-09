@@ -48,8 +48,9 @@ public class Exit : MonoBehaviour {
   void OnTriggerStay (Collider other) {
     if (other.tag == "Player") {
       if (boss.isInsaneMode()) {
-        if (GameState.state != GameState.LOSING) {
-          GameState.state = GameState.LOSING;
+        if (GameState.state != GameState.FINISHED) {
+          GameState.state = GameState.FINISHED;
+          GameState.win = true;
           playerCharacterMotor.enabled = false;
           playerMouseLook.enabled = false;
         }

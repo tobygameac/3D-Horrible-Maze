@@ -22,7 +22,12 @@ public class Elevator : MonoBehaviour {
 
   private static bool firstFound;
 
+  public AudioClip moreHorrorTheme;
+  private AudioSource mainAudioSource;
+
   void Start () {
+    mainAudioSource = GameObject.FindWithTag("Main").GetComponent<AudioSource>();
+
     startPosition = transform.position;
     endPosition = startPosition + Vector3.up * movingDistance;
     
@@ -73,6 +78,9 @@ public class Elevator : MonoBehaviour {
       if (!firstFound) {
         firstFound = true;
         TargetMenu.addTarget("Find the key in the maze.");
+        mainAudioSource.audio.Stop();
+        mainAudioSource.audio.clip = moreHorrorTheme;
+        mainAudioSource.audio.Play();
       }
     }
   }

@@ -8,10 +8,6 @@ public class Scoreboard : MonoBehaviour {
   public Texture scoreboardTexture;
 
   private int score;
-  private bool scoreSubmitted;
-  private string playerName = "anonymous";
-  private int hard;
-  private bool[] optionStatus;
 
   public int additionEventFrame;
   private int nextAdditionEventScore;
@@ -23,8 +19,6 @@ public class Scoreboard : MonoBehaviour {
   private int nextQTETimeLimitUpgradeScore;
   private Boss boss;
 
-  private string secretKey = "tobygameac";
-
   private int newAddedScore;
   private bool isShowingNewAddedScore;
   public float showingNewAddedScoreTime = 1.5f;
@@ -34,18 +28,15 @@ public class Scoreboard : MonoBehaviour {
 
   private int eps = 7;
 
+  private LoadingWithAnimation loadingWithAnimation;
+
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
 
     boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
 
-    scoreSubmitted = false;
-    hard = -1;
-    optionStatus = new bool[3];
-    for (int i = 0; i < 3; i++) {
-      optionStatus[i] = false;
-    }
-    optionStatus[2] = true;
+    loadingWithAnimation = Camera.main.GetComponent<LoadingWithAnimation>();
+
     nextAdditionEventScore = additionEventFrame;
     nextQTEWrongMentalityUpgradeScore = QTEWrongMentalityUpgradeFrame;
     nextQTELengthUpgradeScore = QTELengthUpgradeFrame;
@@ -66,49 +57,19 @@ public class Scoreboard : MonoBehaviour {
   void OnGUI () {
     GUI.skin = skin;
 
-    if (GameState.state == GameState.LOSING) {
-      int buttonWidth = Screen.height / 8;
-      int buttonHeight = Screen.height / 16;
-      if (scoreSubmitted) {
-        GUI.Label(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submitting");
-      } else {
-        int textAreaWidth = Screen.height / 4;
-        int textAreaHeight = Screen.height / 8;
-        playerName = GUI.TextArea(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 - textAreaHeight, textAreaWidth, textAreaHeight), playerName);
-        if (GUI.Button(new Rect((Screen.width - buttonWidth) / 2, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight), "Submit")) {
-          StartCoroutine(postScore(playerName, hard));
-        }
-        if (GameState.userStudy) {
-          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 1 * textAreaHeight, textAreaWidth, textAreaHeight), 
-                optionStatus[0], "I think this map is easy.")) {
-            hard = 0;
-            optionStatus[0] = true;
-            optionStatus[1] = false;
-            optionStatus[2] = false;
-          }
-          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 2 * textAreaHeight, textAreaWidth, textAreaHeight), 
-                optionStatus[1], "I think this map is hard.")) {
-            hard = 1;
-            optionStatus[0] = false;
-            optionStatus[1] = true;
-            optionStatus[2] = false;
-          }
-          if (GUI.Toggle(new Rect((Screen.width - textAreaWidth) / 2, (Screen.height - textAreaHeight) / 2 + 3 * textAreaHeight, textAreaWidth, textAreaHeight), 
-                optionStatus[2], "I don't know.")) {
-            hard = -1;
-            optionStatus[0] = false;
-            optionStatus[1] = false;
-            optionStatus[2] = true;
-          }
-        }
-      }
+    if (GameState.state == GameState.FINISHED) {
+      GameState.score = score;
+      loadingWithAnimation.loadLevelWithAnimation("SubmitMenu");
     }
+
     if (GameState.state != GameState.PLAYING) {
       return;
     }
+
     if (GameMode.mode != GameMode.INFINITE) {
       return;
     }
+
     float width = Screen.height / 4;
     float height = Screen.height / 4;
     float startX = Screen.width - width - width / 5;
@@ -158,59 +119,6 @@ public class Scoreboard : MonoBehaviour {
     if (score >= nextQTETimeLimitUpgradeScore) {
       boss.addQTETimeLimit(-0.1f);
       nextQTETimeLimitUpgradeScore += QTETimeLimitUpgradeFrame;
-    }
-  }
-
-  public string Md5Sum(string stringToEncrypt) {
-    System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
-    byte[] bytes = ue.GetBytes(stringToEncrypt);
-   
-    // encrypt bytes
-    System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-    byte[] hashBytes = md5.ComputeHash(bytes);
-   
-    // Convert the encrypted bytes back to a string (base 16)
-    string hashString = "";
-
-    for (int i = 0; i < hashBytes.Length; i++) {
-      hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
-    }
-    return hashString.PadLeft(32, '0');
-  }
-
-  public IEnumerator postScore (string name, int hard) {
-
-    name = name.Trim();
-    if (name.Length >= 20) {
-      name = name.Substring(0, 20);
-    }
-
-    scoreSubmitted = true;
-    
-    string postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore.php?";
-
-    if (GameState.difficulty > 0) {
-      postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore%20-%20hard.php?";
-    }
-
-    if (GameMode.mode != GameMode.INFINITE) {
-      score = -eps;
-    }
- 
-    string hash = Md5Sum(name + (score + eps).ToString() + secretKey); 
- 
-    string realPostScoreUrl = postScoreUrl + "name=" + WWW.EscapeURL(name) + "&score=" + (score + eps).ToString() + "&hard=" + hard + "&hash=" + hash;
- 
-    WWW hs_post = new WWW(realPostScoreUrl);
-    yield return hs_post;
-    if (hs_post.error != null) {
-      print("There was an error posting the high score: " + hs_post.error);
-    }
-
-    if (GameMode.mode != GameMode.INFINITE) {
-      Application.LoadLevel("MainMenu");
-    } else {
-      Application.LoadLevel("Rank");
     }
   }
 

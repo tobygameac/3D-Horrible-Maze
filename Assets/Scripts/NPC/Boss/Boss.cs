@@ -143,12 +143,6 @@ public class Boss : MonoBehaviour {
 
   void Update () {
 
-    if (GameState.state == GameState.LOSING) {
-      audio.Stop();
-      Destroy(gameObject);
-      return;
-    }
-
     if (GameState.state != GameState.PLAYING) {
       return;
     }
