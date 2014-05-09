@@ -116,13 +116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee63ad0e45c8a8741a9828a0263f7717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  rankBackgroundTexture: {fileID: 2800000, guid: 5f80962b1944f4341b5d998802199ebe,
+  rankBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
     type: 3}
-  easyTexture: {fileID: 2800000, guid: c63d114ca6a607346896a8ef34d93a78, type: 3}
-  hardTexture: {fileID: 2800000, guid: e092b665b395f7b4e9f6cd0cf079005b, type: 3}
-  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
 --- !u!114 &1467129974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +148,11 @@ MonoBehaviour:
   zombieGaspSound0: {fileID: 0}
   zombieGaspSound1: {fileID: 0}
   bloodHitSound: {fileID: 0}
+  glassShatteredSound: {fileID: 0}
+  horrorEffectSound0: {fileID: 0}
+  horrorEffectSound1: {fileID: 0}
+  horrorEffectSound2: {fileID: 0}
+  horrorEffectSound3: {fileID: 0}
 --- !u!82 &1467129975
 AudioSource:
   m_ObjectHideFlags: 0

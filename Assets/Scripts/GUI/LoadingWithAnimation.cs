@@ -37,7 +37,7 @@ public class LoadingWithAnimation : MonoBehaviour {
         isPlaying = false;
         Application.LoadLevel(loadingLevelName);
       }
-      float colorValue = Mathf.Sqrt(1 - (playedTime / playingTime));
+      float colorValue = Mathf.Pow(1 - (playedTime / playingTime), 0.3f);
       GUI.color = new Color(colorValue, colorValue, colorValue);
       for (int i = 0; i < textureRect.Count; i++) {
         GUI.DrawTexture(textureRect[i], drawingTextures[i]);
@@ -56,7 +56,7 @@ public class LoadingWithAnimation : MonoBehaviour {
     return playedTime + 0.05f >= playingTime;
   }
 
-  public void loadLevelWithAnimation (string levelName, float time = 1.5f) {
+  public void loadLevelWithAnimation (string levelName, float time = 1.2f) {
     GameState.state = GameState.LOADING;
     playingTime = time;
     loadingLevelName = levelName;

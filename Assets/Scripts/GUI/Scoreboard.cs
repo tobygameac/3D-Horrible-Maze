@@ -32,6 +32,8 @@ public class Scoreboard : MonoBehaviour {
 
   private MazeGenerator maze;
 
+  private int eps = 7;
+
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
 
@@ -49,7 +51,7 @@ public class Scoreboard : MonoBehaviour {
     nextQTELengthUpgradeScore = QTELengthUpgradeFrame;
     nextQTETimeLimitUpgradeScore = QTETimeLimitUpgradeFrame;
 
-    score = 0;
+    score = -eps;
   }
 
   void Update () {
@@ -107,17 +109,23 @@ public class Scoreboard : MonoBehaviour {
     if (GameMode.mode != GameMode.INFINITE) {
       return;
     }
-    int width = Screen.height / 4;
-    int height = Screen.height / 8;
-    int startX = Screen.width - width - width / 5;
-    int startY = height / 5;
-    GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
+    float width = Screen.height / 4;
+    float height = Screen.height / 4;
+    float startX = Screen.width - width - width / 5;
+    float startY = 0;
+    //GUI.DrawTexture(new Rect(startX, startY, width, height), scoreboardTexture);
     Color originalColor = GUI.color;
-    GUI.color = Color.black;
-    GUI.Label(new Rect(startX + width / 3.5f, startY + height / 3, width, height),  "Score : " + score);
+    GUI.color = new Color(0.65f, 0, 0);
+    if (score + eps == 0) {
+      GUI.skin.label.fontSize = (int)((Screen.width + Screen.height) / 20.0f);
+    } else {
+      GUI.skin.label.fontSize = (int)((Screen.width + Screen.height) / 25.0f * 3.0f / ((int)Mathf.Log10(score + eps) + 1));
+    }
+    GUI.Label(new Rect(startX + width / 3.5f, startY + height / 3, width, height), (score + eps).ToString());
     if (isShowingNewAddedScore) {
       float alpha = (showingNewAddedScoreTime - showedNewAddedScoreTime) / showingNewAddedScoreTime;
       GUI.color = new Color(1, 1, 0, alpha);
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 75;
       GUI.Label(new Rect(startX + width / 3, startY + height / (8 - alpha * 6), width, height),  "+" + newAddedScore);
     }
     GUI.color = originalColor;
@@ -186,12 +194,12 @@ public class Scoreboard : MonoBehaviour {
     }
 
     if (GameMode.mode != GameMode.INFINITE) {
-      score = 0;
+      score = -eps;
     }
  
-    string hash = Md5Sum(name + score + secretKey); 
+    string hash = Md5Sum(name + (score + eps).ToString() + secretKey); 
  
-    string realPostScoreUrl = postScoreUrl + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hard=" + hard + "&hash=" + hash;
+    string realPostScoreUrl = postScoreUrl + "name=" + WWW.EscapeURL(name) + "&score=" + (score + eps).ToString() + "&hard=" + hard + "&hash=" + hash;
  
     WWW hs_post = new WWW(realPostScoreUrl);
     yield return hs_post;

@@ -94,7 +94,7 @@ public partial class MazeGenerator : MonoBehaviour {
       TargetMenu.addTarget("Find the exit.");
       break;
      case GameMode.INFINITE:
-      TargetMenu.addTarget("Get as much souls as you can.");
+      TargetMenu.addTarget("Try to survive!");
       break;
     }
   }

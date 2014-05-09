@@ -101,15 +101,90 @@ Transform:
   m_Children:
   - {fileID: 1048221939}
   m_Father: {fileID: 0}
+--- !u!1001 &52881266
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: nullOnHoverSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: 01321c9b14f485e42b0ddcb32ac996aa,
+        type: 2}
+    - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: pauseMenuBackgroundTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: skillMenuBackgroundTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: bloodOnHoverSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75,
+        type: 2}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: titleSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3,
+        type: 2}
+    - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: titleSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3,
+        type: 2}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: flipSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 34982a1431e64d845be53c899daf5bcd, type: 3}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+  m_RootGameObject: {fileID: 127766894}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &127766894
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 127766895}
-  - 114: {fileID: 127766896}
   - 114: {fileID: 127766898}
   - 114: {fileID: 127766901}
   - 114: {fileID: 127766902}
@@ -131,32 +206,19 @@ GameObject:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &127766896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 12def2a870bd4a04f95d8845b80ba3c5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aaad001491a3a341afbc56671ca4c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
 --- !u!114 &127766898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -215,7 +277,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400008, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -235,7 +297,7 @@ AudioSource:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 8200000, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   serializedVersion: 3
@@ -294,7 +356,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -302,29 +364,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
-  nullOnHoverSkin: {fileID: 11400000, guid: ede96efc143d0c74b884e5321efd6706, type: 2}
+  nullOnHoverSkin: {fileID: 11400000, guid: 01321c9b14f485e42b0ddcb32ac996aa, type: 2}
+  titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
+  pauseMenuBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
     type: 3}
-  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
-  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
-  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
   soundIconTexture: {fileID: 2800000, guid: e054428927635154aa6ce8788125c89d, type: 3}
 --- !u!114 &127766902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fba02f11a4979534fae957c2228ddd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  skillMenuBackgroundTexture: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4,
+  skillMenuBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
     type: 3}
   skillMenuButtonTexture: {fileID: 2800000, guid: 0fd9bbf0d3297a44a8342f3cfe8bd0e6,
     type: 3}
@@ -348,7 +409,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -356,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
-  flipSound: {fileID: 0}
+  flipSound: {fileID: 8300000, guid: 34982a1431e64d845be53c899daf5bcd, type: 3}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
@@ -382,7 +443,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400014, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -401,7 +462,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400016, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -413,7 +474,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400018, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -427,7 +488,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400020, guid: 12def2a870bd4a04f95d8845b80ba3c5,
     type: 2}
-  m_PrefabInternal: {fileID: 1311324158}
+  m_PrefabInternal: {fileID: 52881266}
   m_GameObject: {fileID: 127766894}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -554,73 +615,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 974032041}
   m_GameObject: {fileID: 1048221938}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1311324158
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: MAZE_H
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: horrorEffectSound0
-      value: 
-      objectReference: {fileID: 8300000, guid: ebe4a09ae658512418ea9cb1253d9cc5, type: 3}
-    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: horrorEffectSound1
-      value: 
-      objectReference: {fileID: 8300000, guid: 8d24b1de88d6b8045a45cd2b752ab823, type: 3}
-    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: horrorEffectSound2
-      value: 
-      objectReference: {fileID: 8300000, guid: a9a147b03cd3bd64cb8a28e1a0ffcbb3, type: 3}
-    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: horrorEffectSound3
-      value: 
-      objectReference: {fileID: 8300000, guid: 691217f015dde5942b1ca43ec5a34712, type: 3}
-    - target: {fileID: 11400018, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: backgroundTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
-    - target: {fileID: 11400014, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-      propertyPath: skin
-      value: 
-      objectReference: {fileID: 11400000, guid: a9025d4fb01be9e4399268e5856b060b,
-        type: 2}
-    m_RemovedComponents:
-    - {fileID: 11400006, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
-  m_RootGameObject: {fileID: 127766894}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1

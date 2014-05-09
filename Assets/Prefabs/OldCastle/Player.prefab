@@ -32,6 +32,7 @@ GameObject:
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400028}
+  - 114: {fileID: 11400030}
   m_Layer: 0
   m_Name: camera
   m_TagString: MainCamera
@@ -906,6 +907,18 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: a9025d4fb01be9e4399268e5856b060b, type: 2}
   messageBackgroundTexture: {fileID: 2800000, guid: 5eed3647ef31dc64296f47728a6472dc,
     type: 3}
+--- !u!114 &11400030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaad001491a3a341afbc56671ca4c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

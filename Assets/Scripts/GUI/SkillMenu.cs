@@ -3,7 +3,8 @@ using System.Collections;
 
 public class SkillMenu : MonoBehaviour {
 
-  public GUISkin skin;
+  public GUISkin bloodOnHoverSkin;
+  public GUISkin titleSkin;
 
   public Texture backgroundTexture;
   public Texture skillMenuBackgroundTexture;
@@ -69,7 +70,8 @@ public class SkillMenu : MonoBehaviour {
 
   void OnGUI () {
 
-    GUI.skin = skin;
+    Color originalColor = GUI.color;
+
     GUI.depth = 0;
     
     // Only show menu button
@@ -82,7 +84,6 @@ public class SkillMenu : MonoBehaviour {
       if (hasNewSkill) {
         int messageWidth = buttonWidth * 2;
         int messageHeight = messageWidth / 2;
-        Color originalColor = GUI.color;
         GUI.color = new Color(1, 1, 1, hasNewSkillTextureAlpha);
         GUI.DrawTexture(new Rect(messageWidth / 10, (int)(Screen.height - messageHeight - buttonHeight - buttonWidth / 10), messageWidth, messageHeight), hasNewSkillTexture);
         GUI.color = originalColor;
@@ -111,6 +112,16 @@ public class SkillMenu : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(0, 0, width, height), skillMenuBackgroundTexture);
 
+    GUI.skin = titleSkin;
+    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 15;
+    float titleWidth = width / 2.0f;
+    float titleHeight = height / 4.0f;
+    GUI.color = new Color(0.3f, 0, 0);
+    GUI.Label(new Rect((width - titleWidth) / 2, 0, titleWidth, titleHeight), "Skills");
+    GUI.color = originalColor;
+    
+    GUI.skin = bloodOnHoverSkin;
+
     int startX = width / 6;
     int startY = height / 4;
 
@@ -125,8 +136,8 @@ public class SkillMenu : MonoBehaviour {
         skillTexture = unknownTexture;
       }
       GUI.DrawTexture(new Rect(startX + hotkeyIconWidth + 10, i * (skillIconHeight + 10) + startY, skillIconWidth, skillIconHeight), skillTexture);
-      Color originalColor = GUI.color;
       GUI.color = Color.black;
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 75;
       GUI.Label(new Rect(startX + hotkeyIconWidth + 10 + skillIconWidth + 20,
                         i * (skillMessageHeight + 10) + startY + skillMessageHeight / 3,
                         skillMessageWidth, skillMessageHeight), skillMessages[i]);

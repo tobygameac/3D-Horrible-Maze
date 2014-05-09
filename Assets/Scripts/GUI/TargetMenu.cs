@@ -18,6 +18,12 @@ public class TargetMenu : MonoBehaviour {
   private static float fadeOutTime = 0.75f;
   private static float fadedOutTime;
 
+  private SoundEffectManager soundEffectManager;
+
+  void Start () {
+    soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
+  }
+
   void Update () {
     if (isFadeIn) {
       fadedInTime += Time.deltaTime;
@@ -35,6 +41,7 @@ public class TargetMenu : MonoBehaviour {
           targetToAdd = null;
           isFadeIn = true;
           fadedInTime = 0;
+          soundEffectManager.playFlipSound();
         }
       }
     }
@@ -54,6 +61,7 @@ public class TargetMenu : MonoBehaviour {
 
     if (target != null) {
       GUI.skin = skin;
+      /*
       float backgroundWidth = Screen.height / 5.0f;
       float backgroundHeight = Screen.height / 6.0f;
       float targetGap = backgroundHeight * 0.3f;
@@ -69,7 +77,19 @@ public class TargetMenu : MonoBehaviour {
       GUI.DrawTexture(new Rect(0, 0, backgroundWidth, backgroundHeight), backgroundTexture);
 
       GUI.color = new Color(0.5f, 0, 0, percent);
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 75;
       GUI.Label(new Rect(targetStartX, targetStartY, targetWidth, targetHeight), target);
+      GUILayout.EndArea();
+
+      */
+      GUI.skin.label.fontSize = (Screen.width + Screen.height) / 60;
+      float width = GUI.skin.label.fontSize * 0.5f * target.Length;
+      float height = Screen.height / 6.0f;
+      float startX = Screen.width - width * 1.1f;
+      float startY = Screen.height / 4.5f;
+      GUI.color = new Color(0.5f, 0, 0, percent);
+      GUILayout.BeginArea(new Rect(startX, startY, width * percent, height));
+      GUI.Label(new Rect(0, 0, width, height), target);
       GUILayout.EndArea();
     }
 

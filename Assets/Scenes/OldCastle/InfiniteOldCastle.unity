@@ -109,7 +109,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 127766895}
-  - 114: {fileID: 127766896}
   - 114: {fileID: 127766898}
   - 114: {fileID: 127766901}
   - 114: {fileID: 127766902}
@@ -138,19 +137,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &127766896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 12def2a870bd4a04f95d8845b80ba3c5,
-    type: 2}
-  m_PrefabInternal: {fileID: 758845698}
-  m_GameObject: {fileID: 127766894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aaad001491a3a341afbc56671ca4c05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 966afd1a2e230b743aee8d45d7340e05, type: 3}
 --- !u!114 &127766898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,13 +269,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
-  nullOnHoverSkin: {fileID: 11400000, guid: ede96efc143d0c74b884e5321efd6706, type: 2}
+  nullOnHoverSkin: {fileID: 11400000, guid: 01321c9b14f485e42b0ddcb32ac996aa, type: 2}
+  titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
+  pauseMenuBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
     type: 3}
-  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
-  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
-  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
   soundIconTexture: {fileID: 2800000, guid: e054428927635154aa6ce8788125c89d, type: 3}
 --- !u!114 &127766902
 MonoBehaviour:
@@ -303,9 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba02f11a4979534fae957c2228ddd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  skillMenuBackgroundTexture: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4,
+  skillMenuBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
     type: 3}
   skillMenuButtonTexture: {fileID: 2800000, guid: 0fd9bbf0d3297a44a8342f3cfe8bd0e6,
     type: 3}
@@ -337,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonSound: {fileID: 8300000, guid: 1e358e2e2370e8645a1b7edeb1068456, type: 3}
-  flipSound: {fileID: 0}
+  flipSound: {fileID: 8300000, guid: 34982a1431e64d845be53c899daf5bcd, type: 3}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
   tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
@@ -568,7 +553,7 @@ Prefab:
     - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: pauseMenuBackgroundTexture
       value: 
-      objectReference: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253, type: 3}
+      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
     - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: bonusSound
       value: 
@@ -805,7 +790,7 @@ Prefab:
     - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: nullOnHoverSkin
       value: 
-      objectReference: {fileID: 11400000, guid: ede96efc143d0c74b884e5321efd6706,
+      objectReference: {fileID: 11400000, guid: 01321c9b14f485e42b0ddcb32ac996aa,
         type: 2}
     - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: glassShatteredSound
@@ -840,6 +825,29 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: a9025d4fb01be9e4399268e5856b060b,
         type: 2}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: skillMenuBackgroundTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268, type: 3}
+    - target: {fileID: 11400010, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: titleSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3,
+        type: 2}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: bloodOnHoverSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75,
+        type: 2}
+    - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: titleSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3,
+        type: 2}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: flipSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 34982a1431e64d845be53c899daf5bcd, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 11400006, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}

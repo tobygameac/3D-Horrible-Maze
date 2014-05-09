@@ -7,11 +7,6 @@ public class Tutorial : MonoBehaviour {
 
   public Texture backgroundTexture;
   public Texture[] tutorialPictures;
-  public Texture menuButtonTexture;
-  public Texture previousButtonTexture;
-  public Texture nextButtonTexture;
-  public Texture finishButtonTexture;
-  public Texture skipButtonTexture;
 
   private int index;
 
@@ -69,29 +64,33 @@ public class Tutorial : MonoBehaviour {
 
     int gap = buttonWidth / 15;
 
+    GUI.skin.button.fontSize = (Screen.width + Screen.height) / 75;
+
     if (index != 0) {
-      if (GUI.Button(new Rect(width / 2 - buttonWidth - gap / 2, startY, buttonWidth, buttonHeight), previousButtonTexture)) {
+      if (GUI.Button(new Rect(width / 2 - buttonWidth - gap / 2, startY, buttonWidth, buttonHeight), "Previous")) {
         soundEffectManager.playFlipSound();
         --index;
       }
     }
     if (index < tutorialPictures.Length - 1) {
-      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), nextButtonTexture)) {
+      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), "Next")) {
         soundEffectManager.playFlipSound();
         index++;
       }
     } else {
-      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), finishButtonTexture)) {
+      if (GUI.Button(new Rect(width / 2 + gap / 2, startY, buttonWidth, buttonHeight), "Finish")) {
         soundEffectManager.playButtonSound();
         loadLevel();
       }
     }
 
-    if (GUI.Button(new Rect(buttonWidth / 5, startY, buttonWidth, buttonHeight), menuButtonTexture)) {
+    GUI.skin.button.fontSize = (Screen.width + Screen.height) / 50;
+
+    if (GUI.Button(new Rect(buttonWidth / 5, startY, buttonWidth, buttonHeight), "Menu")) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("MainMenu");
     }
-    if (GUI.Button(new Rect(width - buttonWidth - buttonWidth / 5, startY, buttonWidth, buttonHeight), skipButtonTexture)) {
+    if (GUI.Button(new Rect(width - buttonWidth - buttonWidth / 5, startY, buttonWidth, buttonHeight), "Skip")) {
       soundEffectManager.playButtonSound();
       loadLevel();
     }

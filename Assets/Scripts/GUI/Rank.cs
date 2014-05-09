@@ -3,13 +3,11 @@ using System.Collections;
 
 public class Rank : MonoBehaviour {
 
-  public GUISkin skin;
+  public GUISkin bloodOnHoverSkin;
+  public GUISkin titleSkin;
 
   public Texture backgroundTexture;
   public Texture rankBackgroundTexture;
-  public Texture easyTexture;
-  public Texture hardTexture;
-  public Texture returnButtonTexture;
 
   private string rankUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank.php";
   private string rankHardUrl = "http://134.208.43.1:5631/3DhorribleMaze/rank%20-%20hard.php";
@@ -29,8 +27,6 @@ public class Rank : MonoBehaviour {
 
   void OnGUI () {
 
-    GUI.skin = skin;
-
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
     int width = Screen.height - 100;
@@ -43,25 +39,41 @@ public class Rank : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(0, 0, width, height), rankBackgroundTexture);
 
+    GUI.color = new Color(0.7f, 0, 0);
+    Color originalColor = GUI.color;
+
+    GUI.skin = titleSkin;
+    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 15;
+    float titleWidth = width / 2.0f;
+    float titleHeight = height / 4.0f;
+    GUI.color = new Color(0.3f, 0, 0);
+    GUI.Label(new Rect((width - titleWidth) / 2, 0, titleWidth, titleHeight), "Rank");
+    GUI.color = originalColor;
+
+    GUI.skin = bloodOnHoverSkin;
+    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 75;
+    GUI.skin.button.fontSize = (Screen.width + Screen.height) / 75;
+
     int startX = (width - buttonWidth) / 2;
     int startY = height / 5;
 
-    if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), returnButtonTexture)) {
+    GUI.skin.button.fontSize = (Screen.width + Screen.height) / 30;
+    if (GUI.Button(new Rect(startX, 3.5f * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Menu")) {
       soundEffectManager.playButtonSound();
       Application.LoadLevel("MainMenu");
     }
 
-    int textWidth = width / 4;
-    int textHeight = height / 2;
-    Color originalColor = GUI.color;
+    float textWidth = width / 3.5f;
+    float textHeight = height / 1.8f;
     GUI.color = Color.black;
     GUI.Label(new Rect(width / 6, height / 3, textWidth, textHeight), text);
     GUI.Label(new Rect(width / 6 + textWidth + width / 6, height / 3, textWidth, textHeight), textHard);
     GUI.color = originalColor;
     int difficultyTextureWidth = width / 4;
     int difficultyTextureHeight = width / 8;
-    GUI.DrawTexture(new Rect(width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), easyTexture);
-    GUI.DrawTexture(new Rect(width / 7 + textWidth + width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), hardTexture);
+    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 30;
+    GUI.Label(new Rect(width / 6.0f, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Easy");
+    GUI.Label(new Rect(width / 6.0f + textWidth + width / 7, height / 4.5f, difficultyTextureWidth, difficultyTextureHeight), "Hard");
 
     GUILayout.EndArea();
   }
