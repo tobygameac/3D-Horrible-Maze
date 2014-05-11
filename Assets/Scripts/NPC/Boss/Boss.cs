@@ -101,6 +101,8 @@ public class Boss : MonoBehaviour {
   private Scoreboard scoreboard;
 
   private CountDown countDown;
+  
+  private FadeOutAndFadeIn fadeOutAndFadeIn;
 
   void Start () {
     maze = GameObject.FindWithTag("Main").GetComponent<MazeGenerator>();
@@ -122,6 +124,8 @@ public class Boss : MonoBehaviour {
     scoreboard = GameObject.FindWithTag("Main").GetComponent<Scoreboard>();
 
     countDown = GameObject.FindWithTag("Main").GetComponent<CountDown>();
+
+    fadeOutAndFadeIn = Camera.main.GetComponent<FadeOutAndFadeIn>();
 
     virtualPlayer = new GameObject();
     virtualPlayer.name = "virtual player";
@@ -147,9 +151,11 @@ public class Boss : MonoBehaviour {
       return;
     }
 
-    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
-      if (npcState.state != NPCState.STUNNING) {
-        turnToStunningState();
+    if (GameMode.mode == GameMode.ESCAPING) {
+      if (EscapingState.state == EscapingState.BEGINNING || EscapingState.state == EscapingState.EXIT_FOUND) {
+        if (npcState.state != NPCState.STUNNING) {
+          turnToStunningState();
+        }
       }
     }
 
@@ -581,6 +587,11 @@ public class Boss : MonoBehaviour {
     }
   }
 
+  private void closingEyes () {
+    fadeOutAndFadeIn.enabled = true;
+    fadeOutAndFadeIn.start();
+  }
+
   private void turnToStaringState () {
     npcState.state = NPCState.STARING;
   }
@@ -589,6 +600,11 @@ public class Boss : MonoBehaviour {
     mainAudioSource.audio.Pause();
     soundEffectManager.playHorrorEffectSound1();
     playAudio(tracingSound);
+    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
+      closingEyes();
+      turnToStunningState();
+      return;
+    }
     npcState.state = NPCState.TRACING;
   }
 
@@ -597,6 +613,11 @@ public class Boss : MonoBehaviour {
       mainAudioSource.audio.Pause();
       soundEffectManager.playHorrorEffectSound1();
       playAudio(tracingSound);
+    }
+    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
+      closingEyes();
+      turnToStunningState();
+      return;
     }
     npcState.state = NPCState.ATTACKING;
     playerCharacterMotor.canControl = false;
@@ -629,7 +650,7 @@ public class Boss : MonoBehaviour {
       float b = childrenRenderers[i].material.color.b;
       float a = 0.4f;
       if (GameMode.mode == GameMode.ESCAPING) {
-        a = 0.05f;
+        a = 0;
       }
       childrenRenderers[i].material.color = new Color(r, g, b, a);
     }

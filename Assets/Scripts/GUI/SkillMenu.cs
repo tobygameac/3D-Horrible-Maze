@@ -143,7 +143,7 @@ public class SkillMenu : MonoBehaviour {
                         skillMessageWidth, skillMessageHeight), skillMessages[i]);
       GUI.color = originalColor;
       if (!unlocked[i]) {
-        GUI.DrawTexture(new Rect(startX, i * (hotkeyIconHeight + 10) + startY, width - startX * 2, skillIconHeight), lockedTexture);
+        // GUI.DrawTexture(new Rect(startX, i * (hotkeyIconHeight + 10) + startY, width - startX * 2, skillIconHeight), lockedTexture);
       }
     }
 

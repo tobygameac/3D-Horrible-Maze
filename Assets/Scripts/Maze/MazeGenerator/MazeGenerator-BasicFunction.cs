@@ -109,6 +109,22 @@ public partial class MazeGenerator : MonoBehaviour {
     }
   }
 
+  public bool isStartPoint (int h, int r, int c) {
+    return basicMazes[h].isStartPoint(r, c);
+  }
+
+  public bool isEndPoint (int h, int r, int c) {
+    return basicMazes[h].isEndPoint(r, c);
+  }
+
+  public bool isEmptyBlock (int h, int r, int c) {
+    return basicMazes[h].isEmptyBlock(r, c);
+  }
+
+  public bool isAvailableBlock (int h, int r, int c) {
+    return basicMazes[h].isAvailableBlock(r, c);
+  }
+
   public List<Vector3> getShortestPath (Vector3 position1, Vector3 position2) {
     int floor1 = getFloor(position1.y);
     int floor2 = getFloor(position2.y);

@@ -5,8 +5,6 @@ using System.Collections;
 
 public class Exit : MonoBehaviour {
 
-  private Boss boss;
-
   private GameObject[] elevators;
 
   private SoundEffectManager soundEffectManager;
@@ -14,19 +12,13 @@ public class Exit : MonoBehaviour {
   private CharacterMotor playerCharacterMotor;
   private MouseLook2 playerMouseLook;
 
-  private bool firstFound;
-
   void Start () {
-    boss = GameObject.FindWithTag("Boss").GetComponent<Boss>();
-
     elevators = GameObject.FindGameObjectsWithTag("Elevator");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 
     playerCharacterMotor = GameObject.FindWithTag("Player").GetComponent<CharacterMotor>();
     playerMouseLook = GameObject.FindWithTag("Player").GetComponent<MouseLook2>();
-
-    firstFound = false;
 
     stopAllElevator();
   }
@@ -47,19 +39,21 @@ public class Exit : MonoBehaviour {
 
   void OnTriggerStay (Collider other) {
     if (other.tag == "Player") {
-      if (boss.isInsaneMode()) {
+      switch (EscapingState.state) {
+       case EscapingState.BEGINNING:
+        EscapingState.state = EscapingState.EXIT_FOUND;
+        TargetMenu.addTarget("Find the elevator.");
+        startAllElevator();
+        break;
+       case EscapingState.KEY_FOUND:
         if (GameState.state != GameState.FINISHED) {
+          Destroy(gameObject);
           GameState.state = GameState.FINISHED;
           GameState.win = true;
           playerCharacterMotor.enabled = false;
           playerMouseLook.enabled = false;
         }
-      } else {
-        if (!firstFound) {
-          firstFound = true;
-          TargetMenu.addTarget("Find the elevator.");
-          startAllElevator();
-        }
+        break;
       }
     }
   }

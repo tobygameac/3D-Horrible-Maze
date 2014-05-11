@@ -19,6 +19,7 @@ public class Key : MonoBehaviour {
 	
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
+      EscapingState.state = EscapingState.KEY_FOUND;
       TargetMenu.addTarget("Go back to the exit. RUN!!");
       boss.becomeInsaneMode();
       Destroy(gameObject);

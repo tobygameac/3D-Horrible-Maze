@@ -108,7 +108,7 @@ MonoBehaviour:
   bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
   titleSkin: {fileID: 11400000, guid: f7375130acdb90747a983cc6e5971ba3, type: 2}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
-  submitMenuBackgroundTexture: {fileID: 2800000, guid: f7ec0b36220a014438d90dc64dab2268,
+  submitMenuBackgroundTexture: {fileID: 2800000, guid: 6bf6ec4420503b64081dd8e0ecbd3994,
     type: 3}
 --- !u!114 &149028834
 MonoBehaviour:

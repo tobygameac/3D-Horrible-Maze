@@ -49,6 +49,8 @@ public class Item : MonoBehaviour {
         if (skillName != null && skillName != "") {
           if (skillName == "Invisible") {
             other.gameObject.GetComponent<Invisible>().enabled = true;
+          } else if (skillName == "Spy") {
+            other.gameObject.GetComponent<Spy>().enabled = true;
           } else if (other.gameObject.GetComponent(skillName) == null) {
             other.gameObject.AddComponent(skillName);
           }

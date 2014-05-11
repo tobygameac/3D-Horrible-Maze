@@ -88,6 +88,7 @@ GameObject:
   - 114: {fileID: 1020703724}
   - 114: {fileID: 1020703728}
   - 114: {fileID: 1020703729}
+  - 114: {fileID: 1020703730}
   m_Layer: 0
   m_Name: main
   m_TagString: Main
@@ -124,12 +125,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 56ad8e2bf7ddcb3409426f525789a573, type: 3}
   - {fileID: 2800000, guid: 5754b70dfbf837d418f225e3a9620a39, type: 3}
   - {fileID: 2800000, guid: d087d5e422b08064f9b381fedcbcc1e4, type: 3}
-  menuButtonTexture: {fileID: 2800000, guid: 0af9f08b1e4ae894b9d73855461205c4, type: 3}
-  previousButtonTexture: {fileID: 2800000, guid: bb7c86a81d1fa6b43811e8713035ffc3,
-    type: 3}
-  nextButtonTexture: {fileID: 2800000, guid: 9bf62498d9fbf914389d3595409ac92a, type: 3}
-  finishButtonTexture: {fileID: 2800000, guid: 9683f2634bf6bd74fb6a7eff82909936, type: 3}
-  skipButtonTexture: {fileID: 2800000, guid: 9c2aeb0a289bd0c4d9b013c5cc493b3e, type: 3}
 --- !u!114 &1020703725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +154,9 @@ MonoBehaviour:
   bloodHitSound: {fileID: 0}
   glassShatteredSound: {fileID: 0}
   horrorEffectSound0: {fileID: 0}
+  horrorEffectSound1: {fileID: 0}
+  horrorEffectSound2: {fileID: 0}
+  horrorEffectSound3: {fileID: 0}
 --- !u!82 &1020703726
 AudioSource:
   m_ObjectHideFlags: 0
@@ -254,3 +252,17 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 2f01bf552ff88824490a88e0cf07b8b6, type: 3}
   - {fileID: 2800000, guid: c497febd0de207a4eba8e836f062a6a7, type: 3}
   blackMask: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
+--- !u!114 &1020703730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1020703722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c977d5e1824f9a468f130b5a419ae62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
+  fadeInTimes:
+  - 2

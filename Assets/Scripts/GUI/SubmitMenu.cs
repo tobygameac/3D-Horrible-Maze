@@ -69,7 +69,7 @@ public class SubmitMenu : MonoBehaviour {
       float textWidth = height / 1.5f;
       float textHeight = height / 3.0f;
       startX = (width - textWidth) / 2;
-      if (!GameState.win) {
+      if (GameState.win) {
         GUI.color = new Color(1.0f, 0, 0.25f);
         GUI.skin.label.fontSize = (int)((width + height) / 5.5f);
         GUI.Label(new Rect(startX, startY, textWidth, textHeight), "W I N");

@@ -338,7 +338,7 @@ MonoBehaviour:
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
   offScreenDot: .300000012
-  attackingRadius: 2
+  attackingRadius: 4
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
   QTEArrowTextures:
@@ -368,8 +368,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b22f7139a0e930b45911162b4fb8ff25, type: 3}
   - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}
   cameraMovingTime: .5
-  tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
-  insaneTheme: {fileID: 8300000, guid: a4af1f2b5e4a19d49b4358844d5bcdf5, type: 3}
+  tracingSound: {fileID: 8300000, guid: ceb3a355b3496e14e98623fbfdd0078f, type: 3}
+  insaneTheme: {fileID: 8300000, guid: 372e5c5661d56a044a17d50d414a47d0, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

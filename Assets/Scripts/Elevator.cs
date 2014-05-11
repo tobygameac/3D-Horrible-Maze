@@ -20,8 +20,6 @@ public class Elevator : MonoBehaviour {
   // Position
   private Vector3 startPosition, endPosition;
 
-  private static bool firstFound;
-
   public AudioClip moreHorrorTheme;
   private AudioSource mainAudioSource;
 
@@ -30,8 +28,6 @@ public class Elevator : MonoBehaviour {
 
     startPosition = transform.position;
     endPosition = startPosition + Vector3.up * movingDistance;
-    
-    firstFound = false;
   }
 
   void Update () {
@@ -75,8 +71,8 @@ public class Elevator : MonoBehaviour {
       return;
     }
     if (other.tag == "Player") {
-      if (!firstFound) {
-        firstFound = true;
+      if (EscapingState.state == EscapingState.EXIT_FOUND) {
+        EscapingState.state = EscapingState.ELEVATOR_FOUND;
         TargetMenu.addTarget("Find the key in the maze.");
         mainAudioSource.audio.Stop();
         mainAudioSource.audio.clip = moreHorrorTheme;

@@ -180,6 +180,14 @@ Prefab:
       propertyPath: vitalityPotionSound
       value: 
       objectReference: {fileID: 8300000, guid: 8ccaa10c064df8843b23ebe99117db3c, type: 3}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: BLOCK_SIZE
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: tracingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ceb3a355b3496e14e98623fbfdd0078f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}
@@ -428,7 +436,7 @@ MonoBehaviour:
   flipSound: {fileID: 8300000, guid: 34982a1431e64d845be53c899daf5bcd, type: 3}
   errorSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
   cryingSound: {fileID: 8300000, guid: 84901204b39136e48949cee289debde8, type: 3}
-  tracingSound: {fileID: 8300000, guid: 7d1f173f912b41a4da2a6a995a9bbc0d, type: 3}
+  tracingSound: {fileID: 8300000, guid: ceb3a355b3496e14e98623fbfdd0078f, type: 3}
   pickingSound: {fileID: 8300000, guid: 5f36e08cf7078eb4fadc8d566b059884, type: 3}
   scoreSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
   mentalityPotionSound: {fileID: 8300000, guid: c6108a5c82f725d409d91ce0fa0d548b,

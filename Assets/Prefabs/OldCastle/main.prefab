@@ -216,13 +216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodOnHoverSkin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
-  nullOnHoverSkin: {fileID: 11400000, guid: ede96efc143d0c74b884e5321efd6706, type: 2}
+  nullOnHoverSkin: {fileID: 0}
+  titleSkin: {fileID: 0}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
   pauseMenuBackgroundTexture: {fileID: 2800000, guid: 0a83d5c6b99346946b23bb366be75253,
     type: 3}
-  optionButtonTexture: {fileID: 2800000, guid: e826884c175f50044b7d5196dd26daa5, type: 3}
-  returnButtonTexture: {fileID: 2800000, guid: f9bad341c57723e459875c98749290d5, type: 3}
-  exitButtonTexture: {fileID: 2800000, guid: 98e2c5d61336e8748842490e1decf116, type: 3}
   soundIconTexture: {fileID: 2800000, guid: e054428927635154aa6ce8788125c89d, type: 3}
 --- !u!114 &11400012
 MonoBehaviour:
@@ -235,7 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba02f11a4979534fae957c2228ddd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: d35067b06e3e8b8499336d66f990be75, type: 2}
+  bloodOnHoverSkin: {fileID: 0}
+  titleSkin: {fileID: 0}
   backgroundTexture: {fileID: 2800000, guid: c10310b02c3975e4c965c746e0db74cf, type: 3}
   skillMenuBackgroundTexture: {fileID: 2800000, guid: b125e2bd821b04844ac34ca8ca78e5f4,
     type: 3}

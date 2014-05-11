@@ -35,6 +35,8 @@ public partial class MazeGenerator : MonoBehaviour {
   private List<BasicMaze> crossoverPool;
 
   void Start () {
+    GameState.state = GameState.PLAYING;
+    Time.timeScale = 1;
 
     for (int h = 0; h < MAZE_H; h++) {
 
@@ -58,39 +60,13 @@ public partial class MazeGenerator : MonoBehaviour {
 
     initialRandomEvent();
 
-    // Instantiate player
-    int playerFloor = 0;
-    Point startPoint = basicMazes[playerFloor].getStartPoint();
-    if (GameMode.mode == GameMode.ESCAPING) {
-      playerFloor = 0;
-      startPoint = getRandomAvailableBlock(playerFloor, true);
-      if (basicMazes[playerFloor].isStartPoint(startPoint) || basicMazes[playerFloor].isEndPoint(startPoint)) {
-        // Reload if cannot find a good start point
-        Application.LoadLevel(Application.loadedLevel);
-      }
-    }
-    Point offset = getOffset(playerFloor);
-    startPoint.r += offset.r;
-    startPoint.c += offset.c;
-    GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 playerPosition = new Vector3(startPoint.c * BLOCK_SIZE,  getBaseY(playerFloor) + player.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
-    player.transform.position = playerPosition;
+    generatePlayer();
 
-    // Instantiate boss
-    int bossFloor = MAZE_H - 1;
-    startPoint = basicMazes[bossFloor].getEndPoint();
-    offset = getOffset(bossFloor);
-    startPoint.r += offset.r;
-    startPoint.c += offset.c;
-    GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-    Vector3 bossPosition = new Vector3(startPoint.c * BLOCK_SIZE, getBaseY(bossFloor) + boss.transform.localScale.y + 0.11f, startPoint.r * BLOCK_SIZE);
-    boss.transform.position = bossPosition;
-
-    GameState.state = GameState.PLAYING;
-    Time.timeScale = 1;
+    generateBoss();
 
     switch (GameMode.mode) {
      case GameMode.ESCAPING:
+      EscapingState.state = EscapingState.BEGINNING;
       TargetMenu.addTarget("Find the exit.");
       break;
      case GameMode.INFINITE:
@@ -104,6 +80,36 @@ public partial class MazeGenerator : MonoBehaviour {
       return;
     }
     GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackMask);
+  }
+
+  private void generatePlayer () {
+    int playerFloor = 0;
+    Point playerStartPoint = basicMazes[playerFloor].getStartPoint();
+    if (GameMode.mode == GameMode.ESCAPING) {
+      playerFloor = 0;
+      playerStartPoint = getRandomAvailableBlock(playerFloor, true);
+      if (basicMazes[playerFloor].isStartPoint(playerStartPoint) || basicMazes[playerFloor].isEndPoint(playerStartPoint)) {
+        // Reload if cannot find a good start point
+        Application.LoadLevel(Application.loadedLevel);
+      }
+    }
+    Point offset = getOffset(playerFloor);
+    playerStartPoint.r += offset.r;
+    playerStartPoint.c += offset.c;
+    GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+    Vector3 playerPosition = new Vector3(playerStartPoint.c * BLOCK_SIZE, getBaseY(playerFloor) + player.transform.localScale.y + 0.11f, playerStartPoint.r * BLOCK_SIZE);
+    player.transform.position = playerPosition;
+  }
+
+  private void generateBoss () {
+    int bossFloor = MAZE_H - 1;
+    Point bossStartPoint = getRandomAvailableBlock(bossFloor, true);
+    Point offset = getOffset(bossFloor);
+    bossStartPoint.r += offset.r;
+    bossStartPoint.c += offset.c;
+    GameObject boss = Instantiate(bossPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+    Vector3 bossPosition = new Vector3(bossStartPoint.c * BLOCK_SIZE, getBaseY(bossFloor) + boss.transform.localScale.y + 0.11f, bossStartPoint.r * BLOCK_SIZE);
+    boss.transform.position = bossPosition;
   }
 
   private void generateBasicMaze () {
