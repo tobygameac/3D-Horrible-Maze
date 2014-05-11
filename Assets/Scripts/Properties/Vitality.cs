@@ -20,23 +20,7 @@ public class Vitality : MonoBehaviour {
     }
   }
 
-  public bool enough (float need) {
-    return (vitalityPoint >= need);
-  }
-
-  public void gain (float point) {
-    vitalityPoint += point;
-    if (vitalityPoint > maxVitalityPoint) {
-      vitalityPoint = maxVitalityPoint;
-    }
-  }
-
-  public void use (float need) {
-    if (vitalityPoint >= need) {
-      vitalityPoint -= need;
-    }
-  }
-
+  /*
   void OnGUI () {
     if (GameState.state != GameState.PLAYING) {
       return;
@@ -55,5 +39,27 @@ public class Vitality : MonoBehaviour {
     GUI.DrawTexture(new Rect(0, 0, width, height), vitalityBarTexture);
 
     GUILayout.EndArea();
+  }
+  */
+
+  public bool enough (float need) {
+    return (vitalityPoint >= need);
+  }
+
+  public void gain (float point) {
+    vitalityPoint += point;
+    if (vitalityPoint > maxVitalityPoint) {
+      vitalityPoint = maxVitalityPoint;
+    }
+  }
+
+  public void use (float need) {
+    if (vitalityPoint >= need) {
+      vitalityPoint -= need;
+    }
+  }
+
+  public float getVitalityPointPercent () {
+    return vitalityPoint / maxVitalityPoint;
   }
 }

@@ -47,11 +47,11 @@ public class MainMenu : MonoBehaviour {
 
   void OnGUI () {
     GUI.skin = titleSkin;
-    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 8;
+    GUI.skin.label.fontSize = (Screen.width + Screen.height) / 10;
     float titleWidth = Screen.width * 0.5f;
     float titleHeight = Screen.height * 0.3f;
     GUI.color = new Color(0.3f, 0, 0);
-    GUI.Label(new Rect((Screen.width - titleWidth) / 2, 0, titleWidth, titleHeight), "Corridor");
+    GUI.Label(new Rect((Screen.width - titleWidth) / 2, 0, titleWidth, titleHeight), "H orridor");
 
     GUI.color = new Color(0.65f, 0, 0);
     Color originalColor = GUI.color;

@@ -38,8 +38,8 @@ public class Roar : MonoBehaviour {
         vitality.use(vitalityCost);
         mentality.gain(mentalityGain);
       } else {
-        soundEffectManager.playErrorSound();
-        MessageViewer.showErrorMessage("Not enough vitality");
+        // soundEffectManager.playErrorSound();
+        // MessageViewer.showErrorMessage("Not enough vitality");
       }
     }
   }

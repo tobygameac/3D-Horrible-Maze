@@ -3,7 +3,6 @@ using System.Collections;
 
 [RequireComponent (typeof(CharacterMotor))]
 [RequireComponent (typeof(Vitality))]
-[RequireComponent (typeof(Footstep))]
 
 public class Sprint : MonoBehaviour {
 
@@ -34,7 +33,7 @@ public class Sprint : MonoBehaviour {
   void Start () {
     characterMotor = GetComponent<CharacterMotor>();
     vitality = GetComponent<Vitality>();
-    footstep = GetComponent<Footstep>();
+    footstep = GetComponentInChildren<Footstep>();
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(0);
@@ -70,8 +69,8 @@ public class Sprint : MonoBehaviour {
         vitality.use(need);
       } else {
         if (!isTired) {
-          soundEffectManager.playErrorSound();
-          MessageViewer.showErrorMessage("Not enough vitality");
+          // soundEffectManager.playErrorSound();
+          // MessageViewer.showErrorMessage("Not enough vitality");
           isTired = true;
           restedTime = 0;
         }

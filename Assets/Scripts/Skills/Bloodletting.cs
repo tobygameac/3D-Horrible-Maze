@@ -46,8 +46,8 @@ public class Bloodletting : MonoBehaviour {
         blood.transform.localScale = new Vector3(maze.BLOCK_SIZE, 0.01f, maze.BLOCK_SIZE);
         blood.transform.eulerAngles = new Vector3(0, random.Next(360), 0);
       } else {
-        soundEffectManager.playErrorSound();
-        MessageViewer.showErrorMessage("Not enough mentality");
+        // soundEffectManager.playErrorSound();
+        // MessageViewer.showErrorMessage("Not enough mentality");
       }
     }
     string skillMessage = "Blooddd~~";

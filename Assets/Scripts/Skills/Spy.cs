@@ -55,8 +55,8 @@ public class Spy : MonoBehaviour {
           bossCamera.enabled = true;
           bossLight.enabled = true;
         } else {
-          soundEffectManager.playErrorSound();
-          MessageViewer.showErrorMessage("Not enough vitality");
+          // soundEffectManager.playErrorSound();
+          // MessageViewer.showErrorMessage("Not enough vitality");
         }
       }
     }

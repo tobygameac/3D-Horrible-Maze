@@ -330,7 +330,7 @@ MonoBehaviour:
   scoreSound: {fileID: 8300000, guid: f7c1e88d8ab490c4082e07964431a529, type: 3}
   mentalityPotionSound: {fileID: 8300000, guid: c6108a5c82f725d409d91ce0fa0d548b,
     type: 3}
-  vitalityPotionSound: {fileID: 8300000, guid: 3b3717a03fc3e9a4eb1b501aa3113dc2, type: 3}
+  vitalityPotionSound: {fileID: 8300000, guid: 8ccaa10c064df8843b23ebe99117db3c, type: 3}
   trapSound: {fileID: 8300000, guid: 4b94a99eba80d2a46a8e6911646bf496, type: 3}
   QTEHitSound: {fileID: 8300000, guid: 1588f24734467334382322db31df58d9, type: 3}
   QTEMissSound: {fileID: 8300000, guid: 6fffd434817bd8f4b853246cc67bd07d, type: 3}
@@ -721,7 +721,7 @@ Prefab:
     - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: vitalityPotionSound
       value: 
-      objectReference: {fileID: 8300000, guid: 3b3717a03fc3e9a4eb1b501aa3113dc2, type: 3}
+      objectReference: {fileID: 8300000, guid: 8ccaa10c064df8843b23ebe99117db3c, type: 3}
     - target: {fileID: 11400002, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: roarSound
       value: 
