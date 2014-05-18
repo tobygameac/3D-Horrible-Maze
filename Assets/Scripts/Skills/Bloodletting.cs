@@ -50,7 +50,7 @@ public class Bloodletting : MonoBehaviour {
         // MessageViewer.showErrorMessage("Not enough mentality");
       }
     }
-    string skillMessage = "Blooddd~~";
+    string skillMessage = "Bloodletting";
     skillMenu.setSkillMessage(4, skillMessage);
   }
 

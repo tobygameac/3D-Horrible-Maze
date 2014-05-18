@@ -44,7 +44,7 @@ public class Spy : MonoBehaviour {
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(3);
-    skillMenu.setSkillMessage(3, "I see u~~~~~~");
+    skillMenu.setSkillMessage(3, "Eye");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }

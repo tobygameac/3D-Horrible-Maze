@@ -37,7 +37,7 @@ public class Sprint : MonoBehaviour {
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(0);
-    skillMenu.setSkillMessage(0, "Gogogogo~~~~~~");
+    skillMenu.setSkillMessage(0, "Sprint");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
 

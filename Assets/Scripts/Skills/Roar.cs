@@ -22,7 +22,7 @@ public class Roar : MonoBehaviour {
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(1);
-    skillMenu.setSkillMessage(1, "RRRRR~~~~~");
+    skillMenu.setSkillMessage(1, "Roar");
 
     soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }

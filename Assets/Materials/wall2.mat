@@ -9,6 +9,7 @@ Material:
   m_Name: wall2
   m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -19,7 +20,15 @@ Material:
           m_Texture: {fileID: 2800000, guid: 30ef0f95b535ba74283238ec8288abf4, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+    m_Floats:
+      data:
+        first:
+          name: _FrameAccumulation
+        second: 1
+      data:
+        first:
+          name: _Amount
+        second: 1
     m_Colors:
       data:
         first:

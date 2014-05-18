@@ -24,7 +24,7 @@ public class Invisible : MonoBehaviour {
 
     skillMenu = GameObject.FindWithTag("Main").GetComponent<SkillMenu>();
     skillMenu.unlockSkill(2);
-    skillMenu.setSkillMessage(2, "hide~~~~~~");
+    skillMenu.setSkillMessage(2, "Invisible");
 
     //soundEffectManager = GameObject.FindWithTag("Main").GetComponent<SoundEffectManager>();
   }

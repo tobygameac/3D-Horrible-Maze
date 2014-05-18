@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour {
     GUI.skin = bloodOnHoverSkin;
     GUI.skin.label.fontSize = (Screen.width + Screen.height) / 25;
     GUI.skin.button.fontSize = (Screen.width + Screen.height) / 25;
-    GUI.Label(new Rect(0, Screen.height * 0.8f, Screen.width, Screen.height), "2014/5/8 9.00");
+    // GUI.Label(new Rect(0, Screen.height * 0.8f, Screen.width, Screen.height), "2014/5/16");
 
     if (waitForPressKey) {
       float messageAlpha = Mathf.Abs(50 - (int)(Time.time * 100) % 100) / 100.0f;
