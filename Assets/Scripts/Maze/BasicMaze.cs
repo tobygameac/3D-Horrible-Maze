@@ -9,7 +9,8 @@ public class BasicMaze {
 
   private static System.Random random = new System.Random(); // Only need one random seed
 
-  private int R, C;
+  private int R;
+  private int C;
   private Point startPoint;
   private Point endPoint;
 
@@ -23,6 +24,7 @@ public class BasicMaze {
   private int cornerNumber;
   private int deadendNumber;
   private int blocksSize;
+  private double longestShortestPath;
 
   public BasicMaze (int R, int C) {
     this.R = R;
@@ -101,6 +103,7 @@ public class BasicMaze {
     cornerNumber = other.cornerNumber;
     deadendNumber = other.deadendNumber;
     blocksSize = other.blocksSize;
+    longestShortestPath = other.longestShortestPath;
     isAvailable = new List<List<bool>>();
     for (int r = 0; r < other.isAvailable.Count; r++) {
       isAvailable.Add(new List<bool>());
@@ -331,10 +334,11 @@ public class BasicMaze {
     setBlocksSize();
     setCornerNumber();
     setDeadendNumber();
+    setLongestShortestPath();
     fitness = 0;
-    if (blocksSize != 0) {
-      fitness = (cornerNumber * deadendNumber) / (double)blocksSize;
-      fitness *= Mathf.Sqrt(blocksSize / (float)(R * C));
+    double w1 = 1.0, w2 = 2.3, w3 = 1.0, w4 = 0.6;
+    if (R * C != 0) {
+      fitness = (cornerNumber * w1 + deadendNumber * w2 + longestShortestPath * w3 + blocksSize * w4) / (double)(R * C);
     }
   }
 
@@ -515,6 +519,16 @@ public class BasicMaze {
     }
 
     deadendNumber = count;
+  }
+
+  private void setLongestShortestPath () {
+    longestShortestPath = 0;
+    List<MovingAction> path = getShortestPath(startPoint, endPoint);
+    if (path != null) {
+      for (int i = 0; i < path.Count; i++) {
+        longestShortestPath += Mathf.Sqrt(path[i].dr * path[i].dr + path[i].dc * path[i].dc);
+      }
+    }
   }
 
 }

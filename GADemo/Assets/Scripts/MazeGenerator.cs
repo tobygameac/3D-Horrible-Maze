@@ -21,20 +21,33 @@ public class MazeGenerator : MonoBehaviour {
   private List<BasicMaze> crossoverPool;
 
   void OnGUI () {
-    MAXIMUM_TIMES_OF_ITERATION = (int)GUI.HorizontalScrollbar(new Rect(0, Screen.height - 120, 100, 30), MAXIMUM_TIMES_OF_ITERATION, 10, 0, 5000);
+    // GUI.Label(new Rect(0, Screen.height - 150, 100, 30), "Generation");
+    // MAXIMUM_TIMES_OF_ITERATION = (int)GUI.HorizontalScrollbar(new Rect(0, Screen.height - 120, 100, 30), MAXIMUM_TIMES_OF_ITERATION, 10, 0, 5000);
   }
 
-  public BasicMaze generateBasicMaze () {
+  public IEnumerator generateBasicMaze (System.Action<BasicMaze> result) {
     initial();
-    for (int times = 1; times <= MAXIMUM_TIMES_OF_ITERATION; times++) {
-      reproduction();
-      crossover();
-      mutation();
-      if (best.getFitness() >= TARGET_FITNESS) {
-        break;
+    int times = 0;
+    while (true) {
+      times++;
+      if (DemoState.state == DemoState.PLAYING) {
+        if (DemoState.showAllBest) {
+          allBest.setFitness();
+        }
+        reproduction();
+        crossover();
+        mutation();
+      }
+      if (DemoState.showAllBest) {
+        result(allBest);
+      } else {
+        result(best);
+      }
+      if (times % 1 == 0) {
+        times = 0;
+        yield return null;
       }
     }
-    return best;
   }
 
   private void initial() {
@@ -132,10 +145,10 @@ public class MazeGenerator : MonoBehaviour {
         }
       }
       population[i].setFitness();
-      if (i == 0 || (population[i].getFitness() > best.getFitness())) {
+      if (i == 0 || (population[i].getFitness() >= best.getFitness())) {
         best = new BasicMaze(population[i]);
       }
-      if (best.getFitness() > allBest.getFitness()) {
+      if (best.getFitness() >= allBest.getFitness()) {
         allBest = new BasicMaze(best);
       }
     }

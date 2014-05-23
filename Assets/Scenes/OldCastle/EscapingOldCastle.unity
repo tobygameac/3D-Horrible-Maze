@@ -188,6 +188,18 @@ Prefab:
       propertyPath: tracingSound
       value: 
       objectReference: {fileID: 8300000, guid: ceb3a355b3496e14e98623fbfdd0078f, type: 3}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: MAZE_R
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: MAZE_C
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
+      propertyPath: isDebugging
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
   m_RootGameObject: {fileID: 127766894}

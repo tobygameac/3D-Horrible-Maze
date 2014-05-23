@@ -83,8 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0defc0c783e64299867e819a0375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseScoreGain: 100
-  additionEventsFrame: 5000
+  baseScoreGain: 250
   upgradeFrames: d0070000881300001027000050c30000
   upgradeProbabilityPerFrame:
   - .300000012
