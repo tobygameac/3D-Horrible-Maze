@@ -1025,10 +1025,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textures:
-  - {fileID: 2800000, guid: 4fad0a17fce800843ab418b763973470, type: 3}
-  - {fileID: 2800000, guid: d70a4603dbde8e947af321848e945dbf, type: 3}
-  - {fileID: 2800000, guid: b2c0142ac70fa4f4ab5d587504fba9ed, type: 3}
-  - {fileID: 2800000, guid: 2bfe379ad58f7a049a27a30d70aaeb20, type: 3}
+  - {fileID: 2800000, guid: e00989880c5f12f48b8d3ea15820f030, type: 3}
+  - {fileID: 2800000, guid: 28234fea690b5f849b5ef01f4337d12d, type: 3}
+  - {fileID: 2800000, guid: 654b576efcfaec74ea37485e129a9a3e, type: 3}
+  - {fileID: 2800000, guid: 2f01bf552ff88824490a88e0cf07b8b6, type: 3}
+  - {fileID: 2800000, guid: c497febd0de207a4eba8e836f062a6a7, type: 3}
+  - {fileID: 2800000, guid: 19bdb7d4e04508f4ca2f058fd7411a51, type: 3}
   blackMask: {fileID: 2800000, guid: 71a60a2dfb70ad24aac9355387cb8a75, type: 3}
 --- !u!114 &11400034
 MonoBehaviour:

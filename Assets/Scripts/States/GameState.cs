@@ -12,6 +12,7 @@ public static class GameState {
 
   public static int state;
   public static int difficulty;
+  public static bool escapingDemo;
   public static bool userStudy;
   public static bool win;
   public static float volume;

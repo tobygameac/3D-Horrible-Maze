@@ -237,7 +237,7 @@ public class BasicMaze {
   }
 
   public bool inMaze (int r, int c) {
-    return (r >= 1 && r <= R && c >= 1 && c <= C);
+    return (r >= 0 && r < R + 2 && c >= 0 && c < C + 2);
   }
   
   public bool isStartPoint (int r, int c) {

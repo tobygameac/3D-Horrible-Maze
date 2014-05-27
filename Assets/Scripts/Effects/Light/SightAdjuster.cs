@@ -29,8 +29,8 @@ public class SightAdjuster : MonoBehaviour {
     RenderSettings.ambientLight = ambientColor;
     RenderSettings.fogColor = ambientColor;
     mainCamera.backgroundColor = ambientColor;
-    motionBlur.accumulation = 1 - percent;
-    light.color = new Color(1, Mathf.Pow(percent, 0.3f), Mathf.Pow(percent, 0.3f));
+    motionBlur.accumulation = 1 - Mathf.Pow(percent, 0.65f);
+    light.color = new Color(1, Mathf.Pow(percent, 0.1f), Mathf.Pow(percent, 0.1f));
     light.intensity = lightIntensity * percent + baseLightIntensity;
     light.range = lightRange * percent + baseLightRange;
     light.spotAngle = lightAngle * percent + baseLightAngle;

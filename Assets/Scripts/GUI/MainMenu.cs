@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour {
   private static System.Random random = new System.Random(); // Only need one random seed
 
   private bool isAdjustingOption;
-  private bool isChoosingDifficulty;
+  private bool isChoosingMode;
 
   private SoundEffectManager soundEffectManager;
 
@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour {
     }
     GameState.state = GameState.MENU_VIEWING;
     isAdjustingOption = false;
-    isChoosingDifficulty = false;
+    isChoosingMode = false;
     soundEffectManager = GetComponent<SoundEffectManager>();
     soundEffectManager.adjustSound();
     alpha = 0;
@@ -42,6 +42,13 @@ public class MainMenu : MonoBehaviour {
       if (alpha > 1) {
         alpha = 1;
       }
+    }
+    if (Input.GetKeyDown(KeyCode.F12)) {
+      GameState.difficulty = 2;
+      GameState.escapingDemo = true;
+      GameState.userStudy = true;
+      GameMode.mode = GameMode.ESCAPING;
+      Application.LoadLevel("Tutorial");
     }
   }
 
@@ -56,12 +63,12 @@ public class MainMenu : MonoBehaviour {
     GUI.color = new Color(0.65f, 0, 0);
     Color originalColor = GUI.color;
 
-    //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+    // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
     GUI.skin = bloodOnHoverSkin;
     GUI.skin.label.fontSize = (Screen.width + Screen.height) / 25;
     GUI.skin.button.fontSize = (Screen.width + Screen.height) / 25;
-    GUI.Label(new Rect(0, Screen.height * 0.8f, Screen.width, Screen.height), "2014/5/22");
+    // GUI.Label(new Rect(0, Screen.height * 0.8f, Screen.width, Screen.height), "2014/5/22");
 
     if (waitForPressKey) {
       float messageAlpha = Mathf.Abs(50 - (int)(Time.time * 100) % 100) / 100.0f;
@@ -116,10 +123,11 @@ public class MainMenu : MonoBehaviour {
         alpha = 0;
       }
 
-    } else if (isChoosingDifficulty) {
+    } else if (isChoosingMode) {
       if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Escaping")) {
         soundEffectManager.playButtonSound();
         GameState.difficulty = random.Next(2);
+        GameState.escapingDemo = false;
         GameState.userStudy = true;
         GameMode.mode = GameMode.ESCAPING;
         Application.LoadLevel("Tutorial");
@@ -128,6 +136,7 @@ public class MainMenu : MonoBehaviour {
       if (GUI.Button(new Rect(startX, 1 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Infinite")) {
         soundEffectManager.playButtonSound();
         GameState.difficulty = random.Next(2);
+        GameState.escapingDemo = false;
         GameState.userStudy = true;
         GameMode.mode = GameMode.INFINITE;
         Application.LoadLevel("Tutorial");
@@ -135,14 +144,14 @@ public class MainMenu : MonoBehaviour {
 
       if (GUI.Button(new Rect(startX, 3 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Return")) {
         soundEffectManager.playButtonSound();
-        isChoosingDifficulty = false;
+        isChoosingMode = false;
         alpha = 0;
       }
 
     } else {
       if (GUI.Button(new Rect(startX, 0 * (buttonHeight + 10) + startY, buttonWidth, buttonHeight), "Start")) {
         soundEffectManager.playButtonSound();
-        isChoosingDifficulty = true;
+        isChoosingMode = true;
         alpha = 0;
       }
 

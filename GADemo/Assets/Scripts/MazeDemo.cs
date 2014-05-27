@@ -48,15 +48,21 @@ public class MazeDemo : MonoBehaviour {
         modeString = "Simple mode";
         break;
       }
+      GUI.Label(new Rect(0, Screen.height - 425, 150, 30), "fitness : " + maze.getFitness().ToString ("0.00"));
       if (GUI.Button(new Rect(0, Screen.height - 350, 150, 30), modeString)) {
         DemoState.mode = (DemoState.mode + 1) % 2;
         maze.setFitness();
       }
+      Color originalColor = GUI.color;
+      if (highlight) {
+        GUI.color = Color.green;
+      }
       if (DemoState.mode == DemoState.SIMPLE) {
-        if (GUI.Button(new Rect(0, Screen.height - 400, 150, 30), "Highlight")) {
+        if (GUI.Button(new Rect(0, Screen.height - 400, 150, 30), "Pattern highlight")) {
           highlight = !highlight;
         }
       }
+      GUI.color = originalColor;
       string showBestString = null;
       if (DemoState.showAllBest) {
         showBestString = "Show current best";
@@ -66,12 +72,6 @@ public class MazeDemo : MonoBehaviour {
       if (GUI.Button(new Rect(0, Screen.height - 300, 150, 30), showBestString)) {
         DemoState.showAllBest = !DemoState.showAllBest;
       }
-      Color originalColor = GUI.color;
-      if (highlight) {
-        GUI.color = Color.green;
-      }
-
-      GUI.color = originalColor;
       if (GUI.Button(new Rect(0, Screen.height - 150, 150, 30), "Restart")) {
         Application.LoadLevel(Application.loadedLevel);
       }

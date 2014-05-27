@@ -9,7 +9,7 @@ public class SubmitMenu : MonoBehaviour {
   public Texture backgroundTexture;
   public Texture submitMenuBackgroundTexture;
 
-  private int score;
+  public int score;
 
   private bool scoreSubmitted;
   private float scoreSubmittedTime;
@@ -21,6 +21,8 @@ public class SubmitMenu : MonoBehaviour {
   private int eps = 7;
 
   void Start () {
+    GameMode.mode = GameMode.INFINITE;
+    GameState.userStudy = true;
     GameState.state = GameState.FINISHED;
     score = GameState.score;
     if (GameMode.mode != GameMode.INFINITE) {
@@ -53,18 +55,26 @@ public class SubmitMenu : MonoBehaviour {
 
     GUI.skin = bloodOnHoverSkin;
 
-    float scoreWidth = height / 4.0f;
-    float scoreHeight = height / 4.0f;
+    float scoreWidth = width / 2.0f;
+    float scoreHeight = height / 3.5f;
     GUI.color = new Color(0.65f, 0, 0);
     float startX = (width - scoreWidth) / 2;
-    float startY = height * 0.1f;
+    float startY = height * 0.05f;
     if (GameMode.mode == GameMode.INFINITE) {
-      if (score + eps == 0) {
-        GUI.skin.label.fontSize = (int)((width + height) / 20);
+      float deltaY = 0;
+      if (score + eps < 100) {
+        GUI.skin.label.fontSize = (int)((width + height) * 0.2f);
       } else {
-        GUI.skin.label.fontSize = (int)((width + height) / 25.0f * 3.0f / ((int)Mathf.Log10(score + eps) + 1));
+        deltaY = (Mathf.Log10(score + eps) + 1) * scoreHeight * 0.05f;
+        GUI.skin.label.fontSize = (int)((width + height) * 0.6f / ((int)Mathf.Log10(score + eps) + 1));
+        //GUI.skin.label.fontSize = (int)((width + height) / 6.0f);
       }
-      GUI.Label(new Rect(startX, startY, scoreWidth, scoreHeight), (score + eps).ToString());
+      GUI.Label(new Rect(startX, startY + deltaY, scoreWidth, scoreHeight), (score + eps).ToString());
+
+      float textWidth = height / 1.5f;
+      float textHeight = height / 3.0f;
+      GUI.skin.label.fontSize = (int)((width + height) / 25);
+      GUI.Label(new Rect(startX + scoreWidth, startY + scoreHeight / 2, textWidth, textHeight), "score");
     } else {
       float textWidth = height / 1.5f;
       float textHeight = height / 3.0f;
@@ -175,7 +185,7 @@ public class SubmitMenu : MonoBehaviour {
     
     string postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore.php?";
 
-    if (GameState.difficulty > 0) {
+    if (GameState.difficulty == 1) {
       postScoreUrl = "http://134.208.43.1:5631/3DhorribleMaze/postScore%20-%20hard.php?";
     }
 

@@ -66,6 +66,7 @@ public class Boss : MonoBehaviour {
   private MouseLook2 playerMouseLook;
   public Texture[] fakeBossTextures;
   private int fakeBossTextureIndex;
+  private Vector2 fakeBossPositionDelta;
 
   // Virtual object for simulating rotation
   private GameObject virtualPlayer;
@@ -140,6 +141,8 @@ public class Boss : MonoBehaviour {
     isMoving = false;
     isCameraMoving = false;
 
+    fakeBossPositionDelta = new Vector2(0, 0);
+
     if (GameMode.mode == GameMode.ESCAPING) {
       player.GetComponent<Compass>().enabled = false;
     }
@@ -156,6 +159,9 @@ public class Boss : MonoBehaviour {
         if (npcState.state != NPCState.STUNNING) {
           turnToStunningState();
         }
+      }
+      if (!isInsane) {
+        closingEyesChecking();
       }
     }
 
@@ -278,6 +284,7 @@ public class Boss : MonoBehaviour {
       }
       
       if (wrong) {
+        StartCoroutine(shakeFakeBoss());
         StartCoroutine(cameraShaker.shakeCamera());
         bloodSplatter.addBlood();
         perfectQTE = false;
@@ -287,6 +294,7 @@ public class Boss : MonoBehaviour {
       }
 
       if (success) {
+        StartCoroutine(shakeFakeBoss());
         StartCoroutine(cameraShaker.shakeCamera());
         QTEvent.RemoveAt(0);
         if (QTEvent.Count == 0) {
@@ -358,9 +366,11 @@ public class Boss : MonoBehaviour {
         return;
       }
 
-      int fakeBossWidth = Screen.height;
-      int fakeBossHeight = Screen.height;
-      GUI.DrawTexture(new Rect((Screen.width - fakeBossWidth) / 2, (Screen.height - fakeBossHeight) / 2, fakeBossWidth, fakeBossHeight), fakeBossTextures[fakeBossTextureIndex]);
+      float fakeBossScale = (((maskAlpha < 0.5) ? maskAlpha : (1 - maskAlpha)) * 0.1f + 0.9f);
+      float fakeBossWidth = Screen.height * fakeBossScale;
+      float fakeBossHeight = Screen.height *  fakeBossScale;
+
+      GUI.DrawTexture(new Rect((Screen.width - fakeBossWidth) / 2 + fakeBossPositionDelta.x, (Screen.height - fakeBossHeight) / 2 + fakeBossPositionDelta.y, fakeBossWidth, fakeBossHeight), fakeBossTextures[fakeBossTextureIndex]);
 
       GUI.depth = 1;
 
@@ -427,6 +437,32 @@ public class Boss : MonoBehaviour {
         turnToTracingState();
       }
     }
+  }
+
+  private IEnumerator shakeFakeBoss (int numberOfShakes = 5, float shakingDistance = 20.0f, float shakingSpeed = 75.0f, float decreasingPercent = 0.3f) {
+    
+    float lastShakingTime = Time.time;
+
+    fakeBossPositionDelta = new Vector2(0, 0);
+
+    while (numberOfShakes > 0) {
+
+      float timer = (Time.time - lastShakingTime) * shakingSpeed;
+      float shakingValue = Mathf.Sin(timer) * shakingDistance;
+
+      fakeBossPositionDelta = new Vector2(shakingValue, 0);
+      
+      if (timer > Mathf.PI * 2) {
+        lastShakingTime = Time.time;
+        shakingDistance *= decreasingPercent;
+        numberOfShakes--;
+      }
+      yield return null;
+    }
+    
+    fakeBossPositionDelta = new Vector2(0, 0);
+    
+    yield return 0;
   }
 
   public List<int> generateQTE (int QTEventLength) {
@@ -590,6 +626,13 @@ public class Boss : MonoBehaviour {
   private void closingEyes () {
     fadeOutAndFadeIn.enabled = true;
     fadeOutAndFadeIn.start();
+    turnToStunningState();
+  }
+
+  private void closingEyesChecking () {
+    if (npcState.state != NPCState.STUNNING && isVisible()) {
+      closingEyes();
+    }
   }
 
   private void turnToStaringState () {
@@ -600,11 +643,6 @@ public class Boss : MonoBehaviour {
     mainAudioSource.audio.Pause();
     soundEffectManager.playHorrorEffectSound1();
     playAudio(tracingSound);
-    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
-      closingEyes();
-      turnToStunningState();
-      return;
-    }
     npcState.state = NPCState.TRACING;
   }
 
@@ -613,11 +651,6 @@ public class Boss : MonoBehaviour {
       mainAudioSource.audio.Pause();
       soundEffectManager.playHorrorEffectSound1();
       playAudio(tracingSound);
-    }
-    if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
-      closingEyes();
-      turnToStunningState();
-      return;
     }
     npcState.state = NPCState.ATTACKING;
     playerCharacterMotor.canControl = false;

@@ -154,8 +154,8 @@ MonoBehaviour:
   - {fileID: 100000, guid: 4004efc6cede9d44f932a1c7d27857d8, type: 2}
   - {fileID: 100000, guid: db101335eb9c1734683870c8dd98ebd8, type: 2}
   - {fileID: 100000, guid: 395569d42b4891640b72df8db909c0f2, type: 2}
-  - {fileID: 100122, guid: 051eef69244bb1e458a421353ffd0f5e, type: 2}
-  - {fileID: 100008, guid: e84babb925fa70042a12e83d42f2f040, type: 2}
+  - {fileID: 100000, guid: cc4eb56e194418a48bffe3bd35ba0487, type: 2}
+  - {fileID: 100000, guid: d1ffba8c1f121994e983bc89da7cd537, type: 2}
   itemPrefabs:
   - {fileID: 100002, guid: 6631c52c973916445bdcd01c42989709, type: 2}
   - {fileID: 100002, guid: 4fc8f58226fe069498ccb217412f7ee2, type: 2}
@@ -585,7 +585,7 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 100122, guid: 051eef69244bb1e458a421353ffd0f5e, type: 2}
+      objectReference: {fileID: 100000, guid: cc4eb56e194418a48bffe3bd35ba0487, type: 2}
     - target: {fileID: 11400012, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: additionalQTELengthPerSkill
       value: 1
@@ -593,7 +593,7 @@ Prefab:
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventPrefabs.Array.data[4]
       value: 
-      objectReference: {fileID: 100008, guid: e84babb925fa70042a12e83d42f2f040, type: 2}
+      objectReference: {fileID: 100000, guid: d1ffba8c1f121994e983bc89da7cd537, type: 2}
     - target: {fileID: 11400004, guid: 12def2a870bd4a04f95d8845b80ba3c5, type: 2}
       propertyPath: randomEventCount.Array.data[4]
       value: 3

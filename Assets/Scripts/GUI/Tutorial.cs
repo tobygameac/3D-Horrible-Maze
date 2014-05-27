@@ -6,7 +6,9 @@ public class Tutorial : MonoBehaviour {
   public GUISkin skin;
 
   public Texture backgroundTexture;
-  public Texture[] tutorialPictures;
+  public Texture[] escapingTutorialPictures;
+  public Texture[] infiniteTutorialPictures;
+  private Texture[] tutorialPictures;
 
   private int index;
 
@@ -26,6 +28,15 @@ public class Tutorial : MonoBehaviour {
     soundEffectManager.adjustSound();
 
     loadingWithAnimation = GameObject.FindWithTag("Main").GetComponent<LoadingWithAnimation>();
+
+    switch (GameMode.mode) {
+     case GameMode.ESCAPING:
+      tutorialPictures = escapingTutorialPictures;
+      break;
+     case GameMode.INFINITE:
+      tutorialPictures = infiniteTutorialPictures;
+      break;
+    }
   }
 
   void OnGUI () {
@@ -103,7 +114,11 @@ public class Tutorial : MonoBehaviour {
     switch (GameMode.mode) {
      case GameMode.ESCAPING:
       TargetMenu.clearTarget(false);
-      loadingWithAnimation.loadLevelWithAnimation("EscapingOldCastle");
+      if (GameState.escapingDemo) {
+        loadingWithAnimation.loadLevelWithAnimation("EscapingDemo");
+      } else {
+        loadingWithAnimation.loadLevelWithAnimation("EscapingOldCastle");
+      }
       break;
      case GameMode.INFINITE:
       TargetMenu.clearTarget(false);

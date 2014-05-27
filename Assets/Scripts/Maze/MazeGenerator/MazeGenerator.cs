@@ -92,6 +92,9 @@ public partial class MazeGenerator : MonoBehaviour {
         // Reload if cannot find a good start point
         Application.LoadLevel(Application.loadedLevel);
       }
+      if (GameState.escapingDemo) {
+        playerStartPoint = new Point(10, 8);
+      }
     }
     Point offset = getOffset(playerFloor);
     playerStartPoint.r += offset.r;
