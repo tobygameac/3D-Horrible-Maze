@@ -20,7 +20,8 @@ public class Mentality : MonoBehaviour {
       return;
     }
 
-    mentalityPoint -= Time.deltaTime * faintPerSecond;
+    gain(Time.deltaTime * -faintPerSecond);
+
     if (mentalityPoint <= 0) {
       if (GameState.state != GameState.FINISHED) {
         GameState.state = GameState.FINISHED;
@@ -29,7 +30,6 @@ public class Mentality : MonoBehaviour {
     }
   }
 
-  /*
   void OnGUI () {
 
     if (GameState.state != GameState.PLAYING) {
@@ -45,13 +45,12 @@ public class Mentality : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(startX, startY, width, height), mentalityBarBackgroundTexture);
 
-    GUILayout.BeginArea(new Rect(startX, startY, width * (mentalityPoint / maxMentalityPoint), height));
+    GUILayout.BeginArea(new Rect(startX, startY, width * getMentalityPointPercent(), height));
 
     GUI.DrawTexture(new Rect(0, 0, width, height), mentalityBarTexture);
 
     GUILayout.EndArea();
   }
-  */
 
   public bool enough (float need) {
     return (mentalityPoint >= need);

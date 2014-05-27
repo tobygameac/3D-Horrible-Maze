@@ -17,6 +17,7 @@ public class Scoreboard : MonoBehaviour {
   private int nextQTEWrongMentalityUpgradeScore;
   public int QTETimeLimitUpgradeFrame;
   private int nextQTETimeLimitUpgradeScore;
+  public int insaneFrame;
   private Boss boss;
 
   private int newAddedScore;
@@ -119,6 +120,9 @@ public class Scoreboard : MonoBehaviour {
     if (score >= nextQTETimeLimitUpgradeScore) {
       boss.addQTETimeLimit(-0.1f);
       nextQTETimeLimitUpgradeScore += QTETimeLimitUpgradeFrame;
+    }
+    if (score >= insaneFrame) {
+      boss.becomeInsaneMode();
     }
   }
 

@@ -6,12 +6,21 @@ public partial class MazeGenerator : MonoBehaviour {
 
   public int[] randomEventCount;
   public GameObject[] randomEventPrefabs;
+  private List<int> randomEventIndices;
 
   private GameObject randomEvents;
 
   private List<List<List<bool>>> eventOnBlock;
 
   private void initialRandomEvent () {
+
+    randomEventIndices = new List<int>();
+    
+    for (int i = 0; i < randomEventCount.Length; i++) {
+      for (int j = 0; j < randomEventCount[i]; j++) {
+        randomEventIndices.Add(i);
+      }
+    }
 
     eventOnBlock = new List<List<List<bool>>>();
 
@@ -78,7 +87,7 @@ public partial class MazeGenerator : MonoBehaviour {
   }
 
   public void allocateRandomEvent (int number) {
-    int randomEventIndex = random.Next(randomEventPrefabs.Length);
+    int randomEventIndex = randomEventIndices[random.Next(randomEventIndices.Count)];
     for (int i = 0; i < number; i++) {
       Vector3 randomEventPosition = getNewEventPosition();
       GameObject randomEvent = Instantiate(randomEventPrefabs[randomEventIndex], randomEventPosition, randomEventPrefabs[randomEventIndex].transform.rotation) as GameObject;

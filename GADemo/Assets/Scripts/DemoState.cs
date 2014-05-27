@@ -12,4 +12,5 @@ public static class DemoState {
   public static int state;
   public static int mode;
   public static bool showAllBest;
+  public static bool autoRefresh;
 }

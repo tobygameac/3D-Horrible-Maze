@@ -52,6 +52,7 @@ public class Boss : MonoBehaviour {
 
   public float stunningTime;
   public float insaneStunningTimeScale;
+  public float maximunInsaneStunningTime;
   private float stunnedTime;
 
   private static System.Random random = new System.Random(); // Only need one random seed
@@ -277,7 +278,7 @@ public class Boss : MonoBehaviour {
             soundEffectManager.playQTEHitSound();
             success = true;
           } else {
-            soundEffectManager.playQTEMissSound();
+            // soundEffectManager.playQTEMissSound();
             wrong = true;
           }
         }
@@ -286,7 +287,7 @@ public class Boss : MonoBehaviour {
       if (wrong) {
         StartCoroutine(shakeFakeBoss());
         StartCoroutine(cameraShaker.shakeCamera());
-        bloodSplatter.addBlood();
+        bloodSplatter.addBlood(-1, 2.5f);
         perfectQTE = false;
         playerMentality.use(mentalityAbsorbPerQTEWrong);
         QTEvent = generateQTE(QTELength);
@@ -358,7 +359,8 @@ public class Boss : MonoBehaviour {
     if (npcState.state == NPCState.ATTACKING) {
 
       Color originalColor = GUI.color;
-      GUI.color = new Color(1, 1, 1, maskAlpha);
+      float maskAlphaScale = 1 - playerMentality.getMentalityPointPercent();
+      GUI.color = new Color(1, 1, 1, maskAlpha * maskAlphaScale);
       GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), attackingMaskTexture);
       GUI.color = originalColor;
       
@@ -425,16 +427,32 @@ public class Boss : MonoBehaviour {
 
   void OnTriggerEnter (Collider other) {
     if (other.tag == "Player") {
+      if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
+        if (npcState.state != NPCState.STUNNING) {
+          closingEyes();
+        }
+      }
       if (npcState.state == NPCState.STARING) {
         turnToTracingState();
+      }
+      if (npcState.state == NPCState.TRACING) {
+        turnToAttackingState();
       }
     }
   }
 
   void OnTriggerStay (Collider other) {
     if (other.tag == "Player") {
+      if (GameMode.mode == GameMode.ESCAPING && !isInsane) {
+        if (npcState.state != NPCState.STUNNING) {
+          closingEyes();
+        }
+      }
       if (npcState.state == NPCState.STARING) {
         turnToTracingState();
+      }
+      if (npcState.state == NPCState.TRACING) {
+        turnToAttackingState();
       }
     }
   }
@@ -493,19 +511,29 @@ public class Boss : MonoBehaviour {
   }
 
   public void becomeInsaneMode () {
+
+    if (isInsane) {
+      return;
+    }
+
     isInsane = true;
 
     mainAudioSource.audio.Stop();
     mainAudioSource.audio.clip = insaneTheme;
     mainAudioSource.audio.Play();
     
-    GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
-    for (int i = 0; i < elevators.Length; i++) {
-      Destroy(elevators[i]);
+    if (GameMode.mode == GameMode.ESCAPING) {
+      GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
+      for (int i = 0; i < elevators.Length; i++) {
+        Destroy(elevators[i]);
+      }
     }
 
     movingSpeed *= insaneMovingSpeedScale;
     stunningTime *= insaneStunningTimeScale;
+    if (stunningTime > maximunInsaneStunningTime) {
+      stunningTime = maximunInsaneStunningTime;
+    }
     probabilityOfWandering = 0;
     probabilityOfChasingPlayer = 1;
   }
@@ -624,6 +652,7 @@ public class Boss : MonoBehaviour {
   }
 
   private void closingEyes () {
+    soundEffectManager.playHorrorEffectSound1();
     fadeOutAndFadeIn.enabled = true;
     fadeOutAndFadeIn.start();
     turnToStunningState();
@@ -666,6 +695,9 @@ public class Boss : MonoBehaviour {
   }
 
   private void turnToStunningState () {
+    if (GameMode.mode == GameMode.ESCAPING) {
+      stunningTime *= 2;
+    }
     audio.Stop();
     if (!mainAudioSource.audio.isPlaying) {
       mainAudioSource.audio.Play();

@@ -26,6 +26,9 @@ public class MazeDemo : MonoBehaviour {
   private MazeGenerator mazeGenerator;
   private BasicMaze maze;
 
+  public float refreshTime;
+  private float refreshCountDown;
+
   void Start () {
     mazeGenerator = Camera.main.GetComponent<MazeGenerator>();
     R = mazeGenerator.MAZE_R;
@@ -35,6 +38,16 @@ public class MazeDemo : MonoBehaviour {
     setMazeInformation();
     DemoState.state = DemoState.PLAYING;
     DemoState.showAllBest = false;
+    refreshCountDown = refreshTime;
+  }
+
+  void Update () {
+    if (DemoState.autoRefresh) {
+      refreshCountDown -= Time.deltaTime;
+      if (refreshCountDown <= 0) {
+        Application.LoadLevel(Application.loadedLevel);
+      }
+    }
   }
 
   void OnGUI () {
@@ -72,6 +85,15 @@ public class MazeDemo : MonoBehaviour {
       if (GUI.Button(new Rect(0, Screen.height - 300, 150, 30), showBestString)) {
         DemoState.showAllBest = !DemoState.showAllBest;
       }
+      if (DemoState.autoRefresh) {
+        GUI.Label(new Rect(0, Screen.height - 210, 150, 30), "Refresh in " + refreshCountDown.ToString("0"));
+        GUI.color = Color.green;
+      }
+      if (GUI.Button(new Rect(0, Screen.height - 180, 150, 30), "Auto Refresh")) {
+        DemoState.autoRefresh = !DemoState.autoRefresh;
+        refreshCountDown = refreshTime;
+      }
+      GUI.color = originalColor;
       if (GUI.Button(new Rect(0, Screen.height - 150, 150, 30), "Restart")) {
         Application.LoadLevel(Application.loadedLevel);
       }
@@ -88,7 +110,7 @@ public class MazeDemo : MonoBehaviour {
         break;
       }
       if (GUI.Button(new Rect(0, Screen.height - 40, 150, 30), "Exit")) {
-        Application.LoadLevel("MainMenu");
+        Application.Quit();
       }
     }
 

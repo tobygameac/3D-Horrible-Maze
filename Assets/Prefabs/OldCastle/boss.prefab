@@ -334,11 +334,11 @@ MonoBehaviour:
   acceleration: .00999999978
   probabilityOfWandering: .800000012
   probabilityOfChasingPlayer: .200000003
-  staringTriggerRadius: 10
+  staringTriggerRadius: 7
   tracingTriggerAngle: 45
   tracingTriggerCheckDeltaAngle: 5
   offScreenDot: .300000012
-  attackingRadius: 4
+  attackingRadius: 2.5
   mentalityRestorePerSecond: 4
   mentalityAbsorbPerSecond: 8
   QTEArrowTextures:
@@ -364,6 +364,7 @@ MonoBehaviour:
   QTESwitchTime: .100000001
   stunningTime: 15
   insaneStunningTimeScale: .5
+  maximunInsaneStunningTime: 5
   fakeBossTextures:
   - {fileID: 2800000, guid: b22f7139a0e930b45911162b4fb8ff25, type: 3}
   - {fileID: 2800000, guid: a0002883b26687e40b73b7e3974fba66, type: 3}

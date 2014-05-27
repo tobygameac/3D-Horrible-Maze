@@ -21,8 +21,6 @@ public class SubmitMenu : MonoBehaviour {
   private int eps = 7;
 
   void Start () {
-    GameMode.mode = GameMode.INFINITE;
-    GameState.userStudy = true;
     GameState.state = GameState.FINISHED;
     score = GameState.score;
     if (GameMode.mode != GameMode.INFINITE) {
@@ -98,7 +96,7 @@ public class SubmitMenu : MonoBehaviour {
       startX = (width - labelWidth) / 2.0f;
       startY += scoreHeight + labelHeight * 0.5f;
       GUI.color = new Color(0.1f, 0, 0);
-      GUI.skin.label.fontSize = (int)((width + height) / 25.0f);
+      GUI.skin.label.fontSize = (int)((width + height) / 30.0f);
       string submittingString = "Submitting";
       int additionalDot = ((int)(Time.time * 100) % 100) / 20;
       for (int i = 0; i < additionalDot; i++) {

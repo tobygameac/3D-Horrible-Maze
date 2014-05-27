@@ -35,6 +35,8 @@ public partial class MazeGenerator : MonoBehaviour {
   private List<BasicMaze> crossoverPool;
 
   void Start () {
+    Debug.Log(GameState.difficulty);
+
     GameState.state = GameState.PLAYING;
     Time.timeScale = 1;
 

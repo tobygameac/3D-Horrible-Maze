@@ -15,12 +15,9 @@ public class Vitality : MonoBehaviour {
   }
 
   void Update () {
-    if (vitalityPoint < 100) {
-      vitalityPoint += Time.deltaTime;
-    }
+    gain(Time.deltaTime);
   }
 
-  /*
   void OnGUI () {
     if (GameState.state != GameState.PLAYING) {
       return;
@@ -34,13 +31,12 @@ public class Vitality : MonoBehaviour {
 
     GUI.DrawTexture(new Rect(startX, startY, width, height), vitalityBarBackgroundTexture);
 
-    GUILayout.BeginArea(new Rect(startX, startY, width * (vitalityPoint / maxVitalityPoint), height));
+    GUILayout.BeginArea(new Rect(startX, startY, width * getVitalityPointPercent(), height));
 
     GUI.DrawTexture(new Rect(0, 0, width, height), vitalityBarTexture);
 
     GUILayout.EndArea();
   }
-  */
 
   public bool enough (float need) {
     return (vitalityPoint >= need);

@@ -512,6 +512,7 @@ MonoBehaviour:
   QTELengthUpgradeFrame: 5000
   QTEWrongMentalityUpgradeFrame: 1000
   QTETimeLimitUpgradeFrame: 3000
+  insaneFrame: 0
   showingNewAddedScoreTime: 1.5
 --- !u!114 &127766905
 MonoBehaviour:

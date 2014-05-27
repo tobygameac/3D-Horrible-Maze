@@ -696,6 +696,14 @@ Prefab:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d1ffba8c1f121994e983bc89da7cd537, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d1ffba8c1f121994e983bc89da7cd537, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1ffba8c1f121994e983bc89da7cd537, type: 2}
   m_RootGameObject: {fileID: 1723088433}
@@ -2726,6 +2734,7 @@ MonoBehaviour:
   QTELengthUpgradeFrame: 5000
   QTEWrongMentalityUpgradeFrame: 1000
   QTETimeLimitUpgradeFrame: 3000
+  insaneFrame: 0
   showingNewAddedScoreTime: 1.5
 --- !u!1 &893141975
 GameObject:
@@ -3166,7 +3175,7 @@ Transform:
   m_PrefabInternal: {fileID: 222361560}
   m_GameObject: {fileID: 1098707322}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: -.707106829}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.5, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 1723088434}
@@ -4621,7 +4630,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: .699999988, y: .699999988, z: .699999988}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1723088436
 MonoBehaviour:
@@ -4928,6 +4937,7 @@ GameObject:
   - 65: {fileID: 1816197720}
   - 114: {fileID: 1816197722}
   - 114: {fileID: 1816197721}
+  - 114: {fileID: 1816197723}
   m_Layer: 0
   m_Name: luZombieHead
   m_TagString: Untagged
@@ -4975,7 +4985,7 @@ MonoBehaviour:
   tracingTime: 1
   minimumAttackingRadius: 3
   maximumAttackingRadius: 8
-  diedRadius: 1
+  diedRadius: 1.5
 --- !u!114 &1816197722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4989,6 +4999,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blindTime: 2.5
+--- !u!114 &1816197723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: cc4eb56e194418a48bffe3bd35ba0487,
+    type: 2}
+  m_PrefabInternal: {fileID: 566336017}
+  m_GameObject: {fileID: 1816197718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e14c3b702ee86e40a2eced4270be99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1826179610
 Prefab:
   m_ObjectHideFlags: 0
