@@ -11,14 +11,14 @@ The following video demonstrates our maze generation algorithm.
 
 Here are some other image for our system & game.
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/ga1.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/ga1.jpg)
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/ga2.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/ga2.jpg)
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/ga3.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/ga3.jpg)
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/ga4.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/ga4.jpg)
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/horridor1.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/horridor1.jpg)
 
-![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/DemoImages/horridor2.jpg)
+![demo](https://raw.githubusercontent.com/tobygameac/3D-Horrible-Maze/master/demo_images/horridor2.jpg)
